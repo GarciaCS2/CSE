@@ -156,4 +156,14 @@ print(your_grade)
 # "Random" Notes
 import random  # This should be on line 1
 print(random.randint(0,100))
+print()
 
+# Equality Statements
+print(5 > 3)  # Greater Than
+print(5 >= 3)  # Equal to;Is set to
+print(3 == 3)  # Is it equal?
+print(3 != 4)  #
+"""
+a = 3  # A is set to 3
+a == 3  # Is a equal to 3?
+"""
