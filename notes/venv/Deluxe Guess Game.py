@@ -8,12 +8,12 @@ the_number = random.randint(minimum, maximum)
 
 print("There is a number from %s to %s" % (minimum, maximum))
 print()
-print("You have %s guesses as to what this number is." % guesses)
+print("You have %s tries to find it." % guesses)
 
 while guesses > 0:
     guess = int(input("What is the number:"))
     if guess == the_number:
-        print("Hey, you got it! Good job!")
+        print("Yes, that's it.")
         guesses = 0
         win = True
 
@@ -26,6 +26,7 @@ while guesses > 0:
     print("%s guesses remain." % guesses)
 
 
+print("The number was %s" %the_number)
 def game_end():
     if win:
         print()
