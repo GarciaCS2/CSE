@@ -3,8 +3,9 @@ word_num = random.randint(1, 20)
 word = "Word?"
 right_letter_count = 0
 doubles = 0
-word_kind = 0  # 1 means it is a noun, 2 means it is a verb not ending in "Ing",
-
+word_kind = 0
+word_kind_text = "text."
+# 1 means it is a noun, 2 means it is a verb not ending in "Ing",
 # 3 means it is a name, 4 means it is and adjective.
 # 5 makes it a special word. (Irregular word) 0 means I don't know.
 
@@ -41,7 +42,7 @@ elif word_num == 9:
     doubles = 1
 elif word_num == 10:
     word = "awesome"
-    word_kind = 4  #I left off on this here
+    word_kind = 4  # I left off on this here
     doubles = 1
 elif word_num == 11:
     word = "america"
@@ -68,13 +69,31 @@ elif word_num == 19:
     word = "number"
 elif word_num == 20:
     word = "aerobic"
+elif word_num == 21:  # Calibrate these next words later
+    word = "biology"
+elif word_num == 22:
+    word = "math"
 
+# Putting the word kind into words
+if word_kind == 0:
+    word_kind_text = "uh, ...I don't know.."
+elif word_kind == 1:
+    word_kind_text = "noun"
+elif word_kind == 2:
+    word_kind_text = "verb not ending in 'ing'"
+elif word_kind == 3:
+    word_kind_text = "name"
+elif word_kind == 4:
+    word_kind_text = "adjective"
+elif word_kind == 5:
+    word_kind_text = "special word"
 
 guesses = int(len(word)*2.5)
 
 print("This word has %d letters." % len(word))
 
 print()
+
 
 # Hint!
 hint = input("Want an extra hint?")
@@ -87,7 +106,7 @@ if hint == "yes" or "yes." or "Yes" or "YES" or "yeah" or "sure":
     elif hint_type == 2:
         print("The word ends in %s" % word[len(word)-1])
     elif hint_type == 3:
-       print("This word is a %s" % )  #I left off on this.
+       print("This word is a %s." % word_kind_text)
     else:
         print("Actually, I changed my mind. You don't need a hint, right?")
 else:
