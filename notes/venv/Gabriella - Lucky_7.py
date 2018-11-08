@@ -31,7 +31,7 @@ while money > 0 or round_in_progress:
         print("It's your lucky day! You get your money back plus $4!")
         money = money + bet + 4
     else:
-        print("Aww...try again next time. You now have $%s left." % money)
+        print("Aww...try again. You now have $%s left." % money)
     if money > high_score:
         high_score = money
         best_round = turn
