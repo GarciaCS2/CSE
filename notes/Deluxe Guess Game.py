@@ -1,5 +1,6 @@
 import random
 win = False
+print("Welcome to Guess Game.")
 minimum = int(input("Give me a number that will be your minimum:"))
 maximum = int(input("Now we need a maximum:"))
 guesses = int(input("How many guesses would you like?"))

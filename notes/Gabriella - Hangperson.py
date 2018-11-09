@@ -35,10 +35,10 @@ else:
 
 print()
 
-
 # Introduce Game
 print("You have %s tries to find all the letters. Do not use caps. Use lowercase only." % guesses)
-print("Each time you guess, a list of the letters you found will show up. Keep in mind:It is not in order.")
+print("Each time you guess, a list of the letters you found will show up.")
+print("If you guess later letters in the word earlier, the lits of letters may get mixed up.")
 
 letters_required = len(word)
 
@@ -50,8 +50,7 @@ letter_pos = 0
 
 # Storing the letters
 wrong_letters = ["in no order:"]
-right_letters = [""]
-list.remove(right_letters, "")
+right_letters = []
 
 
 # Playing the Game
@@ -61,6 +60,8 @@ while guesses > 0 and right_letter_count < letters_required:
     guess_letter = input("Give me a letter")
     if guess_letter in right_letters:
         print("Correct, but you already said that letter.")
+    elif guess_letter == "":
+        print("What? I can't hear you.")
     elif guess_letter in word:
         print("Yes, '%s' is in the word." % guess_letter)
         guesses = guesses - 1
