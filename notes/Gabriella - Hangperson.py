@@ -7,8 +7,12 @@ print(word)
 
 # Choosing the word
 word_bank = ["cat", "boxen", "edison", "donut", "zebra", "travel", "humor", "python", "computer",
-             "number", "aerobic", "math", "cow", "dog", "snow"]
-word = (random.choice(word_bank))
+             "number", "aerobic", "math", "cow", "dog", "snow", "cake", "glados", "cough", "list",
+             "binary", "code", "person", "nice", "word", "time", "space", "github", "mouse", "dig",
+             "dug", "string", "four"]
+word = random.choice(word_bank)
+# humor - *****
+# humor - ***o*
 
 
 guesses = int(len(word)*2.5)
@@ -23,7 +27,7 @@ hint = input("Want an extra hint?")
 
 hint_type = random.randint(1, 3)
 
-if hint == "yes" or "yes." or "Yes" or "YES" or "yeah" or "sure":
+if hint.lower() in ["yes", "yes.", "yeah", "sure"]:
     if hint_type == 1:
         print("The word starts with " + word[0])
     elif hint_type == 2:
@@ -36,9 +40,8 @@ else:
 print()
 
 # Introduce Game
-print("You have %s tries to find all the letters. Do not use caps. Use lowercase only." % guesses)
+print("You have %s tries to find all the letters." % guesses)
 print("Each time you guess, a list of the letters you found will show up.")
-print("If you guess later letters in the word earlier, the lits of letters may get mixed up.")
 
 letters_required = len(word)
 
@@ -58,7 +61,7 @@ right_letters = []
 while guesses > 0 and right_letter_count < letters_required:
     print()
     guess_letter = input("Give me a letter")
-    if guess_letter in right_letters:
+    if guess_letter.lower() in right_letters:
         print("Correct, but you already said that letter.")
     elif guess_letter == "":
         print("What? I can't hear you.")
@@ -76,6 +79,13 @@ while guesses > 0 and right_letter_count < letters_required:
         guesses = guesses - 1
     print("%s tries left." % guesses)
     print("So far your correct letters are %s" % right_letters)
+    print()
+    for i in range(len(word)):
+        if (word[i]) in right_letters:
+            print(word[i])
+        else:
+            print("BLANK")
+
 
 
 # Ending the game
