@@ -2,18 +2,30 @@ import random
 
 word = "Hi"  # Setting up the first variables
 right_letter_count = 0
-
+letters_required = 0
 print(word)
-
+doubles = 0
 # Choosing the word
 word_bank = ["cat", "boxen", "edison", "donut", "zebra", "travel", "humor", "python", "computer",
              "number", "aerobic", "math", "cow", "dog", "snow", "cake", "glados", "cough", "list",
              "binary", "code", "person", "nice", "word", "time", "space", "github", "mouse", "dig",
-             "dug", "string", "four"]
+             "dug", "string", "four", "cookies", "america", "moo", "yahoo", "wiebe", "goofy", "biology",
+             "program", "update"]
+
 word = random.choice(word_bank)
+
 # humor - *****
 # humor - ***o*
 
+# word = "doob"
+# Figuring out how to detect doubles
+"""for l in range(len(word)):
+    for i in range(len(word)):
+        if word[l] == word[i]
+        elif word[l] in word[i]:
+            doubles = doubles + 1
+print(word)
+print(doubles)"""
 
 guesses = int(len(word)*2.5)
 
@@ -25,13 +37,18 @@ print()
 # Hint!
 hint = input("Want an extra hint?")
 
-hint_type = random.randint(1, 3)
+hint_type = random.randint(1, 4)
 
 if hint.lower() in ["yes", "yes.", "yeah", "sure"]:
     if hint_type == 1:
         print("The word starts with " + word[0])
     elif hint_type == 2:
         print("The word ends in %s" % word[len(word)-1])
+    elif hint_type == 3:
+        if doubles:
+            print("This word has doubles. It uses one letter twice.")
+        else:
+            print("This word does not use doubles. It does not use any letters twice.")
     else:
         print("Actually, I changed my mind. You don't need a hint, right?")
 else:
@@ -42,8 +59,6 @@ print()
 # Introduce Game
 print("You have %s tries to find all the letters." % guesses)
 print("Each time you guess, a list of the letters you found will show up.")
-
-letters_required = len(word)
 
 print()
 print()
@@ -85,8 +100,7 @@ while guesses > 0 and right_letter_count < letters_required:
             print(word[i])
         else:
             print("BLANK")
-
-
+    print()
 
 # Ending the game
 print("Game end.")
