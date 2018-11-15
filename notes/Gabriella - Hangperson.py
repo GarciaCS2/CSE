@@ -19,13 +19,15 @@ word = random.choice(word_bank)
 
 # word = "doob"
 # Figuring out how to detect doubles
-"""for l in range(len(word)):
-    for i in range(len(word)):
-        if word[l] == word[i]
-        elif word[l] in word[i]:
+for i in range(len(word)):
+    count = word.count(word[i])
+    counted_letters = [word[i]]
+    if word[i] in counted_letters:
+        guesses = guesses - 1
+
             doubles = doubles + 1
 print(word)
-print(doubles)"""
+print(doubles)
 
 guesses = int(len(word)*2.5)
 
