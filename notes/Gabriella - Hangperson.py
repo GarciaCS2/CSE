@@ -2,32 +2,35 @@ import random
 
 word = "Hi"  # Setting up the first variables
 right_letter_count = 0
-letters_required = 0
+letters_required = 1
 print(word)
+counted_letters = []
 doubles = 0
+guesses = 0
+
 # Choosing the word
 word_bank = ["cat", "boxen", "edison", "donut", "zebra", "travel", "humor", "python", "computer",
              "number", "aerobic", "math", "cow", "dog", "snow", "cake", "glados", "cough", "list",
              "binary", "code", "person", "nice", "word", "time", "space", "github", "mouse", "dig",
              "dug", "string", "four", "cookies", "america", "moo", "yahoo", "wiebe", "goofy", "biology",
-             "program", "update"]
-
+             "program", "update", "bee", "cake", "charm", "hangman", "hangwoman", "turkey",
+             "thanksgiving", "halloween", "talk"]
 word = random.choice(word_bank)
 
 # humor - *****
 # humor - ***o*
 
-# word = "doob"
 # Figuring out how to detect doubles
 for i in range(len(word)):
     count = word.count(word[i])
-    counted_letters = [word[i]]
     if word[i] in counted_letters:
         guesses = guesses - 1
+    elif count > 1:
+        count = count - 1
+        doubles = doubles + count
+    list.append(counted_letters, word[i])
 
-            doubles = doubles + 1
-print(word)
-print(doubles)
+letters_required = len(word) - doubles
 
 guesses = int(len(word)*2.5)
 
@@ -47,8 +50,8 @@ if hint.lower() in ["yes", "yes.", "yeah", "sure"]:
     elif hint_type == 2:
         print("The word ends in %s" % word[len(word)-1])
     elif hint_type == 3:
-        if doubles:
-            print("This word has doubles. It uses one letter twice.")
+        if doubles > 0:
+            print("This word has doubles. It uses one or more letter twice.")
         else:
             print("This word does not use doubles. It does not use any letters twice.")
     else:
