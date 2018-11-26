@@ -167,3 +167,39 @@ print(3 != 4)  #
 a = 3  # A is set to 3
 a == 3  # Is a equal to 3?
 """
+
+# Creating a list
+colors = ["aquamarine blue", "forest green", "sunshine yellow", "marigold", "turquoise", "lemon",
+          "coffee brown", "mayo", "indigo purple"]  # USE SQUARE BRACKETS!!!!!
+print(colors[0])  # index
+print(colors[1])
+
+# Length of the list
+print("There are %d colors in this list" % len(colors))
+
+# Changing Elements in a list
+colors[1] = "Green"
+print(colors)
+
+# Looping through lists
+for blahblahblah in colors:
+    print(blahblahblah)
+
+"""
+1. Make a list with 7 items
+2. change the 3rd thing in the list
+3. print the item
+4. print the full list
+"""
+
+items = ["cool item", "decent item", "bad item", "amazing item", "mediocre item", "best item", "insignificant item"]
+items[2] = "not so bad item"
+print(items[3])
+print(items)
+print("The last thing in the list is this %s" % items[len(items)-1])
+
+# Slicing a list
+print(items[1:3])
+print(items[1:4])
+print(items[1:])
+print(items[:4])

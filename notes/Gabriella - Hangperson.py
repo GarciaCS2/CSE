@@ -14,7 +14,8 @@ word_bank = ["cat", "boxen", "edison", "donut", "zebra", "travel", "humor", "pyt
              "binary", "code", "person", "nice", "word", "time", "space", "github", "mouse", "dig",
              "dug", "string", "four", "cookies", "america", "moo", "yahoo", "wiebe", "goofy", "biology",
              "program", "update", "bee", "cake", "charm", "hangman", "hangwoman", "turkey",
-             "thanksgiving", "halloween", "talk"]
+             "thanksgiving", "halloween", "talk", "cast", "friday", "shop", "ballpark", "lines",
+             "true", "false", "amazing"]
 word = random.choice(word_bank)
 
 # humor - *****
@@ -74,7 +75,9 @@ letter_pos = 0
 # Storing the letters
 wrong_letters = ["in no order:"]
 right_letters = []
-
+right_letter_list = []
+for i in range(len(word)):
+    list.append(right_letter_list, "*")
 
 # Playing the Game
 
@@ -98,13 +101,12 @@ while guesses > 0 and right_letter_count < letters_required:
         list.append(wrong_letters, guess_letter)
         guesses = guesses - 1
     print("%s tries left." % guesses)
-    print("So far your correct letters are %s" % right_letters)
     print()
     for i in range(len(word)):
         if (word[i]) in right_letters:
-            print(word[i])
-        else:
-            print("BLANK")
+            right_letter_list[i] = word[i]  # Fix this
+
+    print(right_letter_list)
     print()
 
 # Ending the game

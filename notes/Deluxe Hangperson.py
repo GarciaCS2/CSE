@@ -20,11 +20,11 @@ word_bank_english = ["cat", "boxen", "edison", "donut", "zebra", "travel", "humo
              "thanksgiving", "halloween", "talk"]
 
 word_bank_spanish = ["gato", "mesa", "edison", "pan", "perro", "juegar", "humor", "python", "computadora",
-             "number", "aerobic", "math", "cow", "dog", "snow", "cake", "glados", "cough", "list",
-             "binary", "code", "person", "nice", "word", "time", "space", "github", "mouse", "dig",
-             "dug", "string", "four", "cookies", "america", "moo", "yahoo", "wiebe", "goofy", "biology",
-             "program", "update", "bee", "cake", "charm", "hangman", "hangwoman", "turkey",
-             "thanksgiving", "halloween", "talk"]
+             "nombre", "gimnasio", "matematicas", "cow", "fresa", "nieve", "ciudad", "glados", "chamara", "ser",
+             "binary", "code", "persona", "bueno", "palabra", "tiempo", "geografia", "github", "caminar", "cerca",
+             "estar", "cinturon", "cuatro", "galletas", "americano", "moo", "yahoo", "wiebe", "comico", "biologia",
+             "program", "update", "bee", "pastel", "chaqueta", "hombre", "mujer", "jamon",
+             "navidad", "halloween", "hablar"]
 
 if language == 1:
     word = random.choice(word_bank_english)
