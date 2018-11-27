@@ -203,3 +203,73 @@ print(items[1:3])
 print(items[1:4])
 print(items[1:])
 print(items[:4])
+
+
+food_list = ["burrito", "eggs", "taco", "pizza", "oranges", "rice", "toast", "pie", "spaghetti", "tuna",
+             "chicken", "calamari", "oatmeal", "yogurt", "cereal", "salad", "noodles", "broccoli", "beef",
+             "apple", "steak"]
+print(len(food_list))
+
+# Adding stuff to a list
+food_list.append("bacon")
+food_list.append("more eggs")
+# Notice that everything is object.method(parameters)
+print(food_list)
+food_list.insert(1, "eggo waffles")
+print(food_list)
+
+# Removing things from a list
+food_list.remove("salad")
+
+# Assignment
+three_items = ["cat", "dog", "bird"]
+print(three_items)
+list.append(three_items, "hamster")
+print(three_items)
+three_items.remove("bird")
+print(three_items)
+
+
+# Tuples
+brands = ("apple", "samsung", "HTC")   # Notice the parentheses
+# Like a list, except it is "immutable"
+# immutable...im-mutable. mutate, to change.
+# "Cannot be changed." You can't modify Tuples! They're immutable!
+# (Tuple), [List], {Dictionary}
+
+# Also removing stuff from a list
+print(food_list)
+food_list.pop(0)
+print(food_list)
+
+# Find the index of an item
+print(food_list.index("chicken"))
+
+
+# Changing things into a list
+string1 = "turquoise"
+list1 = list(string1)
+print(list1)
+
+# Turn a list into a string
+print("".join(list1))
+print()
+
+for i in range(len(list1)):  # i goes through all indicies
+    if list1[i] == "u":  # if we find a U
+        list1.pop(i)  # remove the i-th index
+        list1.insert(i, "*")  # Put a * there instead
+print(list1)
+
+# range is actually 0 thru 8 to count through 9. It goes through every single index of list1.
+# accesses each of the locations, asking if it is "u". Is this "u"? Then it inserts a star instead.
+# or
+
+for character in list1:
+    if character == "u":
+        # replace with a *
+        current_index = list1.index(character)
+        list1.pop(current_index)
+        list1.insert(current_index, "*")
+
+# Same thing, except it goes through characters rather than indeces.

@@ -23,7 +23,7 @@ word_bank_spanish = ["gato", "mesa", "edison", "pan", "perro", "juegar", "humor"
              "nombre", "gimnasio", "matematicas", "cow", "fresa", "nieve", "ciudad", "glados", "chamara", "ser",
              "binary", "code", "persona", "bueno", "palabra", "tiempo", "geografia", "github", "caminar", "cerca",
              "estar", "cinturon", "cuatro", "galletas", "americano", "moo", "yahoo", "wiebe", "comico", "biologia",
-             "program", "update", "bee", "pastel", "chaqueta", "hombre", "mujer", "jamon",
+             "program", "tomar", "tocar", "pastel", "chaqueta", "hombre", "mujer", "jamon",
              "navidad", "halloween", "hablar"]
 
 if language == 1:
