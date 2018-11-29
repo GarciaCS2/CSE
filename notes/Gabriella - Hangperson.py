@@ -1,28 +1,17 @@
 import random
-
-word = "Hi"  # Setting up the first variables
-right_letter_count = 0
+right_letter_count = 0  # Setting up the first variables
 letters_required = 1
-print(word)
 counted_letters = []
 doubles = 0
 guesses = 0
-
-# Choosing the word
-word_bank = ["cat", "boxen", "edison", "donut", "zebra", "travel", "humor", "python", "computer",
-             "number", "aerobic", "math", "cow", "dog", "snow", "cake", "glados", "cough", "list",
-             "binary", "code", "person", "nice", "word", "time", "space", "github", "mouse", "dig",
-             "dug", "string", "four", "cookies", "america", "moo", "yahoo", "wiebe", "goofy", "biology",
-             "program", "update", "bee", "cake", "charm", "hangman", "hangwoman", "turkey",
-             "thanksgiving", "halloween", "talk", "cast", "friday", "shop", "ballpark", "lines",
-             "true", "false", "amazing"]
-word = random.choice(word_bank)
-
-# humor - *****
-# humor - ***o*
-
-# Figuring out how to detect doubles
-for i in range(len(word)):
+word_bank = ["cat", "boxen", "edison", "donut", "zebra", "travel", "humor", "python", "computer", "number", "aerobic",
+             "math", "cow", "dog", "snow", "cake", "glados", "cough", "list", "binary", "code", "person", "nice",
+             "word", "time", "space", "github", "mouse", "dig", "dug", "string", "four", "cookies", "america", "moo",
+             "yahoo", "wiebe", "goofy", "biology", "program", "update", "bee", "cake", "charm", "hangman", "hangwoman",
+             "turkey", "thanksgiving", "halloween", "talk", "cast", "friday", "shop", "ballpark", "lines", "true",
+             "false", "amazing"]
+word = random.choice(word_bank)  # Choosing the word
+for i in range(len(word)):  # Figuring out how to detect doubles
     count = word.count(word[i])
     if word[i] in counted_letters:
         guesses = guesses - 1
@@ -30,21 +19,12 @@ for i in range(len(word)):
         count = count - 1
         doubles = doubles + count
     list.append(counted_letters, word[i])
-
 letters_required = len(word) - doubles
-
 guesses = int(len(word)*2.5)
-
 print("This word has %d letters." % len(word))
-
 print()
-
-
-# Hint!
-hint = input("Want an extra hint?")
-
+hint = input("Want an extra hint?")  # Hint!
 hint_type = random.randint(1, 4)
-
 if hint.lower() in ["yes", "yes.", "yeah", "sure"]:
     if hint_type == 1:
         print("The word starts with " + word[0])
@@ -59,29 +39,15 @@ if hint.lower() in ["yes", "yes.", "yeah", "sure"]:
         print("Actually, I changed my mind. You don't need a hint, right?")
 else:
     print("Okay, then. Let's play")
-
 print()
-
-# Introduce Game
-print("You have %s tries to find all the letters." % guesses)
-print("Each time you guess, a list of the letters you found will show up.")
-
-print()
-print()
-
+print("You have %s tries to find all the letters." % guesses)  # Introduce Game
 letter_pos = 0
-
-
-# Storing the letters
-wrong_letters = ["in no order:"]
+wrong_letters = ["in no order:"]  # Storing the letters
 right_letters = []
 right_letter_list = []
-for i in range(len(word)):
+for i in range(len(word)):  # making the display list
     list.append(right_letter_list, "*")
-
-# Playing the Game
-
-while guesses > 0 and right_letter_count < letters_required:
+while guesses > 0 and right_letter_count < letters_required:  # Playing the Game
     print()
     guess_letter = input("Give me a letter")
     if guess_letter.lower() in right_letters:
@@ -104,13 +70,10 @@ while guesses > 0 and right_letter_count < letters_required:
     print()
     for i in range(len(word)):
         if (word[i]) in right_letters:
-            right_letter_list[i] = word[i]  # Fix this
-
+            right_letter_list[i] = word[i]
     print(right_letter_list)
     print()
-
-# Ending the game
-print("Game end.")
+print("Game end.")  # Ending the game
 print("The word was %s" % word)
 if right_letter_count == letters_required:
     print("You won! You had %s guesses left." % guesses)

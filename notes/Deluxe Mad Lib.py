@@ -2,7 +2,7 @@ import random
 print("gimme words.")
 choose = random.randint(1, 2)
 print("as many words as you want. Once you have at least 1 word, you can type, 'done' to stop.")
-add_thing ="no."
+add_thing = "no."
 # inputs
 nouns = []
 verbs = []
