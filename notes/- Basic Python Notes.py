@@ -273,3 +273,10 @@ for character in list1:
         list1.insert(current_index, "*")
 
 # Same thing, except it goes through characters rather than indeces.
+
+
+def pythagorean(a, b):
+    return (a**2 + b**2)**(1/2)
+
+
+print(pythagorean(3, 4))
