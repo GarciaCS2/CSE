@@ -1,4 +1,14 @@
+import datetime
+import math
 # Easy Challenges.
+
+
+def space(challenge_number):
+    print()
+    print("Challenge number %s." % challenge_number)
+
+
+space(1)
 
 
 def challenge1(first, last):  # 1
@@ -6,6 +16,7 @@ def challenge1(first, last):  # 1
 
 
 challenge1("Gabriella", "Garcia")
+space(2)
 
 
 def challenge2(number):  # Challenge 2
@@ -21,6 +32,7 @@ def challenge2(number):  # Challenge 2
 
 
 print(challenge2(700))
+space(3)
 
 
 def challenge3(base, height):  # Challenge 3
@@ -28,6 +40,7 @@ def challenge3(base, height):  # Challenge 3
 
 
 print(challenge3(5, 8))
+space(4)
 
 
 def challenge4(number):
@@ -39,29 +52,82 @@ def challenge4(number):
         return "%s is negative." % number
 
 
-print(challenge4(6))
-
+print(challenge4(4))
+print(challenge4(-4))
+print(challenge4(0))
+space(5)
 # Medium Challenges
 
 
-def challenge5()
+def challenge5(radius):  # pi r^2
+    area = math.pi*(radius**2)  # fix this
+    return "The area of such a circle is %s, or %s" % area
 
 
+print(challenge5(5))
+space(6)
+
+
+def challenge6(radius):
+    volume = (4/3)*(3.14159*(radius**3))
+    simple_volume = (4/3)*(3.14*(radius**3))
+    return "The area of such a sphere is %s, or %s" % (volume, simple_volume)
+
+
+print(challenge6(6))
+space(7)
+
+
+def challenge7(n):
+    return n + n**2 + n**3
+
+
+print(challenge7(7))
+space(8)
+
+
+def challenge8(f):  # test whether a number is within 150 of 2000 or 3000.
+    number1 = 2000
+    number2 = 3000
+    if f <= number1 + 150 and f >= number1 - 150:
+        return "%s is within 150 of 2000" % f
+    elif f <= number2 + 150 and f >= number2 - 150:
+        return "%s is within 150 of 3000" % f
+    else:
+        return "%s is not within 150 of 2000 nor 3000" % f
+
+
+print(challenge8(2000-151))
+print(challenge8(2000-150))
+space(9)
 # Harder Challenges
 
 
-"""
-Medium:
-5.	Write a Python program which accepts the radius of a circle from the user and compute the area.
-Sample Output : 
-r = 1.1
-Area = 3.8013271108436504
-6.	Write a Python program to get the volume of a sphere from a given radius.
-7.	Write a Python program that accepts an integer (n) and computes the value of n+nn+nnn.
-8.	Write a Python program to test whether a number is within 150 of 2000 or 3000.
+def challenge9(letter):
+    if letter == "a" or "e" or "i" or "o" or "u":
+        return "%s is a vowel." % letter
+    else:
+        return "%s is not a vowel." % letter
 
+
+print(challenge9("a"))
+space(10)
+
+
+def challenge10(string):
+    if string.isdigit():
+        return "Yes, %s is numerical" % string
+    else:
+        return "No, %s is not numerical" % string
+
+
+print(challenge10("apple"))
+print(challenge10("10"))
+
+
+def challenge11()
+"""
 Hard:
-9.	Write a Python program to test whether a passed letter is a vowel or not.
 10.	Write a Python program to check if a string is numeric
 11.	Write a Python program to get the system time
 12.	Write a Python program to find common divisors between two numbers in a given pair
