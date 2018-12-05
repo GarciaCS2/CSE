@@ -61,7 +61,7 @@ space(5)
 
 def challenge5(radius):  # pi r^2
     area = math.pi*(radius**2)  # fix this
-    return "The area of such a circle is %s, or %s" % area
+    return "The area of such a circle is %s" % area
 
 
 print(challenge5(5))
@@ -69,9 +69,8 @@ space(6)
 
 
 def challenge6(radius):
-    volume = (4/3)*(3.14159*(radius**3))
-    simple_volume = (4/3)*(3.14*(radius**3))
-    return "The area of such a sphere is %s, or %s" % (volume, simple_volume)
+    volume = (4/3)*(math.pi*(radius**3))
+    return "The area of such a sphere is %s." % volume
 
 
 print(challenge6(6))
@@ -125,10 +124,44 @@ print(challenge10("apple"))
 print(challenge10("10"))
 
 
-def challenge11()
+def challenge11():
+    time = datetime.datetime.now().time()
+    print("The time is %s" % time)
+
+
+challenge11()
+space(12)
+
+
+def challenge12(number, other_number):
+    divi_1 = 1
+    divisors_1 = []
+    divisors_2 = []
+    commons = []
+    if number > other_number:
+        range = int(number)
+    elif number < other_number:
+        range = int(other_number)
+    for i in range(range):
+        quo_1 = number/divi_1
+        if quo_1 * divi_1 == number:
+            list.append(divisors_1, divi_1)
+        else:
+            list.append(divisors_1, 0)
+        quo_2 = number / divi_1
+        if quo_2 * divi_1 == number:
+            list.append(divisors_2, divi_1)
+        else:
+            list.append(divisors_1, 0)
+    for i in range(range):
+        if divisors_1[range] == divisors_2[range]:
+            list.append(commons, divisors_1)
+    return commons
+
+
+print(challenge12(6, 9))
+
 """
-Hard:
-10.	Write a Python program to check if a string is numeric
-11.	Write a Python program to get the system time
+
 12.	Write a Python program to find common divisors between two numbers in a given pair
 """
