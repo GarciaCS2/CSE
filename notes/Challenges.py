@@ -134,34 +134,14 @@ space(12)
 
 
 def challenge12(number, other_number):
-    divi_1 = 1
-    divisors_1 = []
-    divisors_2 = []
-    commons = []
-    if number > other_number:
-        range = int(number)
-    elif number < other_number:
-        range = int(other_number)
-    for i in range(range):
-        quo_1 = number/divi_1
-        if quo_1 * divi_1 == number:
-            list.append(divisors_1, divi_1)
-        else:
-            list.append(divisors_1, 0)
-        quo_2 = number / divi_1
-        if quo_2 * divi_1 == number:
-            list.append(divisors_2, divi_1)
-        else:
-            list.append(divisors_1, 0)
-    for i in range(range):
-        if divisors_1[range] == divisors_2[range]:
-            list.append(commons, divisors_1)
-    return commons
-
+    """
+    for i in range(1, min(a, b) + 1):  # Why does this work?
+        if a % i == b % i == 0:
+            n += 1
+"""
 
 print(challenge12(6, 9))
 
 """
-
 12.	Write a Python program to find common divisors between two numbers in a given pair
 """
