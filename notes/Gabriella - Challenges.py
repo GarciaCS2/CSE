@@ -55,6 +55,7 @@ def challenge4(number):
 print(challenge4(4))
 print(challenge4(-4))
 print(challenge4(0))
+print()
 space(5)
 # Medium Challenges
 
@@ -88,9 +89,9 @@ space(8)
 def challenge8(f):  # test whether a number is within 150 of 2000 or 3000.
     number1 = 2000
     number2 = 3000
-    if f <= number1 + 150 and f >= number1 - 150:
+    if number1 - 150 <= f <= number1 + 150:
         return "%s is within 150 of 2000" % f
-    elif f <= number2 + 150 and f >= number2 - 150:
+    elif number2 - 150 <= f <= number2 + 150:
         return "%s is within 150 of 3000" % f
     else:
         return "%s is not within 150 of 2000 nor 3000" % f
@@ -98,7 +99,9 @@ def challenge8(f):  # test whether a number is within 150 of 2000 or 3000.
 
 print(challenge8(2000-151))
 print(challenge8(2000-150))
+print()
 space(9)
+
 # Harder Challenges
 
 
@@ -134,14 +137,21 @@ space(12)
 
 
 def challenge12(number, other_number):
-    """
-    for i in range(1, min(a, b) + 1):  # Why does this work?
-        if a % i == b % i == 0:
-            n += 1
-"""
+    quotients_1 = []
+    quotients_2 = []
+    common_quotients = []
+    for i in range(number):
+        plus = i + 1
+        quotients_1.append(number/plus)
+    for j in range(other_number):
+        plus = j + 1
+        quotients_2.append(other_number/plus)
+    for k in range(min(number, other_number)):
+        if quotients_1[k] in quotients_2 and quotients_1[k] % 1 == 0:
+            list.append(common_quotients, quotients_1[k])
+    for i in range(len(common_quotients)):
+        common_quotients[i] = int(common_quotients[i])
+    return "The common divisors between %s and %s are %s." % (number, other_number, common_quotients)
+
 
 print(challenge12(6, 9))
-
-"""
-12.	Write a Python program to find common divisors between two numbers in a given pair
-"""
