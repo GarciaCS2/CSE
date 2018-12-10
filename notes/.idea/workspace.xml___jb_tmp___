@@ -13,6 +13,7 @@
     <SUITE FILE_PATH="coverage/notes$Gabriella___Mad_Lib.coverage" NAME="Gabriella - Mad Lib Coverage Results" MODIFIED="1540575472848" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/notes$Gabriella___Guess_Game.coverage" NAME="Gabriella - Guess-Game Coverage Results" MODIFIED="1541176792868" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/notes$Basic_Python_Notes.coverage" NAME="Basic Python Notes Coverage Results" MODIFIED="1543340462055" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/notes$Gabriella___Challenges.coverage" NAME="Gabriella - Challenges Coverage Results" MODIFIED="1544463857110" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/notes$Gabriella___Mad_Lib_Refactored.coverage" NAME="Gabriella - Mad Lib Refactored Coverage Results" MODIFIED="1543426343163" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/notes$Gabriella___Fix_it.coverage" NAME="Gabriella - Fix it Coverage Results" MODIFIED="1543601988747" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/notes$Deluxe_Hangperson.coverage" NAME="Deluxe Hangperson Coverage Results" MODIFIED="1543339666843" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -28,7 +29,7 @@
     <session id="-536273204">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="33" />
+          <entry key="project.closed" value="34" />
           <entry key="project.open.time.11" value="4" />
           <entry key="project.open.time.12" value="2" />
           <entry key="project.open.time.13" value="3" />
@@ -46,9 +47,10 @@
           <entry key="project.open.time.37" value="1" />
           <entry key="project.open.time.408" value="1" />
           <entry key="project.open.time.41" value="1" />
+          <entry key="project.open.time.43" value="1" />
           <entry key="project.open.time.61" value="1" />
           <entry key="project.open.time.65" value="1" />
-          <entry key="project.opened" value="34" />
+          <entry key="project.opened" value="35" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -64,13 +66,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="32" />
-          <entry key="py" value="26420" />
+          <entry key="py" value="26477" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="32" />
-          <entry key="Python" value="26420" />
+          <entry key="Python" value="26477" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -82,7 +84,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Practice game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="509">
+            <state relative-caret-position="544">
               <caret line="32" selection-start-line="32" selection-end-line="32" />
             </state>
           </provider>
@@ -91,8 +93,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Gabriella - Challenges.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2108">
-              <caret line="142" column="9" selection-start-line="142" selection-start-column="8" selection-end-line="142" selection-end-column="9" />
+            <state relative-caret-position="1972">
+              <caret line="116" column="22" lean-forward="true" selection-start-line="116" selection-start-column="22" selection-end-line="116" selection-end-column="22" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -139,6 +141,7 @@
         <option value="$PROJECT_DIR$/- Basic Python Notes.py" />
         <option value="$PROJECT_DIR$/Challenges.py" />
         <option value="$PROJECT_DIR$/Practice game.py" />
+        <option value="$PROJECT_DIR$/Gabriella - Challenges.py" />
       </list>
     </option>
   </component>
@@ -215,7 +218,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Challenges">
+  <component name="RunManager" selected="Python.Gabriella - Challenges">
     <configuration name="Basic Python Notes" type="PythonConfigurationType" factoryName="Python">
       <module name="notes" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -252,6 +255,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Challenges.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Gabriella - Challenges" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="notes" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Gabriella - Challenges.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -348,44 +373,22 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Gabriella - Mad Lib Refactored" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="notes" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Gabriella - Mad Lib Refactored.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Python.Gabriella - Lucky_7" />
       <item itemvalue="Python.Basic Python Notes" />
       <item itemvalue="Python.Gabriella - Hangperson" />
-      <item itemvalue="Python.Gabriella - Mad Lib Refactored" />
       <item itemvalue="Python.Gabriella - Hangperson, Shorter program" />
       <item itemvalue="Python.Gabriella - Fix it" />
       <item itemvalue="Python.Challenges" />
+      <item itemvalue="Python.Gabriella - Challenges" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Gabriella - Challenges" />
         <item itemvalue="Python.Challenges" />
         <item itemvalue="Python.Gabriella - Fix it" />
         <item itemvalue="Python.Gabriella - Hangperson, Shorter program" />
         <item itemvalue="Python.Gabriella - Hangperson" />
-        <item itemvalue="Python.Gabriella - Mad Lib Refactored" />
       </list>
     </recent_temporary>
   </component>
@@ -413,14 +416,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2632375" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26701966" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4992224" weight="0.06873977" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4992224" weight="0.062193125" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -536,15 +538,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Practice game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="509">
+        <state relative-caret-position="544">
           <caret line="32" selection-start-line="32" selection-end-line="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Gabriella - Challenges.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2108">
-          <caret line="142" column="9" selection-start-line="142" selection-start-column="8" selection-end-line="142" selection-end-column="9" />
+        <state relative-caret-position="1972">
+          <caret line="116" column="22" lean-forward="true" selection-start-line="116" selection-start-column="22" selection-end-line="116" selection-end-column="22" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>

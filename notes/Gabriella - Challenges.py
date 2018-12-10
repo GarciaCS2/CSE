@@ -11,7 +11,7 @@ def space(challenge_number):
 space(1)
 
 
-def challenge1(first, last):  # 1
+def challenge1(first, last):  # Challenge 1
     print(last, first)
 
 
@@ -43,7 +43,7 @@ print(challenge3(5, 8))
 space(4)
 
 
-def challenge4(number):
+def challenge4(number):    # Challenge 4
     if number > 0:
         return "%s is positive" % number
     elif number == 0:
@@ -61,7 +61,7 @@ space(5)
 
 
 def challenge5(radius):  # pi r^2
-    area = math.pi*(radius**2)  # fix this
+    area = math.pi*(radius**2)    # Challenge 5
     return "The area of such a circle is %s" % area
 
 
@@ -69,7 +69,7 @@ print(challenge5(5))
 space(6)
 
 
-def challenge6(radius):
+def challenge6(radius):  # Challenge 6
     volume = (4/3)*(math.pi*(radius**3))
     return "The area of such a sphere is %s." % volume
 
@@ -78,7 +78,7 @@ print(challenge6(6))
 space(7)
 
 
-def challenge7(n):
+def challenge7(n):   # Challenge 7
     return n + n**2 + n**3
 
 
@@ -86,7 +86,7 @@ print(challenge7(7))
 space(8)
 
 
-def challenge8(f):  # test whether a number is within 150 of 2000 or 3000.
+def challenge8(f):  # test whether a number is within 150 of 2000 or 3000. Challenge 8
     number1 = 2000
     number2 = 3000
     if number1 - 150 <= f <= number1 + 150:
@@ -105,7 +105,9 @@ space(9)
 # Harder Challenges
 
 
-def challenge9(letter):
+def challenge9(letter):    # Challenge 9
+    if letter.isdigit():
+        return "%s is not a vowel." % letter
     if letter == "a" or "e" or "i" or "o" or "u":
         return "%s is a vowel." % letter
     else:
@@ -113,10 +115,12 @@ def challenge9(letter):
 
 
 print(challenge9("a"))
+
+print(challenge9("2"))
 space(10)
 
 
-def challenge10(string):
+def challenge10(string):    # Challenge 10
     if string.isdigit():
         return "Yes, %s is numerical" % string
     else:
@@ -127,7 +131,7 @@ print(challenge10("apple"))
 print(challenge10("10"))
 
 
-def challenge11():
+def challenge11():    # Challenge 11
     time = datetime.datetime.now().time()
     print("The time is %s" % time)
 
@@ -136,7 +140,7 @@ challenge11()
 space(12)
 
 
-def challenge12(number, other_number):
+def challenge12(number, other_number):    # Challenge 12
     quotients_1 = []
     quotients_2 = []
     common_quotients = []
