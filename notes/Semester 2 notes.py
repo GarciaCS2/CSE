@@ -25,7 +25,7 @@ else:
 print("This person is %d years old." % age)
 if 0 < age < 21:
     print("They're quite young")
-elif age < 75:
+elif age > 75:
     print("They're quite old.")
 elif age == 0:
     print("They don't exist...")
