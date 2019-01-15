@@ -1,45 +1,62 @@
 import random
+import string
 word_bank = ["Super", "Word", "Bow", "Read", "Maverick", "Awesome", "Trapdoor", "Pizzicato", "Embezzled", "Garnish",
-             "Math", "Python", "Variable", "Concatenation", "Fjord", "Crypt", "Bagpipes", "Haiku", "Jazzy", "Banjo",
-             "River", "Discombobulated", "Zippy", "Gazebo", "Intermediate", "Croquet", "Aerobics", "Anaerobic"]
+             "Math", "Python", "Variable", "Concatenation", "Awesome.com", "Fjord", "Crypt", "Bagpipes", "Haiku",
+             "Jazzy", "Banjo","River", "Discombobulated", "Zippy", "Gazebo", "Intermediate", "Croquet", "Aerobics",
+             "Anaerobic", "Mr.Mayonaise", "Mc.Donald's", "Grue", "import random"]  # The word bank!
 
+#  Setting up variables
 word = random.choice(word_bank)
 word_lower = list(word.lower())
 letters_guessed = []
 guesses = 8
+blank = []
+punctuation_with_space = list(string.punctuation)
+punctuation_with_space.append(" ")
 
-
-case = "lower"
 win = False
+letters = 0
+for i in range(len(word)):
+    if word[i] in list(string.ascii_letters):
+        letters +=1
 
+print("This word has %s letters" % letters)
+"""
 print("WORD = " + word + ", %s LETTERS" % len(word))
 print("GUESSES = " + str(guesses))
+"""
+for i in range(len(word)):
+    blank.append("_")  # Assemble list
 
-
-
-while win == False and guesses > 0:
+# Playing
+while guesses > 0 and not win:
     print()
     print(letters_guessed)
-    blank = ["_" * len(word)]
+    print("You have %s guesses." % guesses)
     guess_letter = input("Give me a letter:")
     if guess_letter.lower in letters_guessed:
         print("You have already guessed this letter.")
     elif guess_letter.lower() in word.lower():
         print("Yes, %s is in the word." % guess_letter)
-        letters_guessed.append(guess_letter.lower())
-        #  blank[(word.lower()).index(guess_letter.lower())] = word[(word.lower()).index(guess_letter.lower())]
-
-        print(blank)
-        for i in range(len(word)):
-            if word_lower[i] in letters_guessed:
-                blank[i] = word[i]
-                print(blank)
-            else:
-                blank[i] = "_"
-                print(blank)
-        display = "".join(blank)
-    elif guess_letter not in word.lower() or guess_letter not in word.upper():
+        letters_guessed.append(guess_letter.lower())  # Add to guessed Letter list
+    elif guess_letter not in word.lower() or guess_letter not in word.upper():  # Wrong guess
         print("No, %s is not in the word. Sorry!" % guess_letter)
         letters_guessed.append(guess_letter.lower())
         guesses -= 1
+    for i in range(len(word)):  # Assemble list again for display
+        if word_lower[i] in letters_guessed:
+            blank[i] = word[i]
+        elif word_lower[i] in list(punctuation_with_space):  # Punctuation check
+            blank[i] = word[i]
+        else:  # Blanks
+            blank[i] = "_"
+    display = "".join(blank)  # Display
     print(display)
+    if display == word:
+        win = True
+
+print("The word was %s!" % word)
+if win:
+    print("You won! You had %s guesses left!" % guesses)
+else:
+    print("You lost. Try again next time.")
