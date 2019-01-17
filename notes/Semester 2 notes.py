@@ -44,3 +44,12 @@ print(len(colors))
 
 print(list(string.ascii_letters))
 print(string.digits)
+#  May 29 - late work, May 24 - showcase day, June 6 - last day of school
+print()
+dictionary = {"Late Work", "Showcase Day", "Last Day of School"}
+print(dictionary)
+dictionary = {"Showcase Day":24, "Late Work":29, "Last Day of School":6}  # Key:Value
+print(dictionary)
+print(dictionary["Showcase Day"])
+dictionary["Today"] = 17
+print(dictionary)

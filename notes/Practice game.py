@@ -1,4 +1,6 @@
 import random
+
+"""
 stats = [0, 1, 2, 3, 4, 5, 6, 7]  # 0 = hp, 1 = damage_resist, 2 = magic_resist, 3 = speed, 4 = strength, 5 = mana,
 # 6 = intelligence, 7 = luck
 # Average hit = 10 pts, standard hp = 500
@@ -9,7 +11,7 @@ bag_o_items = []
 spells = ["Fire spell", "Healing spell", "Ice spell"]
 effects = ["flame", "freeze", "poison"]
 stats[7] = random.randint(-13, 7)
-"""
+
 if "wizard" or "sorcerer" in character_class:
     stats[1] = 3
     magic_resist = 20
@@ -30,7 +32,6 @@ if "I don't know" in character_class:
     stats[3] = 7 # speed
     stats[4] = 7 # strength
     stats[5] = 200 # mana
-"""
 
 def you_attacked(a, b, c, e_l, ):
     if action.lower in "attack":
@@ -49,7 +50,4 @@ def battle ():
     while enemy_hp > 0:
         action = input("What is your next move? ie:attack, spell, defend")
         enemy_action = random.choice(actions)
-
-
-
-
+"""
