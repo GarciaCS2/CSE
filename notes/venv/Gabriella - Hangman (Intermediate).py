@@ -5,8 +5,8 @@ word_bank = ["Super", "Word", "Bow", "Read", "Maverick", "Awesome", "Trapdoor", 
              "Jazzy", "Banjo", "River", "Discombobulated", "Zippy", "Gazebo", "Intermediate", "Croquet", "Aerobics",
              "Meme", "Dream", "Zebra", "Quick", "The quick brown fox jumped over the lazy dog.", "What do you meme?"
              "Gloves", "Cats vs. Dogs", "Hangman", "Leaflet", "Champagne", "Haircut", "Minimum", "Maximum", "Cat"
-             "Anaerobic", "Mr.Mayonnaise", "Mc.Donald's", "Grue", "import random", "Penultimate",
-             "Alphabet"]  # The word bank!
+             "Anaerobic", "Mr.Mayonnaise", "Mc.Donald's", "Grue", "import random", "Penultimate", "Practice",
+             "Alphabet", "Python notes"]  # The word bank!
 
 #  Setting up variables
 word = random.choice(word_bank)
