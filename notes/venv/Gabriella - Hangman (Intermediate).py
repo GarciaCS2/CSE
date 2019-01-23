@@ -4,9 +4,9 @@ word_bank = ["Super", "Word", "Bow", "Read", "Maverick", "Awesome", "Trapdoor", 
              "Math", "Python", "Variable", "Concatenation", "Awesome.com", "Fjord", "Crypt", "Bagpipes", "Haiku",
              "Jazzy", "Banjo", "River", "Discombobulated", "Zippy", "Gazebo", "Intermediate", "Croquet", "Aerobics",
              "Meme", "Dream", "Zebra", "Quick", "The quick brown fox jumped over the lazy dog.", "What do you meme?"
-             "Gloves", "Cats vs. Dogs", "Hangman", "Leaflet", "Champagne", "Haircut", "Minimum", "Maximum", "Cat"
-             "Anaerobic", "Mr.Mayonnaise", "Mc.Donald's", "Grue", "import random", "Penultimate", "Practice",
-             "Alphabet", "Python notes"]  # The word bank!
+             "Gloves", "Cats vs. Dogs", "Hangman", "Leaflet", "Champagne", "Haircut", "Minimum", "Maximum", "Cat",
+             "Anaerobic", "Mr.Mayonnaise", "Mc.Donald's", "Grue", "import random", "Penultimate", "Practice", "How",
+             "Alphabet", "Python notes", "Calibrate", "Font", "Where", "Who", "Why", "What", "When"]  # The word bank!
 
 #  Setting up variables
 word = random.choice(word_bank)
@@ -21,8 +21,9 @@ letters = 0
 for i in range(len(word)):
     if word[i] in list(string.ascii_letters):
         letters += 1
-
 print("This word has %s letters" % letters)
+print("You have %s guesses." % guesses)
+
 for i in range(len(word)):
     blank.append("_")  # Assemble list
 
@@ -52,6 +53,7 @@ while guesses > 0 and not win:
     print(display)
     if display == word:
         win = True
+    print()
 
 #  Did you win or lose?
 print("The word was %s!" % word)

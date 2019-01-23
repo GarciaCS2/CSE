@@ -1,6 +1,6 @@
 import random
 import string
-points = 8
+
 
 # Hangman-Specific Variables
 word_bank = ["Super", "Word", "Bow", "Read", "Maverick", "Awesome", "Trapdoor", "Pizzicato", "Embezzled", "Garnish",
@@ -33,14 +33,12 @@ def command():
         show_stats
 
 
-# Games
-
-
-choose_game()
+points = 8
 
 
 # HANGMAN
-def play_hangman():
+def play_hangman(guesses):
+
     bank = input("Would you like words or phrases?")
 
     if bank.lower() in "command" or "/" in bank.lower():
@@ -60,12 +58,13 @@ def play_hangman():
         if word[i] in list(string.ascii_letters):
             letters += 1
     print("This word has %s letters" % letters)
+    print("You have % points, so you have %s guesses." % guesses, guesses)
     for i in range(len(word)):
         blank.append("_")  # Assemble list
-    while points > 0 and not win:   # Playing
+    while guesses > 0 and not win:   # Playing
         print()
         print(letters_guessed)
-        print("You have %s guesses." % points)
+        print("You have %s guesses." % guesses)
         guess_letter = input("Give me a letter:")
         if guess_letter.lower() in letters_guessed:
             print("You have already guessed '%s'." % guess_letter)
@@ -75,7 +74,7 @@ def play_hangman():
         elif guess_letter not in word.lower() or guess_letter not in word.upper():  # Wrong guess
             print("No, %s is not in the word. Sorry!" % guess_letter)
             letters_guessed.append(guess_letter.lower())
-            points -= 1
+            guesses -= 1
         for i in range(len(word)):  # Assemble list again for display
             if word_lower[i] in letters_guessed:
                 blank[i] = word[i]
@@ -93,12 +92,17 @@ def play_hangman():
         print("You won! You had %s guesses left!" % points)
     else:
         print("You lost. Try again next time.")
-
+    print("You used %s points to play this game." % (points - guesses))
+    points = guesses
 
 def choose_game():
     print("Your choices are: Hangman, Lucky 7's, Guess Game,")
     choice = input("Which game would you like to play? ")
     if choice.lower() in "hangman" or "hangperson":
         playing = "HANGMAN"
-        play_hangman()
+        play_hangman(points)
+
+
+choose_game()
+
 

@@ -1,12 +1,18 @@
+import random
 #  OOP - https://realpython.com/python3-object-oriented-programming/
 #  Dictionary - https://docs.python.org/3/tutorial/datastructures.html?highlight=dictionary
 class Snop:
-    def __init__(self, name, age, cool):
+    def __init__(self, name, age, cool, likes, dislikes, stuff, tokens, niceness):
 
         species = 'mammal'
         self.cool = True
         self.name = name
         self.age = age
+        self.likes = likes
+        self.dislikes = dislikes
+        self.stuff = stuff
+        self.money = tokens
+        self.niceness = niceness
     pass
 
 jeff = Snop('Jeff', 14, True)
@@ -28,4 +34,13 @@ def find_cool_snop():
 
 
 find_cool_snop()
+
+
+def gen_snops():
+    names = ["Jason", "Jeff", "Randy", "Sunny", "Fluffy", "Mo", "Larry", "Mary", "Bo"]
+    items = {"Bouncy Ball":2, "Bracelet": 7, "Pencil":1, "Gifts":4, "Pet Fluff":10}
+    for i in range(random.int(1, 15)):
+        like =
+    list.append(snop_population, Snop(random.choice(names), random.int(20, 30), random.choice(True, False),
+                                      like, not_like, stuff, tokens, niceness)
 
