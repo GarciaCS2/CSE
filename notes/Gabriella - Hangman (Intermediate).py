@@ -8,8 +8,7 @@ word_bank = ["Super", "Word", "Bow", "Read", "Maverick", "Awesome", "Trapdoor", 
              "Anaerobic", "Mr.Mayonnaise", "Mc.Donald's", "Grue", "import random", "Penultimate", "Practice", "How",
              "Alphabet", "Python notes", "Calibrate", "Font", "Where", "Who", "Why", "What", "When"]  # The word bank!
 
-#  Setting up variables
-word = random.choice(word_bank)
+word = random.choice(word_bank)  #  Setting up variables
 word_lower = list(word.lower())
 letters_guessed = []
 guesses = 8
@@ -23,12 +22,10 @@ for i in range(len(word)):
         letters += 1
 print("This word has %s letters" % letters)
 print("You have %s guesses." % guesses)
-
 for i in range(len(word)):
     blank.append("_")  # Assemble list
 
-# Playing
-while guesses > 0 and not win:
+while guesses > 0 and not win:  # Playing
     print()
     print(letters_guessed)
     print("You have %s guesses." % guesses)
