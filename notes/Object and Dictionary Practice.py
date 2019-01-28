@@ -10,15 +10,23 @@ class Snop:
         self.age = age
         self.fact = fact
         self.complement = complement
+
+    def describe(self):
+        return "{} is {}. He {}.".format(self.name, self.age, self.fact)
+
+    def give_kudos(self):
+        return "{} says, '{}'".format(self.name, self.complement)
     pass
 
-jeff = Snop('Jeff', 14, True, "likes memes", "")
-avery = Snop('Avery', 10, True, "can do gymnastics")
+
+jeff = Snop('Jeff', 14, True, "likes memes", "You're cool.")
+avery = Snop('Avery', 10, True, "can do gymnastics", "Good work.")
 
 snop_population = [jeff, avery]
 
 print(jeff == avery)
 print("{0} is a Snop. He is {1}.".format(jeff.name, jeff.age))
+
 
 def find_cool_snop():
     cool_snops = 0
@@ -33,9 +41,8 @@ def find_cool_snop():
 find_cool_snop()
 
 
-def describe(self):
-    return "{} is {}. He {}." .format(self.name, self.age, self.fact)
 
-
-def give_kudos(self):
-    return "{}" .format(self.complement)
+command = input("")
+if "hi" in command.lower():
+    if "jeff" in command.lower():
+print(jeff.give_kudos())
