@@ -15,16 +15,29 @@ world_map = {
         'NAME': "The North Parking Lot",
         'DESCRIPTION': "There are a couple cars parked here.",
         'PATHS': {
-            'SOUTH': "R19A"
+            'SOUTH': "R19A",
+
+            'NORTH': "SIDEWALK"
 
         }
     },
 
     "SIDEWALK": {
-        'NAME': "The sidewalk next to the parking lot",
-        'DESCRIPTION': "There are a couple cars parked here.",
+        'NAME': "The Sidewalk",
+        'DESCRIPTION': "Right next to the Parking Lot. ",
         'PATHS': {
-            'SOUTH': "R19A"
+            'SOUTH': "PARKING_LOT",
+            'WEST': "OVER_THERE"
+
+        }
+    },
+
+"OVER_THERE": {
+        'NAME': "The Sidewalk",
+        'DESCRIPTION': "Right next to the Parking Lot. ",
+        'PATHS': {
+            'SOUTH': "PARKING_LOT",
+            'WEST': "OVER_THERE"
 
         }
     }
@@ -34,6 +47,7 @@ world_map = {
 # Controller
 playing = True
 current_node = world_map['R19A']
+directions = ['NORTH', 'SOUTH', 'EAST', 'WEST', 'UP', 'DOWN', 'LEFT', 'RIGHT']
 
 while playing:
     print(current_node['NAME'])
@@ -42,3 +56,13 @@ while playing:
     if command.lower() in ['q', 'quit', 'exit']:
         playing = False
         print("%s left the game" % player_name)
+    elif command.upper() in directions:
+        try:
+            room_name = current_node['PATHS'][command.upper()]
+            current_node = world_map[room_name]
+        except KeyError:
+            print("(KeyError) - Can't go there.")
+        pass  # This is a placeholder.
+
+    else:
+        print("Command Not Found...")
