@@ -72,6 +72,7 @@ complex_dictionary = {
         ]
     }
 }
+
 print(complex_dictionary["AK"]["CITIES"][0])
 print()
 print(complex_dictionary["FL"]["NAME"])
@@ -81,10 +82,12 @@ print(complex_dictionary.items())
 print(nested_dictionary.items())
 print()
 
+
 for key, value in complex_dictionary.items():
     print(key)
     print(value)
     print("-" * 20)
+
 
 # This is what makes it look pretty
 print()
@@ -94,3 +97,10 @@ for state, info in complex_dictionary.items():
         print(stats)
         print("-" * 20)
     print("=" * 20)
+
+
+# Other Notes
+states['AR'] = "Arizona?"  # It isn't Arizona
+
+states['AR'] = "Arkansas"  # Fixed it.
+print(states['AR'])
