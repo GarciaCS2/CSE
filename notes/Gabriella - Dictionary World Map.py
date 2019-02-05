@@ -28,6 +28,7 @@ world_map = {
             'EAST': "PARKING_LOT"
         }
     },
+
     "SIDEWALK": {
         'NAME': "The Sidewalk",
         'DESCRIPTION': "Right next to the Parking Lot. ",
@@ -39,6 +40,50 @@ world_map = {
 
         }
     },
+
+    "SIDEWALK_B2": {
+        'NAME': "The other sidewalk",
+        'DESCRIPTION': "To the north is a disembodied door.",
+        'PATHS': {
+            'SOUTH': "STREET_B",
+            'WEST': "SIDEWALK_B3",
+            'NORTH': "M_DOOR",
+            'EAST': "SIDEWALK_B1"
+
+        }
+    },
+
+    "SIDEWALK_B3": {
+        'NAME': "The other sidewalk",
+        'DESCRIPTION': "To the north is an elegant field with a stone fence around it...an elegant statue towers above "
+                       "from the field",
+        'PATHS': {
+            'SOUTH': "STREET_3",
+            'NORTH': "FIELD",
+            'EAST': "SIDEWALK_B2"
+        }
+    },
+
+    "FIELD": {
+        'NAME': "Inside the fence",
+        'DESCRIPTION': "The grass beneath your feet is moist and sparkly. To the north is that statue of a pegasus.",
+        'PATHS': {
+            'SOUTH': "SIDEWALK_B3",
+            'NORTH': "SHRINE_OF_DEANNE",
+            'EAST': "SIDEWALK_B2"
+        }
+    },
+
+    "SHRINE_OF_DEANNE": {
+        'NAME': "Statue area",
+        'DESCRIPTION': "The almighty pegasus stares to you...",
+        'PATHS': {
+            'SOUTH': "FIELD",
+            'WEST': "POND",
+            'EAST': "M_STONE"
+        }
+    },
+
     "VOIDSPACE_RIGHT": {
         'NAME': "VOIDSPACE",
         'DESCRIPTION': "You stand on nothing, and yet nothing is the void to the right of the street.",
@@ -104,6 +149,30 @@ world_map = {
         }
     },
 
+    "STREET_2": {
+        'NAME': "Street (Middle)",
+        'DESCRIPTION': "Cars drive here, except there are no cars right now.",
+        'PATHS': {
+            'SOUTH': "OVER_THERE",
+            'WEST': "STREET_3",
+            'NORTH': "SIDEWALK_B2",
+            'EAST': "STREET_1"
+
+        }
+    },
+
+    "STREET_3": {
+        'NAME': "Street (Middle)",
+        'DESCRIPTION': "Cars drive here, except there are no cars right now.",
+        'PATHS': {
+            'SOUTH': "TRAPDOOR",
+            'WEST': "STREET_3",
+            'NORTH': "SIDEWALK_B3",
+            'EAST': "STREET_2"
+
+        }
+    },
+
     "OVER_THERE": {
         'NAME': "Over Here",
         'DESCRIPTION': "Still the Sidewalk, but over here. ",
@@ -115,16 +184,45 @@ world_map = {
         }
     },
 
+    "TRAPDOOR_DROP": {
+        'NAME': "Over Here",
+        'DESCRIPTION': "This is where that Trapdoor will drop you. The room looks very dark.",
+        'PATHS': {
+            'NORTH': "M_KITCHEN",
+        }
+    },
+
     "TRAPDOOR": {
-        'NAME': "Place with trapdoor",
+        'NAME': "Area with trapdoor",
         'DESCRIPTION': "There's a trapdoor on the sidewalk...",
         'PATHS': {
             'EAST': "OVER_THERE",
             'NORTH': "TRAPDOOR_DROP",
             'SOUTH': "TRAPDOOR_DROP",
             'WEST': "TRAPDOOR_DROP"
-        }
+        },
+    },
+
+    "M_DOOR": {
+        'NAME': "Mysterious Disembodied Door",
+        'DESCRIPTION': "There's a door...just, there. Nothing behind it, nothing in front. Going North would mean"
+                       "going through it.",
+        'PATHS': {
+            'NORTH': "M_HALLWAY",
+            'SOUTH': "SIDEWALK_B2"
+
+        },
+    },
+
+    "PORTAL_HALL": {
+            'NAME': "Portals of Worlds Hall",
+            'DESCRIPTION': "Portals are lined up on the walls, some have frames and others look like mirrors. "
+                           "How does this fit in the house?",
+            'PATHS': {
+                'WEST': "M_MARBLE"
+            }
     }
+
 }
 
 
