@@ -41,6 +41,17 @@ world_map = {
         }
     },
 
+    "SIDEWALK_B1": {
+        'NAME': "The other sidewalk",
+        'DESCRIPTION': "To the north of the street.",
+        'PATHS': {
+            'SOUTH': "STREET_1",
+            'WEST': "SIDEWALK_B2",
+            'EAST': "VOIDSPACE_RIGHT"
+
+        }
+    },
+
     "SIDEWALK_B2": {
         'NAME': "The other sidewalk",
         'DESCRIPTION': "To the north is a disembodied door.",
@@ -70,7 +81,8 @@ world_map = {
         'PATHS': {
             'SOUTH': "SIDEWALK_B3",
             'NORTH': "SHRINE_OF_DEANNE",
-            'EAST': "SIDEWALK_B2"
+            'EAST': "GRASS_PATCH",
+            'WEST': "NICE_VIEW"
         }
     },
 
@@ -81,6 +93,34 @@ world_map = {
             'SOUTH': "FIELD",
             'WEST': "POND",
             'EAST': "M_STONE"
+        }
+    },
+
+    "POND": {
+        'NAME': "Pond and stepping stones",
+        'DESCRIPTION': "There are a bunch of assorted stones resting in a pond",
+        'PATHS': {
+            'SOUTH': "NICE_VIEW",
+            'EAST': "SHRINE_OF_DEANNE"
+        }
+    },
+
+    "NICE_VIEW": {
+        'NAME': "Nice view.",
+        'DESCRIPTION': "It's a nice view of the map. You gaze at the street and the room of which you began.",
+        'PATHS': {
+            'NORTH': "POND",
+            'EAST': "FIELD"
+        }
+    },
+
+    "M_STONE": {
+        'NAME': "Grassy field with a stone inscribed with a message",
+        'DESCRIPTION': "There is a stone that has the words engraved in it: 'Here stood a hero destined to find the"
+                       "keys to wisdoms.'",
+        'PATHS': {
+            'SOUTH': "GRASS_PATCH",
+            'WEST': "SHRINE_OF_DEANNE"
         }
     },
 
@@ -185,8 +225,8 @@ world_map = {
     },
 
     "TRAPDOOR_DROP": {
-        'NAME': "Over Here",
-        'DESCRIPTION': "This is where that Trapdoor will drop you. The room looks very dark.",
+        'NAME': "Trapdoor Drop room",
+        'DESCRIPTION': "This is where that Trapdoor drops those who fall in. The room looks very dark.",
         'PATHS': {
             'NORTH': "M_KITCHEN",
         }
@@ -206,7 +246,7 @@ world_map = {
     "M_DOOR": {
         'NAME': "Mysterious Disembodied Door",
         'DESCRIPTION': "There's a door...just, there. Nothing behind it, nothing in front. Going North would mean"
-                       "going through it.",
+                       "just walking through it.",
         'PATHS': {
             'NORTH': "M_HALLWAY",
             'SOUTH': "SIDEWALK_B2"
@@ -214,13 +254,100 @@ world_map = {
         },
     },
 
-    "PORTAL_HALL": {
-            'NAME': "Portals of Worlds Hall",
-            'DESCRIPTION': "Portals are lined up on the walls, some have frames and others look like mirrors. "
-                           "How does this fit in the house?",
+    "M_HALLWAY": {
+        'NAME': "Mysterious Hallway",
+        'DESCRIPTION': "This is strangely spacey for a door frame, isn't it?",
+        'PATHS': {
+            'NORTH': "M_DARKROOM",
+            'SOUTH': "M_DOOR"
+
+        },
+    },
+
+    "M_DARKROOM": {
+        'NAME': "A dark welcome room",
+        'DESCRIPTION': "Who knew there was a place through the door...",
+        'PATHS': {
+            'SOUTH': "M_HALLWAY",
+            'NORTH': "M_CHEST_ROOM",
+            'EAST': "M_BEDROOM_1",
+            'WEST': "M_KITCHEN"
+
+        },
+    },
+
+    "M_CHEST_ROOM": {
+        'NAME': "Another dark room",
+        'DESCRIPTION': "There's a chest here...it's locked.",
+        'PATHS': {
+            'SOUTH': "M_DARKROOM",
+            'WEST': "BROKEN_STAIRCASE"
+        },
+    },
+
+    "M_KITCHEN": {
+        'NAME': "Mysterious Kitchen",
+        'DESCRIPTION': "Can you cook? All the pots and pans you'll need are here.",
+        'PATHS': {
+            'NORTH': "BROKEN_STAIRCASE",
+            'EAST': "M_DARKROOM"
+        },
+    },
+
+    "BROKEN_STAIRCASE": {
+        'NAME': "Staircase up",
+        'DESCRIPTION': "A long time ago, the stairs collapsed...",
+        'PATHS': {
+            'SOUTH': "M_KITCHEN",
+            'EAST': "M_CHEST_ROOM"
+        },
+    },
+
+    "M_BEDROOM_1": {
+        'NAME': "Someone's bedroom.",
+        'DESCRIPTION': "It looks as if no one has been here in centuries",
+        'PATHS': {
+            'SOUTH': "M_MARBLE",
+            'NORTH': "BATHROOM",
+            'WEST': "M_DARKROOM"
+        },
+    },
+
+    "BATHROOM": {
+        'NAME': "A Bathroom",
+        'DESCRIPTION': "If you need, you can wash up and use a first-aid kit that was left over.",
+        'PATHS': {
+            'SOUTH': "M_BEDROOM_1"
+        },
+    },
+
+    "M_MARBLE": {
+        'NAME': "Marble staircase",
+        'DESCRIPTION': "This staircase, in contrast to the house, looks new and polished.",
+        'PATHS': {
+            'NORTH': "M_BEDROOM_1",
+            'UP': "PORTAL_CONNECTION",
+            'EAST': "PORTAL_HALL"
+        },
+    },
+
+    "PORTAL_CONNECTION": {
+            'NAME': "Portal room",
+            'DESCRIPTION': "Beneath you is a portal. If you allow yourself to go down, you will leave this zone..."
+                           "How does this fit in the house? Speaking of which, if you want to go back in the house,"
+                           " you can go west.",
             'PATHS': {
-                'WEST': "M_MARBLE"
+                'WEST': "M_MARBLE",
+                'DOWN': "PORTAL_HALL"
             }
+    },
+
+    "PORTAL_HALL": {
+        'NAME': "Portals of Worlds Hall",
+        'DESCRIPTION': "Portals are lined up on the walls, some have frames and others look like mirrors. ",
+        'PATHS': {
+
+        }
     }
 
 }
@@ -230,9 +357,9 @@ world_map = {
 playing = True
 current_node = world_map['R19A']
 directions = ['NORTH', 'SOUTH', 'EAST', 'WEST', 'UP', 'DOWN', 'LEFT', 'RIGHT']
-
 while playing:
     print(current_node['NAME'])
+    print()
     print(current_node['DESCRIPTION'])
     command = input(">_")
     if command.lower() in ['q', 'quit', 'exit']:
@@ -243,8 +370,10 @@ while playing:
             room_name = current_node['PATHS'][command.upper()]
             current_node = world_map[room_name]
         except KeyError:
-            print("(KeyError) - Can't go there.")
+            print("(NO-PATH) - Can't go there.")
         pass  # This is a placeholder.
 
     else:
         print("Command Not Found...")
+    print()
+    print("---" * 9)
