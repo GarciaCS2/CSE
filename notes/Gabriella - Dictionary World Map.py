@@ -25,7 +25,34 @@ world_map = {
         'NAME': "Your Cool Red Car.",
         'DESCRIPTION': "This car is the one you used to drive here.",
         'PATHS': {
-            'EAST': "PARKING_LOT"
+            'EAST': "PARKING_LOT",
+            'AWAY': "FREEWAY"
+        }
+    },
+
+    "FREEWAY": {
+        'NAME': "On the Freeway",
+        'DESCRIPTION': "You drove away.",
+        'PATHS': {
+            'LEFT': "FRIEND_HOUSE",
+            'RIGHT': "HOME",
+            'BACK': "CAR"
+        }
+    },
+
+    "FRIEND_HOUSE": {
+        'NAME': "Your Friend's House",
+        'DESCRIPTION': "You are welcome here. You came just in time, your friend and your friend's mom are baking "
+                       "cookies.",
+        'PATHS': {
+        }
+    },
+
+    "HOME": {
+        'NAME': "Your warm house",
+        'DESCRIPTION': "You are back in the safety of your own home. You are sitting down now with a cup of hot "
+                       "chocolate reading your favorite book.",
+        'PATHS': {
         }
     },
 
@@ -76,7 +103,7 @@ world_map = {
     },
 
     "FIELD": {
-        'NAME': "Inside the fence",
+        'NAME': "Inside the fenced area",
         'DESCRIPTION': "The grass beneath your feet is moist and sparkly. To the north is that statue of a pegasus.",
         'PATHS': {
             'SOUTH': "SIDEWALK_B3",
@@ -116,11 +143,21 @@ world_map = {
 
     "M_STONE": {
         'NAME': "Grassy field with a stone inscribed with a message",
-        'DESCRIPTION': "There is a stone that has the words engraved in it: 'Here stood a hero destined to find the"
-                       "keys to wisdoms.'",
+        'DESCRIPTION': "There is a stone that has the words engraved in it: 'Here stood a hero destined to find the "
+                       "wisdom of which would unlock our free will.'",
         'PATHS': {
             'SOUTH': "GRASS_PATCH",
             'WEST': "SHRINE_OF_DEANNE"
+        }
+    },
+
+    "GRASS_PATCH": {
+        'NAME': "Grassy field",
+        'DESCRIPTION': "You gaze up at the house next to this field. This is the place where you would find something,"
+                       " but the world is not awake at the moment.",
+        'PATHS': {
+            'NORTH': "M_STONE",
+            'WEST': "FIELD"
         }
     },
 
@@ -130,20 +167,33 @@ world_map = {
         'PATHS': {
             'SOUTH': "VOIDSPACE_CORNER",
             'WEST': "STREET_1",
-            'EAST': "VOIDSPACE_RIGHT"
+            'EAST': "VOIDSPACE_RIGHT",
+            'NORTH': "VOIDSPACE_UPPER_CORNER"
 
         }
     },
 
     "VOIDSPACE_CORNER": {
         'NAME': "VOIDSPACE",
-        'DESCRIPTION': "You stand on nothing, and yet nothing is the void to lower right of the world",
+        'DESCRIPTION': "You stand on nothing, and yet nothing is the void to the lower right of the world",
         'PATHS': {
             'NORTH': "VOIDSPACE_RIGHT",
             'WEST': "VOIDSPACE_LOWER",
             'EAST': "VOIDSPACE_CORNER",
             'SOUTH': "VOIDSPACE_CORNER"
 
+        }
+    },
+
+    "VOIDSPACE_UPPER_CORNER": {
+        'NAME': "VOIDSPACE",
+        'DESCRIPTION': "You stand on nothing, and yet nothing is the void to upper right of the world",
+        'PATHS': {
+            'NORTH': "VOIDSPACE_UPPER_CORNER",
+            'WEST': "VOIDSPACE_ROOM_B",
+            'EAST': "VOIDSPACE_UPPER_CORNER",
+            'SOUTH': "VOIDSPACE_RIGHT",
+            'UP': "PORTAL_HALL"
         }
     },
 
@@ -173,7 +223,7 @@ world_map = {
         'DESCRIPTION': "A comfy little room of nothingness....",
         'PATHS': {
             'SOUTH': "VOIDSPACE_ROOM_A",
-            'EAST': "VOIDSPACE_RIGHT",
+            'EAST': "VOIDSPACE_UPPER_CORNER",
         }
     },
 
@@ -202,7 +252,7 @@ world_map = {
     },
 
     "STREET_3": {
-        'NAME': "Street (Middle)",
+        'NAME': "Street (Left)",
         'DESCRIPTION': "Cars drive here, except there are no cars right now.",
         'PATHS': {
             'SOUTH': "TRAPDOOR",
@@ -218,7 +268,7 @@ world_map = {
         'DESCRIPTION': "Still the Sidewalk, but over here. ",
         'PATHS': {
             'EAST': "SIDEWALK",
-            'NORTH': "OVER_THERE",
+            'NORTH': "STREET_2",
             'SOUTH': "VOIDSPACE_LOWER",
             'WEST': "TRAPDOOR"
         }
@@ -246,7 +296,7 @@ world_map = {
     "M_DOOR": {
         'NAME': "Mysterious Disembodied Door",
         'DESCRIPTION': "There's a door...just, there. Nothing behind it, nothing in front. Going North would mean"
-                       "just walking through it.",
+                       " just walking through it.",
         'PATHS': {
             'NORTH': "M_HALLWAY",
             'SOUTH': "SIDEWALK_B2"
@@ -344,7 +394,8 @@ world_map = {
 
     "PORTAL_HALL": {
         'NAME': "Portals of Worlds Hall",
-        'DESCRIPTION': "Portals are lined up on the walls, some have frames and others look like mirrors. ",
+        'DESCRIPTION': "Portals are lined up on the walls, some have frames and others look like mirrors. "
+                       "for now, this is the end of your tour. Quit to escape.",
         'PATHS': {
 
         }
@@ -356,7 +407,7 @@ world_map = {
 # Controller
 playing = True
 current_node = world_map['R19A']
-directions = ['NORTH', 'SOUTH', 'EAST', 'WEST', 'UP', 'DOWN', 'LEFT', 'RIGHT']
+directions = ['NORTH', 'SOUTH', 'EAST', 'WEST', 'UP', 'DOWN', 'LEFT', 'RIGHT', 'AWAY', 'BACK']
 while playing:
     print(current_node['NAME'])
     print()
