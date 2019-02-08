@@ -6,7 +6,6 @@ world_map = {
                        "There are two doors on the north wall.",
         'PATHS': {
             'NORTH': "PARKING_LOT"
-
         }
 
     },
@@ -63,7 +62,7 @@ world_map = {
             'SOUTH': "PARKING_LOT",
             'WEST': "OVER_THERE",
             'NORTH': "STREET_1",
-            'EAST': "VOIDSPACE_RIGHT"
+            'EAST': "VOID_SPACE_RIGHT"
 
         }
     },
@@ -74,7 +73,7 @@ world_map = {
         'PATHS': {
             'SOUTH': "STREET_1",
             'WEST': "SIDEWALK_B2",
-            'EAST': "VOIDSPACE_RIGHT"
+            'EAST': "VOID_SPACE_RIGHT"
 
         }
     },
@@ -161,69 +160,98 @@ world_map = {
         }
     },
 
-    "VOIDSPACE_RIGHT": {
-        'NAME': "VOIDSPACE",
+    "VOID_SPACE_RIGHT": {
+        'NAME': "VOID_SPACE",
         'DESCRIPTION': "You stand on nothing, and yet nothing is the void to the right of the street.",
         'PATHS': {
-            'SOUTH': "VOIDSPACE_CORNER",
+            'SOUTH': "VOID_SPACE_CORNER",
             'WEST': "STREET_1",
-            'EAST': "VOIDSPACE_RIGHT",
-            'NORTH': "VOIDSPACE_UPPER_CORNER"
-
+            'EAST': "VOID_SPACE_RIGHT",
+            'NORTH': "VOID_SPACE_UPPER_CORNER",
+            'AWAY': "VOID"
         }
     },
 
-    "VOIDSPACE_CORNER": {
-        'NAME': "VOIDSPACE",
+    "VOID_SPACE_CORNER": {
+        'NAME': "VOID_SPACE",
         'DESCRIPTION': "You stand on nothing, and yet nothing is the void to the lower right of the world",
         'PATHS': {
-            'NORTH': "VOIDSPACE_RIGHT",
-            'WEST': "VOIDSPACE_LOWER",
-            'EAST': "VOIDSPACE_CORNER",
-            'SOUTH': "VOIDSPACE_CORNER"
-
+            'NORTH': "VOID_SPACE_RIGHT",
+            'WEST': "VOID_SPACE_LOWER",
+            'EAST': "VOID_SPACE_CORNER",
+            'SOUTH': "VOID_SPACE_CORNER",
+            'AWAY': "VOID"
         }
     },
 
-    "VOIDSPACE_UPPER_CORNER": {
-        'NAME': "VOIDSPACE",
+    "VOID_SPACE_UPPER_CORNER": {
+        'NAME': "VOID_SPACE",
         'DESCRIPTION': "You stand on nothing, and yet nothing is the void to upper right of the world",
         'PATHS': {
-            'NORTH': "VOIDSPACE_UPPER_CORNER",
-            'WEST': "VOIDSPACE_ROOM_B",
-            'EAST': "VOIDSPACE_UPPER_CORNER",
-            'SOUTH': "VOIDSPACE_RIGHT",
-            'UP': "PORTAL_HALL"
+            'NORTH': "VOID_SPACE_UPPER_CORNER",
+            'WEST': "VOID_SPACE_ROOM_B",
+            'EAST': "VOID_ASPACE_UPPER_CORNER",
+            'SOUTH': "VOID_SPACE_RIGHT",
+            'UP': "PORTAL_HLL",
+            'AWAY': "VOID"
         }
     },
 
-    "VOIDSPACE_LOWER": {
-        'NAME': "VOIDSPACE",
+    "VOID_SPACE_LOWER": {
+        'NAME': "VOID_SPACE",
         'DESCRIPTION': "You stand on nothing, and yet nothing is the void to the south of over there.",
         'PATHS': {
             'NORTH': "OVER_THERE",
-            'WEST': "VOIDSPACE_ROOM_A",
-            'EAST': "VOIDSPACE_CORNER",
-            'SOUTH': "VOIDSPACE_LOWER"
-
+            'WEST': "VOID_SPACE_ROOM_A",
+            'EAST': "VOID_SPACE_CORNER",
+            'SOUTH': "VOID_SPACE_LOWER",
+            'AWAY': "VOID"
         }
     },
 
-    "VOIDSPACE_ROOM_A": {
-        'NAME': "VOIDSPACE_ROOM",
+    "VOID_SPACE_ROOM_A": {
+        'NAME': "VOID_SPACE_ROOM",
         'DESCRIPTION': "A comfy little room of nothingness...",
         'PATHS': {
-            'NORTH': "VOIDSPACE_ROOM_B",
-            'EAST': "VOIDSPACE_LOWER",
+            'NORTH': "VOID_SPACE_ROOM_B",
+            'EAST': "VOID_SPACE_LOWER",
+            'AWAY': "VOID"
         }
     },
 
-    "VOIDSPACE_ROOM_B": {
-        'NAME': "VOIDSPACE_ROOM",
+    "VOID_SPACE_ROOM_B": {
+        'NAME': "VOID_SPACE_ROOM",
         'DESCRIPTION': "A comfy little room of nothingness....",
         'PATHS': {
-            'SOUTH': "VOIDSPACE_ROOM_A",
-            'EAST': "VOIDSPACE_UPPER_CORNER",
+            'SOUTH': "VOID_SPACE_ROOM_A",
+            'EAST': "VOID_SPACE_UPPER_CORNER",
+            'AWAY': "VOID"
+        }
+    },
+
+    "VOID": {
+        'NAME': "VOID",
+        'DESCRIPTION': "You wandered away into the darkness and got lost.",
+        'PATHS': {
+            'BACK': "SHRINE_OF_DEANNE",
+            'FORWARD': "FINDING_YOUR_WAY"
+        }
+    },
+
+    "FINDING_YOUR_WAY": {
+        'NAME': "VOID...",
+        'DESCRIPTION': "You moved forward with conviction. You feel that you're getting somewhere.",
+        'PATHS': {
+            'FORWARD': "OUTSIDE"
+        }
+    },
+
+    "OUTSIDE": {
+        'NAME': "Light area",
+        'DESCRIPTION': "You stepped out of the darkness into a vast landscape bathed in light. There are "
+                       "patches of darkness everywhere.",
+        'PATHS': {
+            'BACK': "R19A"
         }
     },
 
@@ -234,8 +262,7 @@ world_map = {
             'SOUTH': "SIDEWALK",
             'WEST': "STREET_2",
             'NORTH': "SIDEWALK_B1",
-            'EAST': "VOIDSPACE_RIGHT"
-
+            'EAST': "VOID_SPACE_RIGHT"
         }
     },
 
@@ -247,7 +274,6 @@ world_map = {
             'WEST': "STREET_3",
             'NORTH': "SIDEWALK_B2",
             'EAST': "STREET_1"
-
         }
     },
 
@@ -269,7 +295,7 @@ world_map = {
         'PATHS': {
             'EAST': "SIDEWALK",
             'NORTH': "STREET_2",
-            'SOUTH': "VOIDSPACE_LOWER",
+            'SOUTH': "VOID_SPACE_LOWER",
             'WEST': "TRAPDOOR"
         }
     },
@@ -310,7 +336,6 @@ world_map = {
         'PATHS': {
             'NORTH': "M_DARKROOM",
             'SOUTH': "M_DOOR"
-
         },
     },
 
@@ -322,7 +347,6 @@ world_map = {
             'NORTH': "M_CHEST_ROOM",
             'EAST': "M_BEDROOM_1",
             'WEST': "M_KITCHEN"
-
         },
     },
 
@@ -407,7 +431,7 @@ world_map = {
 # Controller
 playing = True
 current_node = world_map['R19A']
-directions = ['NORTH', 'SOUTH', 'EAST', 'WEST', 'UP', 'DOWN', 'LEFT', 'RIGHT', 'AWAY', 'BACK']
+directions = ['NORTH', 'SOUTH', 'EAST', 'WEST', 'UP', 'DOWN', 'LEFT', 'RIGHT', 'AWAY', 'BACK', 'FORWARD']
 while playing:
     print(current_node['NAME'])
     print()
