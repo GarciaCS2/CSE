@@ -2,26 +2,41 @@ player_name = "Player"
 
 
 class Room(object):
-    def __init__(self, north, east, south, west):
+    def __init__(self, node, name, description, north, east, south, west, up, down, away):
+        self.node = node
+        self.name = name
+        self.description = description
         self.north = north
         self.east = east
         self.south = south
         self.west = west
+        self.up = up
+        self.down = down
+        self.away = away
 
-    pass
+    def room_name(self):
+        return self.name()
+
+    def room_description(self):
+        return self.description()
+
+    def path(self):
+        if command.upper() == "NORTH":
+            return self.north()
+        elif command.upper() == "EAST":
+            return self.east()
+        elif command.upper() == "SOUTH":
+            return self.south()
+        elif command.upper() == "WEST":
+            return self.west
+        elif command.upper() == "UP":
+            return self.up
+        elif command.upper() == "DOWN":
+            return self.down
 
 
 world_map = {
-    "R19A": {
-        'NAME': "Mr. Wiebe's Room",
-        'DESCRIPTION': "This is the classroom you are in right now. "
-                       "There are two doors on the north wall.",
-        'PATHS': {
-            'NORTH': "PARKING_LOT"
-
-}
-
-    },
+    "R19A": Room("R19A", "Mr.Weibe's Room", "The classroom you learn in. There are two doors to the north.", ),
 
     "PARKING_LOT": {
         'NAME': "The North Parking Lot",
@@ -203,7 +218,7 @@ world_map = {
         'PATHS': {
             'NORTH': "VOID_SPACE_UPPER_CORNER",
             'WEST': "VOID_SPACE_ROOM_B",
-            'EAST': "VOID_ASPACE_UPPER_CORNER",
+            'EAST': "VOID_SPACE_UPPER_CORNER",
             'SOUTH': "VOID_SPACE_RIGHT",
             'UP': "PORTAL_HLL",
             'AWAY': "VOID"
@@ -444,9 +459,9 @@ world_map = {
 # Controller
 playing = True
 current_node = world_map['R19A']
-directions = ['NORTH', 'SOUTH', 'EAST', 'WEST', 'UP', 'DOWN', 'LEFT', 'RIGHT', 'AWAY', 'BACK', 'FORWARD']
+directions = ['NORTH', 'SOUTH', 'EAST', 'WEST', 'UP', 'DOWN', 'LEFT', 'RIGHT', 'AWAY', 'BACK']
 while playing:
-    print(current_node['NAME'])
+    print(current_node.name())
     print()
     print(current_node['DESCRIPTION'])
     command = input(">_")
@@ -455,7 +470,7 @@ while playing:
         print("%s left the game" % player_name)
     elif command.upper() in directions:
         try:
-            room_name = current_node['PATHS'][command.upper()]
+            room_name = ['R19A'].name()
             current_node = world_map[room_name]
         except KeyError:
             print("(NO-PATH) - Can't go there.")
