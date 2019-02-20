@@ -2,10 +2,10 @@ player_name = "Player"
 
 
 class Room(object):
-    def __init__(self, node, name, description, north, east, south, west, up, down, away):
-        self.node = node
+    def __init__(self, name, description, north=None, east=None, south=None, west=None, up=None, down=None, away=None,
+                 left=None, right=None, back=None):
         self.name = name
-        self.description = description
+        self.description
         self.north = north
         self.east = east
         self.south = south
@@ -13,12 +13,9 @@ class Room(object):
         self.up = up
         self.down = down
         self.away = away
-
-    def room_name(self):
-        return self.name()
-
-    def room_description(self):
-        return self.description()
+        self.left = left
+        self.right = right
+        self.back = back
 
     def path(self):
         if command.upper() == "NORTH":
@@ -35,99 +32,43 @@ class Room(object):
             return self.down
 
 
+""" # Option 1 - Define as we go
+R19A = Room("Mr.Weibe's Room")
+parking_lot = Room("Parking Lot", None, R19A)
+
+R19A.north = parking_lot  # You cannot connect earlier rooms to later rooms until after the later rooms are made.
+# EASIER CONTROLS, LESS LIKELY TO MAKE SPELLING MISTAKES, LONGER CODE, MORE LIKELY TO MISS A LINK 
+
+# Option 2 - Set all at once
+R19A = Room("Mr.Weibe's Room", 'parking_lot') # Uses Strings
+parking_lot = Room("Parking Lot", None, "R19A")
+# TAKES MORE TIME TO GO THROUGH AND CHANGE EACH NAME OR FIX MISPELLINGS """
+
+
+R19A = Room("Mr.Weibe's Room", "The classroom you learn in. There are two doors to the north.", 'parking_lot')
+parking_lot = Room("The North Parking Lot", "There are a couple cars parked here", 'sidewalk_A1', None, 'R19A', 'car')
+car = Room("Your Cool Red Car", "This is the car you drove here in.", None, 'parking_lot', None, None, None, None,
+           'freeway')
+freeway = Room("On the Freeway", "You drove away", None, None, None, None, None, None, None, 'friend_house', 'home',
+               'car')
+friend_house = Room("Your Friend's House", "You have always been welcome here. You came just in time, too. Your friend"
+                                           "and their mom are baking cookies.")
+home = Room("Your warm home", "You are back in the safety of your own home. You are sitting down now with a cup of"
+                              " hot chocolate reading your favorite books.")
+sidewalk_A1 = Room("The Sidewalk", "...Right next to the Parking Lot.", 'street_1', 'void_space_right', 'parking_lot',
+                   'sidewalk_A2')
+# Put "Over There" and "Trapdor Area" right here.
+
+# Put the streets right here.
+
+sidewalk_B1 = Room("The other sidewalk", "To the north of the street, north of the parking lot.", None,
+                   'void_space_right', 'street_1', 'sidewalk_B2')
+sidewalk_B2 = Room("The other sidewalk", "To the north is a disembodied door.", 'M_door', 'sidewalk_B1', 'street_2',
+                   'sidewalk_B3')
+sidewalk_B3 = Room("The other sidewalk", "To the north is an elegant field, fenced in with stone walls. An elegant "
+                                         "statue towers above in the field.", 'field', 'sidewalk_B2', 'street_3')
+field = Room()
 world_map = {
-    "R19A": Room("R19A", "Mr.Weibe's Room", "The classroom you learn in. There are two doors to the north.", ),
-
-    "PARKING_LOT": {
-        'NAME': "The North Parking Lot",
-        'DESCRIPTION': "There are a couple cars parked here.",
-        'PATHS': {
-            'SOUTH': "R19A",
-            'WEST': "CAR",
-            'NORTH': "SIDEWALK"
-        }
-    },
-
-    "CAR": {
-        'NAME': "Your Cool Red Car.",
-        'DESCRIPTION': "This car is the one you used to drive here.",
-        'PATHS': {
-            'EAST': "PARKING_LOT",
-            'AWAY': "FREEWAY"
-        }
-    },
-
-    "FREEWAY": {
-        'NAME': "On the Freeway",
-        'DESCRIPTION': "You drove away.",
-        'PATHS': {
-            'LEFT': "FRIEND_HOUSE",
-            'RIGHT': "HOME",
-            'BACK': "CAR"
-        }
-    },
-
-    "FRIEND_HOUSE": {
-        'NAME': "Your Friend's House",
-        'DESCRIPTION': "You are welcome here. You came just in time, your friend and your friend's mom are baking "
-                       "cookies.",
-        'PATHS': {
-        }
-    },
-
-    "HOME": {
-        'NAME': "Your warm house",
-        'DESCRIPTION': "You are back in the safety of your own home. You are sitting down now with a cup of hot "
-                       "chocolate reading your favorite book.",
-        'PATHS': {
-        }
-    },
-
-    "SIDEWALK": {
-        'NAME': "The Sidewalk",
-        'DESCRIPTION': "Right next to the Parking Lot. ",
-        'PATHS': {
-            'SOUTH': "PARKING_LOT",
-            'WEST': "OVER_THERE",
-            'NORTH': "STREET_1",
-            'EAST': "VOID_SPACE_RIGHT"
-
-        }
-    },
-
-    "SIDEWALK_B1": {
-        'NAME': "The other sidewalk",
-        'DESCRIPTION': "To the north of the street.",
-        'PATHS': {
-            'SOUTH': "STREET_1",
-            'WEST': "SIDEWALK_B2",
-            'EAST': "VOID_SPACE_RIGHT"
-
-        }
-    },
-
-    "SIDEWALK_B2": {
-        'NAME': "The other sidewalk",
-        'DESCRIPTION': "To the north is a disembodied door.",
-        'PATHS': {
-            'SOUTH': "STREET_B",
-            'WEST': "SIDEWALK_B3",
-            'NORTH': "M_DOOR",
-            'EAST': "SIDEWALK_B1"
-
-        }
-    },
-
-    "SIDEWALK_B3": {
-        'NAME': "The other sidewalk",
-        'DESCRIPTION': "To the north is an elegant field with a stone fence around it...an elegant statue towers above "
-                       "from the field",
-        'PATHS': {
-            'SOUTH': "STREET_3",
-            'NORTH': "FIELD",
-            'EAST': "SIDEWALK_B2"
-        }
-    },
 
     "FIELD": {
         'NAME': "Inside the fenced area",
