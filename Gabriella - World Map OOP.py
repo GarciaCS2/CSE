@@ -3,7 +3,7 @@ player_name = "Player"
 
 class Room(object):
     def __init__(self, name, description, north=None, east=None, south=None, west=None, up=None, down=None, away=None,
-                 left=None, right=None, back=None):
+                 left=None, right=None, back=None, forward=None):
         self.name = name
         self.description
         self.north = north
@@ -16,6 +16,7 @@ class Room(object):
         self.left = left
         self.right = right
         self.back = back
+        self.forward = forward
 
     def path(self):
         if command.upper() == "NORTH":
@@ -57,184 +58,14 @@ home = Room("Your warm home", "You are back in the safety of your own home. You 
                               " hot chocolate reading your favorite books.")
 sidewalk_A1 = Room("The Sidewalk", "...Right next to the Parking Lot.", 'street_1', 'void_space_right', 'parking_lot',
                    'sidewalk_A2')
-# Put "Over There" and "Trapdor Area" right here.
+# Put "Over There" and "Trapdoor Area" right here.
 
 # Put the streets right here.
-
-sidewalk_B1 = Room("The other sidewalk", "To the north of the street, north of the parking lot.", None,
-                   'void_space_right', 'street_1', 'sidewalk_B2')
-sidewalk_B2 = Room("The other sidewalk", "To the north is a disembodied door.", 'M_door', 'sidewalk_B1', 'street_2',
-                   'sidewalk_B3')
-sidewalk_B3 = Room("The other sidewalk", "To the north is an elegant field, fenced in with stone walls. An elegant "
-                                         "statue towers above in the field.", 'field', 'sidewalk_B2', 'street_3')
-field = Room()
-world_map = {
-
-    "FIELD": {
-        'NAME': "Inside the fenced area",
-        'DESCRIPTION': "The grass beneath your feet is moist and sparkly. To the north is that statue of a pegasus.",
-        'PATHS': {
-            'SOUTH': "SIDEWALK_B3",
-            'NORTH': "SHRINE_OF_DEANNE",
-            'EAST': "GRASS_PATCH",
-            'WEST': "NICE_VIEW"
-        }
-    },
-
-    "SHRINE_OF_DEANNE": {
-        'NAME': "Statue area",
-        'DESCRIPTION': "The almighty pegasus stares to you...",
-        'PATHS': {
-            'SOUTH': "FIELD",
-            'WEST': "POND",
-            'EAST': "M_STONE"
-        }
-    },
-
-    "POND": {
-        'NAME': "Pond and stepping stones",
-        'DESCRIPTION': "There are a bunch of assorted stones resting in a pond",
-        'PATHS': {
-            'SOUTH': "NICE_VIEW",
-            'EAST': "SHRINE_OF_DEANNE"
-        }
-    },
-
-    "NICE_VIEW": {
-        'NAME': "Nice view.",
-        'DESCRIPTION': "It's a nice view of the map. You gaze at the street and the room of which you began.",
-        'PATHS': {
-            'NORTH': "POND",
-            'EAST': "FIELD"
-        }
-    },
-
-    "M_STONE": {
-        'NAME': "Grassy field with a stone inscribed with a message",
-        'DESCRIPTION': "There is a stone that has the words engraved in it: 'Here stood a hero destined to find the "
-                       "wisdom of which would unlock our free will.'",
-        'PATHS': {
-            'SOUTH': "GRASS_PATCH",
-            'WEST': "SHRINE_OF_DEANNE"
-        }
-    },
-
-    "GRASS_PATCH": {
-        'NAME': "Grassy field",
-        'DESCRIPTION': "You gaze up at the house next to this field. This is the place where you would find something,"
-                       " but the world is not awake at the moment.",
-        'PATHS': {
-            'NORTH': "M_STONE",
-            'WEST': "FIELD"
-        }
-    },
-
-    "VOID_SPACE_RIGHT": {
-        'NAME': "VOID_SPACE",
-        'DESCRIPTION': "You stand on nothing, and yet nothing is the void to the right of the street.",
-        'PATHS': {
-            'SOUTH': "VOID_SPACE_CORNER",
-            'WEST': "STREET_1",
-            'EAST': "VOID_SPACE_RIGHT",
-            'NORTH': "VOID_SPACE_UPPER_CORNER",
-            'AWAY': "VOID"
-        }
-    },
-
-    "VOID_SPACE_CORNER": {
-        'NAME': "VOID_SPACE",
-        'DESCRIPTION': "You stand on nothing, and yet nothing is the void to the lower right of the world",
-        'PATHS': {
-            'NORTH': "VOID_SPACE_RIGHT",
-            'WEST': "VOID_SPACE_LOWER",
-            'EAST': "VOID_SPACE_CORNER",
-            'SOUTH': "VOID_SPACE_CORNER",
-            'AWAY': "VOID"
-        }
-    },
-
-    "VOID_SPACE_UPPER_CORNER": {
-        'NAME': "VOID_SPACE",
-        'DESCRIPTION': "You stand on nothing, and yet nothing is the void to upper right of the world",
-        'PATHS': {
-            'NORTH': "VOID_SPACE_UPPER_CORNER",
-            'WEST': "VOID_SPACE_ROOM_B",
-            'EAST': "VOID_SPACE_UPPER_CORNER",
-            'SOUTH': "VOID_SPACE_RIGHT",
-            'UP': "PORTAL_HLL",
-            'AWAY': "VOID"
-        }
-    },
-
-    "VOID_SPACE_LOWER": {
-        'NAME': "VOID_SPACE",
-        'DESCRIPTION': "You stand on nothing, and yet nothing is the void to the south of over there.",
-        'PATHS': {
-            'NORTH': "OVER_THERE",
-            'WEST': "VOID_SPACE_ROOM_A",
-            'EAST': "VOID_SPACE_CORNER",
-            'SOUTH': "VOID_SPACE_LOWER",
-            'AWAY': "VOID"
-        }
-    },
-
-    "VOID_SPACE_ROOM_A": {
-        'NAME': "VOID_SPACE_ROOM",
-        'DESCRIPTION': "A comfy little room of nothingness...",
-        'PATHS': {
-            'NORTH': "VOID_SPACE_ROOM_B",
-            'EAST': "VOID_SPACE_LOWER",
-            'AWAY': "VOID"
-        }
-    },
-
-    "VOID_SPACE_ROOM_B": {
-        'NAME': "VOID_SPACE_ROOM",
-        'DESCRIPTION': "A comfy little room of nothingness....",
-        'PATHS': {
-            'SOUTH': "VOID_SPACE_ROOM_A",
-            'EAST': "VOID_SPACE_UPPER_CORNER",
-            'AWAY': "VOID"
-        }
-    },
-
-    "VOID": {
-        'NAME': "VOID",
-        'DESCRIPTION': "You wandered away into the darkness and got lost.",
-        'PATHS': {
-            'BACK': "SHRINE_OF_DEANNE",
-            'FORWARD': "FINDING_YOUR_WAY"
-        }
-    },
-
-    "FINDING_YOUR_WAY": {
-        'NAME': "VOID...",
-        'DESCRIPTION': "You moved forward with conviction. You feel that you're getting somewhere.",
-        'PATHS': {
-            'FORWARD': "OUTSIDE"
-        }
-    },
-
-    "OUTSIDE": {
-        'NAME': "Light area",
-        'DESCRIPTION': "You stepped out of the darkness into a vast landscape bathed in light. There are "
-                       "patches of darkness everywhere.",
-        'PATHS': {
-            'BACK': "R19A"
-        }
-    },
-
-    "STREET_1": {
-        'NAME': "Street (Right)",
-        'DESCRIPTION': "Cars drive here, except there are no cars right now.",
-        'PATHS': {
-            'SOUTH': "SIDEWALK",
-            'WEST': "STREET_2",
-            'NORTH': "SIDEWALK_B1",
-            'EAST': "VOID_SPACE_RIGHT"
-        }
-    },
-
+street_1 = Room("Street", "This is the east-most side of the street. Cars should be driving here.", 'sidewalk_B1',
+                'void_space_right', 'sidewalk_A1', 'street_2')
+stret_2 = Room()
+"""
+ 
     "STREET_2": {
         'NAME': "Street (Middle)",
         'DESCRIPTION': "Cars drive here, except there are no cars right now.",
@@ -268,6 +99,54 @@ world_map = {
             'WEST': "TRAPDOOR"
         }
     },
+
+"""
+sidewalk_B1 = Room("The other sidewalk", "To the north of the street, north of the parking lot.", None,
+                   'void_space_right', 'street_1', 'sidewalk_B2')
+sidewalk_B2 = Room("The other sidewalk", "To the north is a disembodied door.", 'M_door', 'sidewalk_B1', 'street_2',
+                   'sidewalk_B3')
+sidewalk_B3 = Room("The other sidewalk", "To the north is an elegant field, fenced in with stone walls. An elegant "
+                                         "statue towers above in the field.", 'field', 'sidewalk_B2', 'street_3')
+field = Room("Inside the fenced area", "The grass beneath your feet is moist and sparkly. To the north is that statue"
+                                       " of a pegasus.", 'shrine_of_deanne', 'grass_patch', 'sidewalk_B3', 'nice_view')
+shrine_of_deanne = Room("Statue area", "The almighty pegasus stares to you...", None, 'M_stone', 'field', 'pond')
+pond = Room("Pond and stepping stones", "There are a bunch of assorted stones resting in a pond.", None,
+            'shrine_of_deanne', 'nice_view')
+nice_view = Room("Nice view", "It's a nice view of the map, despite the fact that it is not up high. You gaze at the "
+                              "street and the room of which you began in this world.", 'pond', 'field')
+M_stone = Room("Grassy field with a stone inscribed with a message", "There is a stone that has words engraved in it, "
+                                                                     "saying:'Here stood a hero destined to find the "
+                                                                     "wisdom of which would unlock our free will.",
+               None, None, 'grass_patch', 'shrine_of_deanne')
+grass_patch = Room("Grassy field", "You gaze up at the house next to this field. This is the place where you would find"
+                                   " something, but the world is not awake at the moment.", 'M_stone', None, None,
+                   'field')
+void_space_right = Room("VOID SPACE", "You stand on nothing, and yet nothing is the void to the right of the street.",
+                        'void_space_upper_corner', 'void_space_right', 'void_space_corner', 'street_1', None, None,
+                        'void')
+void_space_corner = Room("VOID SPACE", "You stand on nothing, and yet nothing is the southeast of the world.",
+                         'void_space_right', 'void_space_corner', 'void_space_corner', 'void_space_lower', None, None,
+                         'void')
+void_space_upper_corner = Room("VOID SPACE", "You stand on nothing, and yet nothing is the void to the northeast of the"
+                                             " world.", 'void_space_upper_corner', 'void_space_upper_corner',
+                               'void_space_right', 'void_space_room_B', 'portal_hall', None, 'void')
+void_space_lower = Room("VOID SPACE", "You stand on nothing, and yet nothing is the void to the south of the south-most"
+                                      " sidewalk.", 'sidewalk_A2', 'void_space_corner', 'void_space_lower',
+                        'void_space_room_A', None, None, 'void')
+void_space_room_A = Room("VOID SPACE ROOM", "A comfy little room of nothingness...", 'void_space_room_B',
+                         'void_space_lower', None, None, None, None, 'void')
+void_space_room_B = Room("VOID SPACE ROOM", "A comfy little room of nothingness....", None, 'void_space_upper_corner',
+                         'void_space_room_A', None, None, None, 'void')
+void = Room("VOID", "You wandered away into the deeper darkness and got lost", None, None, None, None, None, None, None,
+            None, None, 'shrine_of_deanne', 'finding_your_way')
+finding_your_way = Room("VOID...", "You moved forward with conviction. You feel that you are getting somewhere.", None,
+                        None, None, None, None, None, None, None, None, None, 'outside')
+outside = Room("Light Area", "You stepped out of the darkness into a vast landscape bathed in light. There are patches"
+                             " of darkness everywhere.", None, None, None, None, None, None, None, None, None, 'R19A')
+
+
+world_map = {
+
 
     "TRAPDOOR_DROP": {
         'NAME': "Trapdoor Drop room",
