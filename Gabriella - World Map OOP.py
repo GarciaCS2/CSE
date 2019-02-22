@@ -5,7 +5,7 @@ class Room(object):
     def __init__(self, name, description, north=None, east=None, south=None, west=None, up=None, down=None, away=None,
                  left=None, right=None, back=None, forward=None):
         self.name = name
-        self.description
+        self.description = description
         self.north = north
         self.east = east
         self.south = south
@@ -17,33 +17,6 @@ class Room(object):
         self.right = right
         self.back = back
         self.forward = forward
-
-    def path(self):
-        if command.upper() == "NORTH":
-            return self.north()
-        elif command.upper() == "EAST":
-            return self.east()
-        elif command.upper() == "SOUTH":
-            return self.south()
-        elif command.upper() == "WEST":
-            return self.west
-        elif command.upper() == "UP":
-            return self.up
-        elif command.upper() == "DOWN":
-            return self.down
-
-
-""" # Option 1 - Define as we go
-R19A = Room("Mr.Weibe's Room")
-parking_lot = Room("Parking Lot", None, R19A)
-
-R19A.north = parking_lot  # You cannot connect earlier rooms to later rooms until after the later rooms are made.
-# EASIER CONTROLS, LESS LIKELY TO MAKE SPELLING MISTAKES, LONGER CODE, MORE LIKELY TO MISS A LINK 
-
-# Option 2 - Set all at once
-R19A = Room("Mr.Weibe's Room", 'parking_lot') # Uses Strings
-parking_lot = Room("Parking Lot", None, "R19A")
-# TAKES MORE TIME TO GO THROUGH AND CHANGE EACH NAME OR FIX MISPELLINGS """
 
 
 R19A = Room("Mr.Weibe's Room", "The classroom you learn in. There are two doors to the north.", 'parking_lot')
@@ -58,49 +31,15 @@ home = Room("Your warm home", "You are back in the safety of your own home. You 
                               " hot chocolate reading your favorite books.")
 sidewalk_A1 = Room("The Sidewalk", "...Right next to the Parking Lot.", 'street_1', 'void_space_right', 'parking_lot',
                    'sidewalk_A2')
-# Put "Over There" and "Trapdoor Area" right here.
-
-# Put the streets right here.
+sidewalk_A2 = Room("The Sidewalk", "Still the sidewalk, but over here.", 'street_2', 'sidewalk_A1', 'void_space_lower',
+                   'sidewalk_A3')
+sidewalk_A3 = Room("The Sidewalk", "There's a trapdoor in the sidewalk...", 'street_3', 'sidewalk_A2', 'trapdoor_drop',
+                   'trapdoor_drop', None, 'trapdoor_drop', None, None, None, None, 'trapdoor_drop')
 street_1 = Room("Street", "This is the east-most side of the street. Cars should be driving here.", 'sidewalk_B1',
                 'void_space_right', 'sidewalk_A1', 'street_2')
-stret_2 = Room()
-"""
- 
-    "STREET_2": {
-        'NAME': "Street (Middle)",
-        'DESCRIPTION': "Cars drive here, except there are no cars right now.",
-        'PATHS': {
-            'SOUTH': "OVER_THERE",
-            'WEST': "STREET_3",
-            'NORTH': "SIDEWALK_B2",
-            'EAST': "STREET_1"
-        }
-    },
-
-    "STREET_3": {
-        'NAME': "Street (Left)",
-        'DESCRIPTION': "Cars drive here, except there are no cars right now.",
-        'PATHS': {
-            'SOUTH': "TRAPDOOR",
-            'WEST': "STREET_3",
-            'NORTH': "SIDEWALK_B3",
-            'EAST': "STREET_2"
-
-        }
-    },
-
-    "OVER_THERE": {
-        'NAME': "Over Here",
-        'DESCRIPTION': "Still the Sidewalk, but over here. ",
-        'PATHS': {
-            'EAST': "SIDEWALK",
-            'NORTH': "STREET_2",
-            'SOUTH': "VOID_SPACE_LOWER",
-            'WEST': "TRAPDOOR"
-        }
-    },
-
-"""
+street_2 = Room("Street", "This is the middle of the street.", 'sidewalk_B2', 'street_1', 'sidewalk_A2', 'street_3')
+street_3 = Room("Street", "This is the west-most side of the street.", 'sidewalk_B3', 'street_2', 'sidewalk_A3',
+                'street_3')
 sidewalk_B1 = Room("The other sidewalk", "To the north of the street, north of the parking lot.", None,
                    'void_space_right', 'street_1', 'sidewalk_B2')
 sidewalk_B2 = Room("The other sidewalk", "To the north is a disembodied door.", 'M_door', 'sidewalk_B1', 'street_2',
@@ -143,160 +82,26 @@ finding_your_way = Room("VOID...", "You moved forward with conviction. You feel 
                         None, None, None, None, None, None, None, None, None, 'outside')
 outside = Room("Light Area", "You stepped out of the darkness into a vast landscape bathed in light. There are patches"
                              " of darkness everywhere.", None, None, None, None, None, None, None, None, None, 'R19A')
-
-
-world_map = {
-
-
-    "TRAPDOOR_DROP": {
-        'NAME': "Trapdoor Drop room",
-        'DESCRIPTION': "This is where that Trapdoor drops those who fall in. The room looks very dark.",
-        'PATHS': {
-            'NORTH': "M_KITCHEN",
-        }
-    },
-
-    "TRAPDOOR": {
-        'NAME': "Area with trapdoor",
-        'DESCRIPTION': "There's a trapdoor on the sidewalk...",
-        'PATHS': {
-            'EAST': "OVER_THERE",
-            'NORTH': "TRAPDOOR_DROP",
-            'SOUTH': "TRAPDOOR_DROP",
-            'WEST': "TRAPDOOR_DROP"
-        },
-    },
-
-    "M_DOOR": {
-        'NAME': "Mysterious Disembodied Door",
-        'DESCRIPTION': "There's a door...just, there. Nothing behind it, nothing in front. Going North would mean"
-                       " just walking through it.",
-        'PATHS': {
-            'NORTH': "M_HALLWAY",
-            'SOUTH': "SIDEWALK_B2"
-
-        },
-    },
-
-    "M_HALLWAY": {
-        'NAME': "Mysterious Hallway",
-        'DESCRIPTION': "This is strangely spacey for a door frame, isn't it?",
-        'PATHS': {
-            'NORTH': "M_DARKROOM",
-            'SOUTH': "M_DOOR"
-        },
-    },
-
-    "M_DARKROOM": {
-        'NAME': "A dark welcome room",
-        'DESCRIPTION': "Who knew there was a place through the door...",
-        'PATHS': {
-            'SOUTH': "M_HALLWAY",
-            'NORTH': "M_CHEST_ROOM",
-            'EAST': "M_BEDROOM_1",
-            'WEST': "M_KITCHEN"
-        },
-    },
-
-    "M_CHEST_ROOM": {
-        'NAME': "Another dark room",
-        'DESCRIPTION': "There's a chest here...it's locked.",
-        'PATHS': {
-            'SOUTH': "M_DARKROOM",
-            'WEST': "BROKEN_STAIRCASE"
-        },
-    },
-
-    "M_KITCHEN": {
-        'NAME': "Mysterious Kitchen",
-        'DESCRIPTION': "Can you cook? All the pots and pans you'll need are here.",
-        'PATHS': {
-            'NORTH': "BROKEN_STAIRCASE",
-            'EAST': "M_DARKROOM"
-        },
-    },
-
-    "BROKEN_STAIRCASE": {
-        'NAME': "Staircase up",
-        'DESCRIPTION': "A long time ago, the stairs collapsed...",
-        'PATHS': {
-            'SOUTH': "M_KITCHEN",
-            'EAST': "M_CHEST_ROOM"
-        },
-    },
-
-    "M_BEDROOM_1": {
-        'NAME': "Someone's bedroom.",
-        'DESCRIPTION': "It looks as if no one has been here in centuries",
-        'PATHS': {
-            'SOUTH': "M_MARBLE",
-            'NORTH': "BATHROOM",
-            'WEST': "M_DARKROOM"
-        },
-    },
-
-    "BATHROOM": {
-        'NAME': "A Bathroom",
-        'DESCRIPTION': "If you need, you can wash up and use a first-aid kit that was left over.",
-        'PATHS': {
-            'SOUTH': "M_BEDROOM_1"
-        },
-    },
-
-    "M_MARBLE": {
-        'NAME': "Marble staircase",
-        'DESCRIPTION': "This staircase, in contrast to the house, looks new and polished.",
-        'PATHS': {
-            'NORTH': "M_BEDROOM_1",
-            'UP': "PORTAL_CONNECTION",
-            'EAST': "PORTAL_HALL"
-        },
-    },
-
-    "PORTAL_CONNECTION": {
-            'NAME': "Portal room",
-            'DESCRIPTION': "Beneath you is a portal. If you allow yourself to go down, you will leave this zone..."
-                           "How does this fit in the house? Speaking of which, if you want to go back in the house,"
-                           " you can go west.",
-            'PATHS': {
-                'WEST': "M_MARBLE",
-                'DOWN': "PORTAL_HALL"
-            }
-    },
-
-    "PORTAL_HALL": {
-        'NAME': "Portals of Worlds Hall",
-        'DESCRIPTION': "Portals are lined up on the walls, some have frames and others look like mirrors. "
-                       "for now, this is the end of your tour. Quit to escape.",
-        'PATHS': {
-
-        }
-    }
-
-}
-
-
-# Controller
-playing = True
-current_node = world_map['R19A']
-directions = ['NORTH', 'SOUTH', 'EAST', 'WEST', 'UP', 'DOWN', 'LEFT', 'RIGHT', 'AWAY', 'BACK']
-while playing:
-    print(current_node.name())
-    print()
-    print(current_node['DESCRIPTION'])
-    command = input(">_")
-    if command.lower() in ['q', 'quit', 'exit']:
-        playing = False
-        print("%s left the game" % player_name)
-    elif command.upper() in directions:
-        try:
-            room_name = ['R19A'].name()
-            current_node = world_map[room_name]
-        except KeyError:
-            print("(NO-PATH) - Can't go there.")
-        pass  # This is a placeholder.
-
-    else:
-        print("Command Not Found...")
-    print()
-    print("---" * 9)
+trapdoor_drop = Room("Trapdoor Drop Room",
+                     "This is where that trapdoor drops those who fall in. The room is very dark.", 'M_kitchen')
+M_door = Room("Mysterious disembodied door", "It's just kind of...there. Nothing in front, nothing behind it.",
+              'M_hallway', None, 'sidewalk_B2')
+M_hallway = Room("Mysterious Hallway", "This is strangely spacious for a door frame, isn't it?", 'M_kitchen')
+M_darkroom = Room("A dark welcome room", "Who knew there was an actual place through the door?", 'M_chest_room',
+                  'M_bedroom', 'M_hallway', 'M_kitchen')
+M_chest_room = Room("Another dark room", "There's a locked chest here.", None, None, 'M_darkroom', 'broken_staircase')
+M_kitchen = Room("Mysterious Kitchen", "Can you cook? All the pots, pans, and ingredients you'll need are here.",
+                 'broken_staircase', 'M_darkroom')
+broken_staircase = Room("Staircase Up", "A long time ago, these stairs collapsed...", None, 'M_chest_room', 'M_kitchen')
+M_bedroom = Room("Someone's bedroom", "IT looks as if no one has been here in centuries.", 'bathroom', 'None',
+                 'M_marble', 'M_darkroom')
+bathroom = Room("A bathroom.", "If you need, you can wash up and use a first-aid kit that was left over.", None, None,
+                'M_bedroom')
+M_marble = Room("Marble Staircase", "This staircase, in contrast to the house, looks new and polished. How strange...",
+                'M_bedroom', 'portal_connection', None, None, 'portal_connection', None, None, None, None, 'M_bedroom',
+                'portal_connection')
+portal_connection = Room("Room with a portal", "You are standing on a giant glass portal. If you choose to go through"
+                         " it, you will leave this zone...You can't come back after that.", None, None, None,
+                         'M_marble', None, 'portal_hall', 'void', None, None, 'M_marble', 'portal_hall')
+portal_hall = Room("Portal of Worlds Hall", "Portals, each with a different frame, are lined up on the walls. For now, "
+                                            "this is the end of your tour. Quit to escape.")
