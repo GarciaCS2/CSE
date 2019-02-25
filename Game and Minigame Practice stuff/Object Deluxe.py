@@ -114,6 +114,7 @@ print(pet.stats())
 
 speak_commands = ["speak", "talk", "say something"]
 trick_commands = ["do trick", "do something"]
+give_money_commands = []
 
 while Day:
     print()
@@ -122,5 +123,6 @@ while Day:
     if command in speak_commands:
         print(pet.speak())
     elif command in trick_commands:
-        print()
+        print(pet.do_trick())
+    elif command in
 
