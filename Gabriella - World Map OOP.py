@@ -19,6 +19,41 @@ class Room(object):
         self.forward = forward
 
 
+class Player(object):
+    def __init__(self, name, starting_location):
+        self.current_location = starting_location
+        self.inventory = []
+        self.name = name
+
+    def move(self, new_location):
+        """This moves the player to a new room
+
+        :param new_location: The room ovject of which you are going to
+        """
+        self.current_location = new_location
+
+    def find_next_room(self, direction):
+        """This method searches the current room to see if a room exists in that direction
+
+        :param direction: The direction that you want to move to
+        :return: The Room object if it exists, or None if it does not
+        """
+        name_of_room = getattr(self.current_location, direction)  # Option 1 people get to say "return"
+        return globals()[name_of_room]  # Security risk
+
+
+""" # Option 1 - Define as we go
+R19A = Room("Mr.Weibe's Room")
+parking_lot = Room("Parking Lot", None, R19A)
+
+R19A.north = parking_lot  # You cannot connect earlier rooms to later rooms until after the later rooms are made.
+# EASIER CONTROLS, LESS LIKELY TO MAKE SPELLING MISTAKES, LONGER CODE, MORE LIKELY TO MISS A LINK 
+
+# Option 2 - Set all at once
+R19A = Room("Mr.Weibe's Room", 'parking_lot') # Uses Strings
+parking_lot = Room("Parking Lot", None, "R19A")
+# TAKES MORE TIME TO GO THROUGH AND CHANGE EACH NAME OR FIX MISPELLINGS """
+
 R19A = Room("Mr.Weibe's Room", "The classroom you learn in. There are two doors to the north.", 'parking_lot')
 parking_lot = Room("The North Parking Lot", "There are a couple cars parked here", 'sidewalk_A1', None, 'R19A', 'car')
 car = Room("Your Cool Red Car", "This is the car you drove here in.", None, 'parking_lot', None, None, None, None,
@@ -86,7 +121,7 @@ trapdoor_drop = Room("Trapdoor Drop Room",
                      "This is where that trapdoor drops those who fall in. The room is very dark.", 'M_kitchen')
 M_door = Room("Mysterious disembodied door", "It's just kind of...there. Nothing in front, nothing behind it.",
               'M_hallway', None, 'sidewalk_B2')
-M_hallway = Room("Mysterious Hallway", "This is strangely spacious for a door frame, isn't it?", 'M_kitchen')
+M_hallway = Room("Mysterious Hallway", "This is strangely spacious for a door frame, isn't it?", 'M_darkroom')
 M_darkroom = Room("A dark welcome room", "Who knew there was an actual place through the door?", 'M_chest_room',
                   'M_bedroom', 'M_hallway', 'M_kitchen')
 M_chest_room = Room("Another dark room", "There's a locked chest here.", None, None, 'M_darkroom', 'broken_staircase')
@@ -105,3 +140,27 @@ portal_connection = Room("Room with a portal", "You are standing on a giant glas
                          'M_marble', None, 'portal_hall', 'void', None, None, 'M_marble', 'portal_hall')
 portal_hall = Room("Portal of Worlds Hall", "Portals, each with a different frame, are lined up on the walls. For now, "
                                             "this is the end of your tour. Quit to escape.")
+
+player = Player(player_name, R19A)  # Eligible for both option 1 and 2
+
+
+playing = True
+directions = ['north',  'east', 'south', 'west', 'up', 'down', 'away', 'left', 'right', 'back', 'forward']
+while playing:  # Controller
+    print()
+    print(player.current_location.name)
+    print(player.current_location.description)
+    command = input(">_")
+    if command.lower() in ['q', 'quit', 'exit']:
+        playing = False
+        print("%s left the game" % player_name)
+    elif command.lower() in directions:
+       try:
+           next_room = player.find_next_room(command)
+           player.move(next_room)
+       except KeyError:
+           print("You can't go that way")
+    else:
+        print("Command Not Found...")
+    print()
+    print("---" * 9)

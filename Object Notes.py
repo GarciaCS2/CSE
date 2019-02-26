@@ -56,16 +56,3 @@ print()
 default_phone.make_call(5)
 
 print(Special_Random.RandomWiebe.my_random())
-
-
-""" # Option 1 - Define as we go
-R19A = Room("Mr.Weibe's Room")
-parking_lot = Room("Parking Lot", None, R19A)
-
-R19A.north = parking_lot  # You cannot connect earlier rooms to later rooms until after the later rooms are made.
-# EASIER CONTROLS, LESS LIKELY TO MAKE SPELLING MISTAKES, LONGER CODE, MORE LIKELY TO MISS A LINK 
-
-# Option 2 - Set all at once
-R19A = Room("Mr.Weibe's Room", 'parking_lot') # Uses Strings
-parking_lot = Room("Parking Lot", None, "R19A")
-# TAKES MORE TIME TO GO THROUGH AND CHANGE EACH NAME OR FIX MISPELLINGS """
