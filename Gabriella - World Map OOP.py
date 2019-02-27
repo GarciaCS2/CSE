@@ -1,3 +1,4 @@
+
 player_name = "Player"
 
 
@@ -17,6 +18,7 @@ class Room(object):
         self.right = right
         self.back = back
         self.forward = forward
+        self.characters = []
 
 
 class Player(object):
@@ -40,6 +42,14 @@ class Player(object):
         """
         name_of_room = getattr(self.current_location, direction)  # Option 1 people get to say "return"
         return globals()[name_of_room]  # Security risk
+
+
+class Guide(object):
+    def __init__(self, name, alternative_species=None, dialogue=None):
+        self.name = name
+        self.anthropoid = True
+        self.alternative_species = alternative_species
+        self.dialogue_tree = dialogue
 
 
 """ # Option 1 - Define as we go
@@ -84,6 +94,7 @@ sidewalk_B3 = Room("The other sidewalk", "To the north is an elegant field, fenc
 field = Room("Inside the fenced area", "The grass beneath your feet is moist and sparkly. To the north is that statue"
                                        " of a pegasus.", 'shrine_of_deanne', 'grass_patch', 'sidewalk_B3', 'nice_view')
 shrine_of_deanne = Room("Statue area", "The almighty pegasus stares to you...", None, 'M_stone', 'field', 'pond')
+
 pond = Room("Pond and stepping stones", "There are a bunch of assorted stones resting in a pond.", None,
             'shrine_of_deanne', 'nice_view')
 nice_view = Room("Nice view", "It's a nice view of the map, despite the fact that it is not up high. You gaze at the "
@@ -141,8 +152,11 @@ portal_connection = Room("Room with a portal", "You are standing on a giant glas
 portal_hall = Room("Portal of Worlds Hall", "Portals, each with a different frame, are lined up on the walls. For now, "
                                             "this is the end of your tour. Quit to escape.")
 
-player = Player(player_name, R19A)  # Eligible for both option 1 and 2
 
+player = Player("Player", R19A)  # Eligible for both option 1 and 2
+
+guide = Guide("Gabe")
+shrine_of_deanne.characters = [guide]
 
 playing = True
 directions = ['north',  'east', 'south', 'west', 'up', 'down', 'away', 'left', 'right', 'back', 'forward']
@@ -150,6 +164,11 @@ while playing:  # Controller
     print()
     print(player.current_location.name)
     print(player.current_location.description)
+    if 2 > len(player.current_location.characters) > 0:
+        print()
+        print(">>>%s is here." % player.current_location.characters[0].name)
+    elif len(player.current_location.characters) >= 2:
+        pass
     command = input(">_")
     if command.lower() in ['q', 'quit', 'exit']:
         playing = False
@@ -164,3 +183,16 @@ while playing:  # Controller
         print("Command Not Found...")
     print()
     print("---" * 9)
+    """
+    import random
+    # So Gabe can say hi:
+            print(player.current_location.characters[0].dialogue["GREETINGS"]
+              [0, random.randint(0, player.current_location.characters[0].dialogue["GREETINGS"])])
+guide_dialogue = {
+    "GREETINGS": ["Hello %s" % Player.name, ""
+
+    ],
+    "EXPLAINING": {
+
+    }
+}"""
