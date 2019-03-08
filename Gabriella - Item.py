@@ -12,13 +12,27 @@ class Equipment(Item):
         self.condition = condition
 
 
-class Mallobarrel(Equipment):
+class Pat(Equipment):  # INSTANTIABLE Pat >>> Pan or Pot
+    def __init__(self, name, description, location, type, contents):
+        super(Pat, self).__init__(name, description, location, 'MODERATE')
+        self.type = type
+        self.contents = contents
+
+
+
+class Mallobarrel(Equipment):  # INSTANTIABLE Mallobarrel
     def __init__(self, location, max_mallows=100, marshmallows=100):
         super(Mallobarrel, self).__init__("Marshooter Barrel", "The barrel of a Rapid-Fire Marshooter gun", location,
                                           "LIGHT")
         self.marshmallows = marshmallows  # Maximum mallows you can load
         self.max_mallows = max_mallows  # Amount of marshmallows loaded
 
+
+class Tool(Equipment):  # INSTANTIABLE Tool
+    def __init__(self, name, description, location, material, head):
+        super(Tool, self).__init__(name, description, location, 'MODERATE')
+        self.material = material
+        self.head = head  # Axe, Knife, Shovel, Pick-axe, Hammer
 
 
 class Weapon(Equipment):
@@ -72,5 +86,12 @@ class Marshooter(Weapon):  # INSTANTIABLE Marshmallow Shooter (Sow >>> Sky-Bow)
                                          "", location, 'LIGHT', 120, 'FAR')
         self.barrel = barrel
 
+    def mallow_count(self):
+        print("You have...")
+        print(self.barrel.marshmallows, " marshmallows")
+        print("Your current barrel holds ", self.barrel.max_mallows, " Marshmallows")
+
 
 sword = Standard("Some sword.", "Just a generic sword thing.", "INSERT ROOM HERE", 'MELEE')
+marsh = Marshooter(None)
+marsh.mallow_count()
