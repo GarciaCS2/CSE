@@ -13,11 +13,40 @@ class Equipment(Item):
 
 
 class Pat(Equipment):  # INSTANTIABLE Pat >>> Pan or Pot
-    def __init__(self, name, description, location, type, contents):
+    def __init__(self, name, description, location, type, contents='EMPTY'):
         super(Pat, self).__init__(name, description, location, 'MODERATE')
         self.type = type
         self.contents = contents
 
+
+class Container(Equipment):
+    def __init__(self, name, description, location, weight, type, tagtype, contents):
+        super(Container, self).__init__(name, description, location, weight)
+        self.type = type
+        self.owned = False
+        self.owner = ""
+        self.tag_type = tagtype  # If it's a drink, it's a drawn-on label. If it's a bag, it's a tag.
+        self.contents = contents
+
+
+class Generic(Container):   # INSTANTIABLE Generic Carrier Bag
+    def __init__(self, location, ):
+        super(Generic, self).__init__("", description, location, weight, type, tagtype, contents)
+
+
+
+class Thermos(Container):   # INSTANTIABLE Thermos
+    def __init__(self, location, contents, color="purple", ):
+        super(Thermos, self).__init__("Thermos", "A %s cup meant to hold liquids, hot or cold." % self.color, location,
+                                      'LIGHT', 'DRINK', 'LABEL', contents)
+        self.color = color
+
+
+class Bottle(Container):   # INSTANTIABLE Bottle (You can throw it)
+    def __init__(self, location, material, contents):
+        super(Bottle, self).__init__("Thermos", ("A %s bottle filled with %s" % self.material, self.contents), location,
+                                     'LIGHT', 'DRINK', 'LABEL', contents)
+        self.material = material  # PLASTIC OR GLASS
 
 
 class Mallobarrel(Equipment):  # INSTANTIABLE Mallobarrel
