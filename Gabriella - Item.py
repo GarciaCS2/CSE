@@ -12,40 +12,75 @@ class Equipment(Item):
         self.condition = condition
 
 
+class Armour(Equipment):
+    def __init__(self, name, description, location, weight, protection, material, blessing):
+        super(Armour, self).__init__(name, description, location, weight)
+        self.protection = protection  # This attribute follows percentages
+        self.material = material
+        self.blessing = blessing  # The enchantment or buff that the armour piece has.
+
+
+class Headgear(Armour):
+    def __init__(self, name, description, location, protection, material, blessing):
+        super(Headgear, self).__init__(name, description, location, 'MODERATE', protection, material, blessing)
+
+
+class Gelmet(Headgear):  # INSTANTIABLE Generic Helmet
+    def __init__(self, location, protection, material):
+        super(Gelmet, self).__init__("Generic Helmet", "Helmet made of %s" % self.material, location, protection, material, None
+                                     )
+
+
+class Torso(Armour):
+    def __init__(self, name, description, location, protection, material, blessing):
+        super(Torso, self).__init__(name, description, location, 'MODERATE', protection, material, blessing)
+
+
+class Gorso(Torso):
+    def __init__(self, name, description, location, protection, material):
+        super(Gorso, self).__init__(name, description, location, protection, material, None)
+
+
+class Footwear(Armour):
+    def __init__(self, name, description, location, protection, material, blessing):
+        super(Footwear, self).__init__(name, description, location, 'MODERATE', protection, material, blessing)
+
+
 class Pat(Equipment):  # INSTANTIABLE Pat >>> Pan or Pot
-    def __init__(self, name, description, location, type, contents='EMPTY'):
+    def __init__(self, name, description, location, kind, contents='EMPTY'):
         super(Pat, self).__init__(name, description, location, 'MODERATE')
-        self.type = type
+        self.kind = kind
         self.contents = contents
 
 
-class Container(Equipment):
-    def __init__(self, name, description, location, weight, type, tagtype, contents):
-        super(Container, self).__init__(name, description, location, weight)
-        self.type = type
+class Carrier(Equipment):
+    def __init__(self, name, description, location, weight, kind, tag_type, contents):
+        super(Carrier, self).__init__(name, description, location, weight)
+        self.kind = kind
         self.owned = False
         self.owner = ""
-        self.tag_type = tagtype  # If it's a drink, it's a drawn-on label. If it's a bag, it's a tag.
+        self.tag_type = tag_type  # If it's a drink, it's a drawn-on label. If it's a bag, it's a tag.
         self.contents = contents
 
 
-class Generic(Container):   # INSTANTIABLE Generic Carrier Bag
-    def __init__(self, location, ):
-        super(Generic, self).__init__("", description, location, weight, type, tagtype, contents)
+class Generic(Carrier):   # INSTANTIABLE Generic Carrier Bag
+    def __init__(self, name, description, location, weight, contents=None):
+        super(Generic, self).__init__(name, description, location, weight, 'THINGS', 'TAG', contents)
+        self.contents = [contents]
 
 
-
-class Thermos(Container):   # INSTANTIABLE Thermos
-    def __init__(self, location, contents, color="purple", ):
+class Thermos(Carrier):   # INSTANTIABLE Thermos
+    def __init__(self, location, contents, fill=0, color="purple", ):
         super(Thermos, self).__init__("Thermos", "A %s cup meant to hold liquids, hot or cold." % self.color, location,
-                                      'LIGHT', 'DRINK', 'LABEL', contents)
+                                      'LIGHT', 'LIQUIDS', 'LABEL', contents)
+        self.fill = fill  # %0 is Empty, %100 is Filled
         self.color = color
 
 
-class Bottle(Container):   # INSTANTIABLE Bottle (You can throw it)
+class Bottle(Carrier):   # INSTANTIABLE Bottle (You can throw it)
     def __init__(self, location, material, contents):
         super(Bottle, self).__init__("Thermos", ("A %s bottle filled with %s" % self.material, self.contents), location,
-                                     'LIGHT', 'DRINK', 'LABEL', contents)
+                                     'LIGHT', 'LIQUIDS', 'LABEL', contents)
         self.material = material  # PLASTIC OR GLASS
 
 
