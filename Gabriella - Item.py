@@ -85,7 +85,7 @@ class Bottle(Carrier):   # INSTANTIABLE Bottle (You can throw it)
 
 
 class Mallobarrel(Equipment):  # INSTANTIABLE Mallobarrel
-    def __init__(self, location, max_mallows=100, marshmallows=100):
+    def __init__(self, location=None, max_mallows=100, marshmallows=100):
         super(Mallobarrel, self).__init__("Marshooter Barrel", "The barrel of a Rapid-Fire Marshooter gun", location,
                                           "LIGHT")
         self.marshmallows = marshmallows  # Maximum mallows you can load
@@ -145,9 +145,9 @@ class Sow(Weapon):  # INSTANTIABLE Sky Bow (Sow >>> Sky-Bow)
 
 
 class Marshooter(Weapon):  # INSTANTIABLE Marshmallow Shooter (Sow >>> Sky-Bow)
-    def __init__(self, location, barrel=Mallobarrel(None)):  # Trying to link mallobarrel to marshooter
+    def __init__(self, location, barrel=Mallobarrel):  # Trying to link mallobarrel to marshooter
         super(Marshooter, self).__init__("Rapid-Fire Marshmallow Shooter", "It's so fast, most enemies can't handle it!"
-                                         "", location, 'LIGHT', 120, 'FAR')
+                                         "", location, 'LIGHT', 20, 'FAR')
         self.barrel = barrel
 
     def mallow_count(self):
@@ -156,6 +156,36 @@ class Marshooter(Weapon):  # INSTANTIABLE Marshmallow Shooter (Sow >>> Sky-Bow)
         print("Your current barrel holds ", self.barrel.max_mallows, " Marshmallows")
 
 
+class Character(object):
+    def __init__(self, name, health, weapon=None, helmet=None, torso=None, boots=None):
+        self.name = name
+        self.health = health
+        self.weapon = weapon
+        self.helmet = helmet
+        self.torso = torso
+        self.boots = boots
+        self.armor = helmet.protection + torso.protection + boots.protection
+
+    def take_damage(self, damage: int, lost):
+        if self.armor > 100:
+            print("%s's armor negated all the damage." % self.name)
+        else:
+            self.health -= (damage*self.armor)/100
+            lost = damage - (damage*self.armor)/100
+            print("%s lost %d health" % self.name, lost)
+
+    def attack(self, target):
+        print("Attack! %s hit %s for %d damage." % self.name, target.name, self.weapon.attack_power)
+        target.take_damage(self.weapon.attack_power)
+
+
 sword = Standard("Some sword.", "Just a generic sword thing.", "INSERT ROOM HERE", 'MELEE')
 marsh = Marshooter(None)
 marsh.mallow_count()
+
+knight = Character("Evil_Knight", 100, sword, Gelmet(None, 30, 'IRON'))
+good_sword = Ord(None, 'FIRE')
+orc = Character("Wieve", 1000, good_sword, Gelmet(None, 40, 'IRON'))
+
+orc.attack(knight)
+knight.attack(orc)
