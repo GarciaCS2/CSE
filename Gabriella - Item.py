@@ -44,7 +44,7 @@ class Torso(Armour):
         super(Torso, self).__init__(name, description, location, 'MODERATE', protection, material, blessing)
 
 
-class Gorso(Torso):
+class Gorso(Torso):  # INSTANTIABLE Generic Torso
     def __init__(self, location, protection, material):
         super(Gorso, self).__init__("Generic Torso Armor", "Just your everyday armor", location, protection, material,
                                     None)
@@ -84,15 +84,15 @@ class Generic(Carrier):   # INSTANTIABLE Generic Carrier Bag
 
 
 class Thermos(Carrier):   # INSTANTIABLE Thermos
-    def __init__(self, location, contents, fill=0, color="purple", ):
-        super(Thermos, self).__init__("Thermos", "A %s cup meant to hold liquids, hot or cold." % self.color, location,
+    def __init__(self, location, contents, fill=0, color="purple"):
+        super(Thermos, self).__init__("Thermos", "A cup meant to hold liquids, hot or cold.", location,
                                       'LIGHT', 'LIQUIDS', 'LABEL', contents)
         self.fill = fill  # %0 is Empty, %100 is Filled
         self.color = color
 
 
 class Bottle(Carrier):   # INSTANTIABLE Bottle (You can throw it)
-    def __init__(self, location, material, contents):
+    def __init__(self, location, material, contents='WATER'):
         super(Bottle, self).__init__("Thermos", ("A %s bottle filled with %s" % self.material, self.contents), location,
                                      'LIGHT', 'LIQUIDS', 'LABEL', contents)
         self.material = material  # PLASTIC OR GLASS
@@ -212,21 +212,38 @@ class Character(object):
         target.take_damage(self.weapon.attack_power)
 
 
-sword = Standard("Some sword.", "Just a generic sword thing.", "INSERT ROOM HERE", 'MELEE')
-marsh = Marshooter(None, Mallobarrel(None, 100, 100))
+#  Instantiated items
 
-marsh.barrel.count_mallows()
+other_helm = Gelmet(None, 20, 'IRON')
 
 cool_torso = Gorso(None, 20, 'IRON')
 
+boots = Gboots(None, 5, 'LEATHER')
 
+pan = Pat("A pan", "A regular frying pan.", None, 'PAN')
+
+bag = Generic("Regular Bag", "A black bag...it is empty.", None, 'LIGHT')
+
+cup = Thermos(None, None)
+print(cup.description)
+
+water_bottle = Bottle(None, 'PLASTIC')
+print(water_bottle.decription)
+sword = Standard("Some sword.", "Just a generic sword thing.", "INSERT ROOM HERE", 'MELEE')
+marsh = Marshooter(None, Mallobarrel(None, 100, 100))
+
+good_sword = Ord(None, 'FIRE')
+
+
+
+#  CHARACTER CLASH
 knight = Character("The Knight", 100, sword, None, cool_torso)
 cool_helmet = Kinghelm(None, knight)
 knight.helmet = cool_helmet
-good_sword = Ord(None, 'FIRE')
-other_helm = Gelmet(None, 20, 'IRON')
+
 other_torso = Gorso(None, 30, 'IRON')
 orc = Character("Wievel", 1000, good_sword, other_helm, other_torso)
 
+marsh.barrel.count_mallows()
 orc.attack(knight)
 knight.attack(orc)
