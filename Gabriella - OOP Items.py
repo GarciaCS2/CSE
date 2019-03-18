@@ -93,7 +93,7 @@ class Thermos(Carrier):   # INSTANTIABLE Thermos
 
 class Bottle(Carrier):   # INSTANTIABLE Bottle (You can throw it)
     def __init__(self, location, material, contents='WATER'):
-        super(Bottle, self).__init__("Thermos", ("A %s bottle filled with %s" % self.material, self.contents), location,
+        super(Bottle, self).__init__("Thermos", "A bottle.", location,
                                      'LIGHT', 'LIQUIDS', 'LABEL', contents)
         self.material = material  # PLASTIC OR GLASS
 
@@ -123,6 +123,16 @@ class Weapon(Equipment):
         super(Weapon, self).__init__(name, description, location, weight)
         self.attack_power = attack_power
         self.range_or_reach = reach
+
+
+regular_barrel = Mallobarrel()
+
+
+class Marshooter(Weapon):  # INSTANTIABLE Marshmallow Shooter
+    def __init__(self, location, barrel=regular_barrel):  # Trying to link mallobarrel to marshooter
+        super(Marshooter, self).__init__("Rapid-Fire Marshmallow Shooter", "It's so fast, most enemies can't handle it!"
+                                         "", location, 'LIGHT', 20, 'FAR')
+        self.barrel = barrel
 
 
 class Standard(Weapon):  # INSTANTIABLE Generic Weapon
@@ -163,24 +173,14 @@ class Sow(Weapon):  # INSTANTIABLE Sky Bow (Sow >>> Sky-Bow)
         self.sting = True  # No string, no service.
 
 
-regular_barrel = Mallobarrel()
-
-
-class Marshooter(Weapon):  # INSTANTIABLE Marshmallow Shooter (Sow >>> Sky-Bow)
-    def __init__(self, location, barrel=regular_barrel):  # Trying to link mallobarrel to marshooter
-        super(Marshooter, self).__init__("Rapid-Fire Marshmallow Shooter", "It's so fast, most enemies can't handle it!"
-                                         "", location, 'LIGHT', 20, 'FAR')
-        self.barrel = barrel
-
-
 class Character(object):
-    def __init__(self, name, health, weapon=None, helmet=None, torso=None, boots=None):
+    def __init__(self, name, health, weapon=None, helmet=None, torso=None, shoes=None):
         self.name = name
         self.health = health
         self.weapon = weapon
         self.helmet = helmet
         self.torso = torso
-        self.boots = boots
+        self.shoes = shoes
         self.armor = 0
 
     def calculate_armor(self):
@@ -193,7 +193,7 @@ class Character(object):
         except AttributeError or TypeError:
             pass
         try:
-            self.armor += self.boots.protection
+            self.armor += self.shoes.protection
         except AttributeError or TypeError:
             pass
 
@@ -227,14 +227,28 @@ bag = Generic("Regular Bag", "A black bag...it is empty.", None, 'LIGHT')
 cup = Thermos(None, None)
 print(cup.description)
 
-water_bottle = Bottle(None, 'PLASTIC')
-print(water_bottle.decription)
+water_bottle = Bottle(None, "PLASTIC", "WATER")
+print(water_bottle.description)
+
+another_mallobarrel = Mallobarrel(None, 200, 100)
+
 sword = Standard("Some sword.", "Just a generic sword thing.", "INSERT ROOM HERE", 'MELEE')
+
 marsh = Marshooter(None, Mallobarrel(None, 100, 100))
 
 good_sword = Ord(None, 'FIRE')
 
+axe = Tool("Regular axe", "Just some axe.", None, 'STONE', 'AXE')
 
+classic_sword = Standard("Classic Sword.", "Made of sword materials.", None, 'MELEE')
+
+magic_axe = Maxe(None, None, 'BAD_LUCK')
+
+obsidian_sword = Ord(None, 'FLAME')
+
+obliteration_mallet = Oblet(None)
+
+sky_bow = Sow(None)
 
 #  CHARACTER CLASH
 knight = Character("The Knight", 100, sword, None, cool_torso)
