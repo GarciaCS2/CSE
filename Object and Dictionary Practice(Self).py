@@ -1,11 +1,10 @@
-import random
 #  OOP - https://realpython.com/python3-object-oriented-programming/
 #  Dictionary - https://docs.python.org/3/tutorial/datastructures.html?highlight=dictionary
+
+
 class Snop:
     def __init__(self, name, age, cool, fact, complement):
-
-        species = 'mammal'
-        self.cool = True
+        self.cool = cool
         self.name = name
         self.age = age
         self.fact = fact
@@ -41,8 +40,7 @@ def find_cool_snop():
 find_cool_snop()
 
 
-
 command = input("")
 if "hi" in command.lower():
     if "jeff" in command.lower():
-print(jeff.give_kudos())
+        print(jeff.give_kudos())
