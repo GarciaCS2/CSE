@@ -173,47 +173,7 @@ class Sow(Weapon):  # INSTANTIABLE Sky Bow (Sow >>> Sky-Bow)
         self.sting = True  # No string, no service.
 
 
-class Character(object):
-    def __init__(self, name, health, weapon=None, helmet=None, torso=None, shoes=None):
-        self.name = name
-        self.health = health
-        self.weapon = weapon
-        self.helmet = helmet
-        self.torso = torso
-        self.shoes = shoes
-        self.armor = 0
-
-    def calculate_armor(self):
-        try:
-            self.armor += self.helmet.protection
-        except AttributeError or TypeError:
-            pass
-        try:
-            self.armor += self.torso.protection
-        except AttributeError or TypeError:
-            pass
-        try:
-            self.armor += self.shoes.protection
-        except AttributeError or TypeError:
-            pass
-
-    def take_damage(self, damage: int, lost=0):
-        self.calculate_armor()
-        if self.armor > 100:
-            print("%s's armor negated all the damage." % self.name)
-            print("%s lost %s health" % self.name, lost)
-        else:
-            self.health -= (damage*self.armor)/100
-            lost = damage - (damage*self.armor)/100
-            print(self.name, " lost ", lost, " health")
-
-    def attack(self, target):
-        print("Attack! ", self.name, "hit ", target.name, " for ", self.weapon.attack_power, " damage.")
-        target.take_damage(self.weapon.attack_power)
-
-
 #  Instantiated items
-
 other_helm = Gelmet(None, 20, 'IRON')
 
 cool_torso = Gorso(None, 20, 'IRON')
@@ -274,11 +234,23 @@ class Room(object):
         self.stuff = []
 
 
-class Player(object):
-    def __init__(self, name, starting_location):
-        self.current_location = starting_location
-        self.inventory = []
+class Entity(object):
+    def __init__(self, name):
         self.name = name
+
+
+class Interactive(Entity):
+    def __init__(self, name:str, starting_location, health:int, money:int, weapon=None, helmet=None, torso=None, shoes=None):
+        super(Interactive, self).__init__(name)
+        self.current_location = starting_location
+        self.health = health
+        self.money = money
+        self.weapon = weapon
+        self.helmet = helmet
+        self.torso = torso
+        self.shoes = shoes
+        self.armor = 0
+        self.inventory = []
 
     def move(self, new_location):
         """This moves the player to a new room
@@ -296,8 +268,49 @@ class Player(object):
         name_of_room = getattr(self.current_location, direction)  # Option 1 people get to say "return"
         return globals()[name_of_room]  # Security risk
 
+    def calculate_armor(self):
+        try:
+            self.armor += self.helmet.protection
+        except AttributeError or TypeError:
+            pass
+        try:
+            self.armor += self.torso.protection
+        except AttributeError or TypeError:
+            pass
+        try:
+            self.armor += self.shoes.protection
+        except AttributeError or TypeError:
+            pass
 
-class Guide(object):
+    def take_damage(self, damage: int, lost=0):
+        self.calculate_armor()
+        if self.armor > 100:
+            print("%s's armor negated all the damage." % self.name)
+            print("%s lost %s health" % self.name, lost)
+        else:
+            self.health -= (damage*self.armor)/100
+            lost = damage - (damage*self.armor)/100
+            print(self.name, " lost ", lost, " health")
+
+    def attack(self, target):
+        print("Attack! ", self.name, "hit ", target.name, " for ", self.weapon.attack_power, " damage.")
+        target.take_damage(self.weapon.attack_power)
+
+
+class Player(Interactive):  # ENTITY - PLAYER
+    def __init__(self,  ):
+        super(Player, self)
+
+
+
+
+class Character(object):  # ENTITY - Attackable NPC
+    def __init__(self, name, starting_location, health, weapon=None, helmet=None, torso=None, shoes=None):
+
+
+
+
+class Guide(object):  # ENTITY - NON-ATTACKABLE NPC
     def __init__(self, name, alternative_species=None, dialogue=None):
         self.name = name
         self.anthropoid = True
@@ -399,6 +412,7 @@ player = Player("Player", R19A)  # Eligible for both option 1 and 2
 
 guide = Guide("Gabe")
 shrine_of_deanne.characters = [guide]
+shrine_of_deanne.stuff = [sky_bow, good_sword]
 
 playing = True
 directions = ['north',  'east', 'south', 'west', 'up', 'down', 'away', 'left', 'right', 'back', 'forward']
@@ -411,8 +425,16 @@ while playing:  # Controller
         print(">>>%s is here." % player.current_location.characters[0].name)
     elif len(player.current_location.characters) >= 2:
         pass
-    if len(player.current_location.stuff) > 0:
-        print("In this area there is {}", player.current_location.stuff.name)  # Fix this
+    if len(player.current_location.stuff) == 1:
+        print("In this area there is a/an", player.current_location.stuff[0].name)
+    elif len(player.current_location.stuff) > 1:
+        things = []
+        for i in range(len(player.current_location.stuff)):
+            things.append(player.current_location.stuff[i].name)
+        things = " , ".join(things)
+        print("In this area there is %s" % things)
+    else:
+        pass
     command = input(">_")
     if command.lower() in ['q', 'quit', 'exit']:
         playing = False
