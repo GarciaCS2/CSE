@@ -1,3 +1,6 @@
+import random
+
+
 class Item(object):
     def __init__(self, name, description, location=None):
         self.name = name
@@ -210,6 +213,12 @@ obliteration_mallet = Oblet(None)
 
 sky_bow = Sow(None)
 
+startup_items = {
+    'WEAPONS': [sword, good_sword, classic_sword, magic_axe, obsidian_sword, obliteration_mallet, sky_bow],
+    'HELMETS': [other_helm, ],
+    'TORSO PIECES': [],
+    'SHOES': [boots, ]
+}
 
 player_name = "Player"
 
@@ -240,7 +249,7 @@ class Entity(object):
 
 
 class Interactive(Entity):
-    def __init__(self, name:str, starting_location, health:int, money:int, weapon=None, helmet=None, torso=None, shoes=None):
+    def __init__(self, name, starting_location, health: int, money: int, weapon, helmet, torso, shoes):
         super(Interactive, self).__init__(name)
         self.current_location = starting_location
         self.health = health
@@ -297,26 +306,37 @@ class Interactive(Entity):
         target.take_damage(self.weapon.attack_power)
 
 
-class Player(Interactive):  # ENTITY - PLAYER
-    def __init__(self,  ):
-        super(Player, self)
+class Player(Interactive):  # ENTITY, ATTACKABLE - PLAYER
+    def __init__(self, name, starting_location, health=800, money=50):
+        super(Player, self).__init__(name, starting_location, health, money, None, None, None, None)
 
 
+class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
+    def __init__(self, name, starting_location, health, money,  weapon, helmet, torso, shoes, hostile):
+        super(Character, self).__init__(name, starting_location, health, money, weapon, helmet, torso, shoes)
+        self.hostile = hostile  # True or False
+
+    def instantialize_character(self, place):
+        self.name = "Jeff"
+        self.current_location = place
+        self.health = random.randint(500, 1000)
+        self.money = random.randint(10, 700)
+        self.weapon = startup_items['WEAPONS'][random.randint(0, len(startup_items['WEAPONS'])-1)]
+        self.helmet = startup_items['HELMETS'][random.randint(0, len(startup_items['HELMETS'])-1)]
+        self.torso = startup_items['TORSO PIECES'][random.randint(0, len(startup_items['TORSO PIECES'])-1)]
+        self.shoes = startup_items['SHOES'][random.randint(0, len(startup_items['SHOES']) - 1)]
 
 
-class Character(object):  # ENTITY - Attackable NPC
-    def __init__(self, name, starting_location, health, weapon=None, helmet=None, torso=None, shoes=None):
-
-
-
-
-class Guide(object):  # ENTITY - NON-ATTACKABLE NPC
-    def __init__(self, name, alternative_species=None, dialogue=None):
-        self.name = name
+class Guide(Entity):  # ENTITY, NON-ATTACKABLE - NPC
+    def __init__(self, name, alternative_species=None):
+        super(Guide, self).__init__(name)
         self.anthropoid = True
         self.alternative_species = alternative_species
-        self.dialogue_tree = dialogue
+        self.dialogue_tree = {
+        }
 
+
+guide = Guide("Gabe")
 
 R19A = Room("Mr.Weibe's Room", "The classroom you learn in. There are two doors to the north.", 'parking_lot')
 parking_lot = Room("The North Parking Lot", "There are a couple cars parked here", 'sidewalk_A1', None, 'R19A', 'car')
@@ -410,9 +430,16 @@ portal_hall = Room("Portal of Worlds Hall", "Portals, each with a different fram
 
 player = Player("Player", R19A)  # Eligible for both option 1 and 2
 
-guide = Guide("Gabe")
+
 shrine_of_deanne.characters = [guide]
 shrine_of_deanne.stuff = [sky_bow, good_sword]
+
+directions_booklet = {  # WORK ON THIS
+    'DIRECTIONAL':{
+        'NORTH'
+    }
+}
+
 
 playing = True
 directions = ['north',  'east', 'south', 'west', 'up', 'down', 'away', 'left', 'right', 'back', 'forward']
@@ -431,7 +458,7 @@ while playing:  # Controller
         things = []
         for i in range(len(player.current_location.stuff)):
             things.append(player.current_location.stuff[i].name)
-        things = " , ".join(things)
+        things = ", ".join(things)
         print("In this area there is %s" % things)
     else:
         pass
