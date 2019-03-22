@@ -435,8 +435,17 @@ shrine_of_deanne.characters = [guide]
 shrine_of_deanne.stuff = [sky_bow, good_sword]
 
 directions_booklet = {  # WORK ON THIS
-    'DIRECTIONAL':{
-        'NORTH'
+    'GENERAL': {
+
+    },
+    'DIRECTIONAL': {
+        'NORTH': ["north", "nort", "norht", "n"],
+        'EAST': ["east", "eas", "est", "e"],
+        'SOUTH': ["south", "sout", "sot", "s"],
+        'WEST': ["WEST", "WES", "W"]
+    },
+    'DEV_HAX':{
+        "ENABLE HACKS"
     }
 }
 
@@ -466,7 +475,8 @@ while playing:  # Controller
     if command.lower() in ['q', 'quit', 'exit']:
         playing = False
         print("%s left the game" % player_name)
-    elif command.lower() in directions:
+    elif command.lower() in directions_booklet['DIRECTIONAL']:
+        command = directions_booklet['DIRECTIONAL']
         try:
             next_room = player.find_next_room(command)
             player.move(next_room)
