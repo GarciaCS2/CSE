@@ -215,7 +215,7 @@ sky_bow = Sow(None)
 
 startup_items = {
     'WEAPONS': [sword, good_sword, classic_sword, magic_axe, obsidian_sword, obliteration_mallet, sky_bow],
-    'HELMETS': [other_helm, ],
+    'HELMETS': [other_helm],
     'TORSO PIECES': [],
     'SHOES': [boots, ]
 }
@@ -339,6 +339,7 @@ class Guide(Entity):  # ENTITY, NON-ATTACKABLE - NPC
 guide = Guide("Gabe")
 
 R19A = Room("Mr.Weibe's Room", "The classroom you learn in. There are two doors to the north.", 'parking_lot')
+R19A.stuff = [axe]
 parking_lot = Room("The North Parking Lot", "There are a couple cars parked here", 'sidewalk_A1', None, 'R19A', 'car')
 car = Room("Your Cool Red Car", "This is the car you drove here in.", None, 'parking_lot', None, None, None, None,
            'freeway')
@@ -357,6 +358,7 @@ sidewalk_A3 = Room("The Sidewalk", "There's a trapdoor in the sidewalk...", 'str
                    'trapdoor_drop', None, 'trapdoor_drop', None, None, None, None, 'trapdoor_drop')
 street_1 = Room("Street", "This is the east-most side of the street. Cars should be driving here.", 'sidewalk_B1',
                 'void_space_right', 'sidewalk_A1', 'street_2')
+street_1.stuff = [magic_axe, other_helm]
 street_2 = Room("Street", "This is the middle of the street.", 'sidewalk_B2', 'street_1', 'sidewalk_A2', 'street_3')
 street_3 = Room("Street", "This is the west-most side of the street.", 'sidewalk_B3', 'street_2', 'sidewalk_A3',
                 'street_3')
@@ -434,24 +436,13 @@ player = Player("Player", R19A)  # Eligible for both option 1 and 2
 shrine_of_deanne.characters = [guide]
 shrine_of_deanne.stuff = [sky_bow, good_sword]
 
-directions_booklet = {  # WORK ON THIS
-    'GENERAL': {
-
-    },
-    'DIRECTIONAL': {
-        'NORTH': ["north", "nort", "norht", "n"],
-        'EAST': ["east", "eas", "est", "e"],
-        'SOUTH': ["south", "sout", "sot", "s"],
-        'WEST': ["WEST", "WES", "W"]
-    },
-    'DEV_HAX':{
-        "ENABLE HACKS"
-    }
+command_dictionary = {
+    'DIRECTIONS': ['north',  'east', 'south', 'west', 'up', 'down', 'away', 'left', 'right', 'back', 'forward'],
+    'ITEMS': ['take', 'pick up', 'use', 'equip', 'unequip', 'drop', 'look at', 'examine', 'give'],
+    'CHARACTER': ['attack', 'prod']
 }
 
-
 playing = True
-directions = ['north',  'east', 'south', 'west', 'up', 'down', 'away', 'left', 'right', 'back', 'forward']
 while playing:  # Controller
     print()
     print(player.current_location.name)
@@ -472,17 +463,47 @@ while playing:  # Controller
     else:
         pass
     command = input(">_")
-    if command.lower() in ['q', 'quit', 'exit']:
+    if command.lower() in ['q', 'quit', 'exit', 'goodbye']:
         playing = False
         print("%s left the game" % player_name)
-    elif command.lower() in directions_booklet['DIRECTIONAL']:
-        command = directions_booklet['DIRECTIONAL']
+    elif command.lower() in command_dictionary['DIRECTIONS']:
         try:
             next_room = player.find_next_room(command)
             player.move(next_room)
         except KeyError:
             print("You can't go that way")
+    elif 'pick up' in command:
+        item_name = command[8:].lower()
+        print("You pick up the %s" % item_name)
+        player.inventory.append(player.current_location.stuff)
+
     else:
         print("Command Not Found...")
+    """if command_dictionary['ITEMS'] in command.lower():
+        if ['examine', 'look at'] in command.lower():
+            thing = 'nothing'
+            not_there = False
+            while thing == 'nothing' and not_there==False:
+                for i in range(len(player.current_location.stuff)):
+
+
+
+        elif ['take', 'pick up'] in command.lower():"""
+
+
     print()
     print("---" * 9)
+
+"""
+if name of room =="ncar" and key not in player.inventory:
+print("You don't have the keys)
+return None
+return globals()[name_of_room]
+
+
+
+elif "pick up" in command:
+item_name = command[8:].lower()
+print("You pick up the thing)
+player.inventory.append(player.current_location.item)
+"""
