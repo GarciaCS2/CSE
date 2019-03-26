@@ -438,9 +438,24 @@ shrine_of_deanne.stuff = [sky_bow, good_sword]
 
 command_dictionary = {
     'DIRECTIONS': ['north',  'east', 'south', 'west', 'up', 'down', 'away', 'left', 'right', 'back', 'forward'],
-    'ITEMS': ['take', 'pick up', 'use', 'equip', 'unequip', 'drop', 'look at', 'examine', 'give'],
+    'ITEM': {
+        'TAKE': ['take', 'pick up', 'use', 'unequip', 'drop'],
+        'GIVE': ['give'],
+        'EXAMINE': ['look at', 'examine'],
+        'EQUIP': ['equip', 'put on', 'sheath']
+
+    },
     'CHARACTER': ['attack', 'prod']
 }
+
+
+def set_item_target(string, vicinity):
+    thing = None
+    for i in range(len(vicinity)):
+        if vicinity[i].name.lower() in string.lower():
+            thing = vicinity[i]
+    return thing
+
 
 playing = True
 while playing:  # Controller
@@ -472,19 +487,21 @@ while playing:  # Controller
             player.move(next_room)
         except KeyError:
             print("You can't go that way")
-    elif 'pick up' in command:
-        item_name = command[8:].lower()
-        print("You pick up the %s" % item_name)
-        player.inventory.append(player.current_location.stuff)
+    elif command_dictionary['ITEM']['EXAMINE'] or command_dictionary['ITEM']['EQUIP'] in command.lower():
+        item_target = set_item_target(command.lower(), player.inventory)
+        if item_target is None:
+            item_target = set_item_target(command.lower(), player.current_location.stuff)
+        if item_target is not None:
+            if command.lower() in command_dictionary['ITEM']['EXAMINE']:
+                item_target.update_description()
+                print(item_target.description)
+
+
+
 
     else:
         print("Command Not Found...")
-    """if command_dictionary['ITEMS'] in command.lower():
-        if ['examine', 'look at'] in command.lower():
-            thing = 'nothing'
-            not_there = False
-            while thing == 'nothing' and not_there==False:
-                for i in range(len(player.current_location.stuff)):
+    """if 
 
 
 
