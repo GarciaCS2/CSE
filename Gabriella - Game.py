@@ -26,7 +26,7 @@ class Armour(Equipment):
 class Headgear(Armour):
     def __init__(self, name, description, location, protection, material, blessing):
         super(Headgear, self).__init__(name, description, location, 'MODERATE', protection, material, blessing)
-
+        self.is_a = 'HEADGEAR'
 
 class Gelmet(Headgear):  # INSTANTIABLE Generic Helmet
     def __init__(self, location, protection, material):
@@ -45,6 +45,7 @@ class Kinghelm(Headgear):  # INSTANTIABLE King's Helmet
 class Torso(Armour):
     def __init__(self, name, description, location, protection, material, blessing):
         super(Torso, self).__init__(name, description, location, 'MODERATE', protection, material, blessing)
+        self.is_a = 'TORSO'
 
 
 class Gorso(Torso):  # INSTANTIABLE Generic Torso
@@ -56,6 +57,7 @@ class Gorso(Torso):  # INSTANTIABLE Generic Torso
 class Footwear(Armour):
     def __init__(self, name, description, location, protection, material, blessing):
         super(Footwear, self).__init__(name, description, location, 'MODERATE', protection, material, blessing)
+        self.is_a = 'FOOTWEAR'
 
 
 class Gboots(Footwear):  # INSTANTIABLE Generic Boots
@@ -119,6 +121,7 @@ class Tool(Equipment):  # INSTANTIABLE Tool
         super(Tool, self).__init__(name, description, location, 'MODERATE')
         self.material = material
         self.head = head  # Axe, Knife, Shovel, Pick-axe, Hammer
+        self.is_a = 'TOOL'
 
 
 class Weapon(Equipment):
@@ -126,6 +129,7 @@ class Weapon(Equipment):
         super(Weapon, self).__init__(name, description, location, weight)
         self.attack_power = attack_power
         self.range_or_reach = reach
+        self.is_a = 'WEAPON'
 
 
 regular_barrel = Mallobarrel()
@@ -441,7 +445,7 @@ command_dictionary = {
     'ITEM': {
         'TAKE': ['take', 'pick up', 'use', 'unequip', 'drop'],
         'GIVE': ['give'],
-        'EXAMINE': ['look at', 'examine'],
+        'EXAMINE': ['examine', 'look at', 'observe'],
         'EQUIP': ['equip', 'put on', 'sheath']
 
     },
@@ -451,10 +455,31 @@ command_dictionary = {
 
 def set_item_target(string, vicinity):
     thing = None
-    for i in range(len(vicinity)):
-        if vicinity[i].name.lower() in string.lower():
-            thing = vicinity[i]
+    for b in range(len(vicinity)):
+        if vicinity[b].name.lower() in string.lower():
+            thing = vicinity[b]
     return thing
+
+
+def match_item_command(string, command_bank, item_target):
+    action = None
+    for g in range(len(command_bank)):
+        if command_bank[g] in string:
+            action = command_bank[0]
+    if action is None:
+        return
+    elif action == 'examine':
+        print(item_target.name, "...")
+        print(item_target.description)
+    elif action == 'equip':
+        if item_target.is_a == 'WEAPON' or 'TOOL':
+            player.weapon = item_target
+        elif item_target.is_a == 'HEADGEAR':
+            player.helmet = item_target
+        elif item_target.is_a == 'TORSO':
+            player.helmet = item_target
+        else:
+            print(item_target.name, " isn't something you can equip.")
 
 
 playing = True
@@ -491,23 +516,12 @@ while playing:  # Controller
         item_target = set_item_target(command.lower(), player.inventory)
         if item_target is None:
             item_target = set_item_target(command.lower(), player.current_location.stuff)
-        if item_target is not None:
-            if command.lower() in command_dictionary['ITEM']['EXAMINE']:
-                item_target.update_description()
-                print(item_target.description)
-
-
-
+        if item_target in player.inventory or player.current_location.stuff:
+            match_item_command(command.lower(), command_dictionary['ITEM']['EXAMINE'], item_target)
+            match_item_command(command.lower(), command_dictionary['ITEM']['EQUIP'], item_target)
 
     else:
         print("Command Not Found...")
-    """if 
-
-
-
-        elif ['take', 'pick up'] in command.lower():"""
-
-
     print()
     print("---" * 9)
 
