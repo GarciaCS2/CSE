@@ -443,13 +443,17 @@ shrine_of_deanne.stuff = [sky_bow, good_sword]
 command_dictionary = {
     'DIRECTIONS': ['north',  'east', 'south', 'west', 'up', 'down', 'away', 'left', 'right', 'back', 'forward'],
     'ITEM': {
-        'TAKE': ['take', 'pick up', 'use', 'unequip', 'drop'],
+        'TAKE': ['take', 'pick up', 'use', 'drop'],
         'GIVE': ['give'],
         'EXAMINE': ['examine', 'look at', 'observe'],
+        'UNEQUIP': ['unequip', 'un equip'],
         'EQUIP': ['equip', 'put on', 'sheath']
 
     },
-    'CHARACTER': ['attack', 'prod']
+    'CHARACTER': {
+        'ATTACK': ['attack'],
+        'TAUNT': ['taunt', 'tease', 'prod']
+    }
 }
 
 
@@ -461,6 +465,13 @@ def set_item_target(string, vicinity):
     return thing
 
 
+def view_multiple_fields(string, fields:[]):
+    thing = None
+    for c in range(len(fields)):
+        thing = set_item_target(string, fields[c])
+    return thing
+
+
 def match_item_command(string, command_bank, item_target):
     action = None
     for g in range(len(command_bank)):
@@ -468,16 +479,45 @@ def match_item_command(string, command_bank, item_target):
             action = command_bank[0]
     if action is None:
         return
-    elif action == 'examine':
+    elif action == 'examine':  # EXAMINE ACTION
         print(item_target.name, "...")
         print(item_target.description)
-    elif action == 'equip':
-        if item_target.is_a == 'WEAPON' or 'TOOL':
+    elif action == 'unequip':  # UN-EQUIP ACTION
+        if item_target == player.weapon:
+            player.inventory.append(item_target)
+            player.weapon = None
+            print("You unequipped your weapon.")
+        elif item_target == player.helmet:
+            player.inventory.append(item_target)
+            player.helmet = None
+            print("You unequipped your headgear.")
+        elif item_target == player.torso:
+            player.inventory.append(item_target)
+            player.torso = None
+            print("You unequipped your armor.")
+        elif item_target == player.shoes:
+            player.inventory.append(item_target)
+            player.shoes = None
+            print("You unequipped your footwear.")
+        else:
+            print("You do not have this item equipped.")
+    elif action == 'equip':  # EQUIP ACTION
+        if type(item_target) is Weapon or Tool:
             player.weapon = item_target
-        elif item_target.is_a == 'HEADGEAR':
+            print("You now have ", item_target.name, " equipped as your weapon.")
+            player.current_location.stuff.remove(item_target)
+        elif type(item_target) is Headgear:
             player.helmet = item_target
-        elif item_target.is_a == 'TORSO':
-            player.helmet = item_target
+            print("You now have ", item_target.name, " equipped as your helmet.")
+            player.current_location.stuff.remove(item_target)
+        elif type(item_target) is Torso:
+            player.torso = item_target
+            print("You now have ", item_target.name, " equipped as your armor.")
+            player.current_location.stuff.remove(item_target)
+        elif type(item_target) is Footwear:
+            player.shoes = item_target
+            print("You now have ", item_target.name, " equipped as your shoes.")
+            player.current_location.stuff.remove(item_target)
         else:
             print(item_target.name, " isn't something you can equip.")
 
@@ -513,12 +553,16 @@ while playing:  # Controller
         except KeyError:
             print("You can't go that way")
     elif command_dictionary['ITEM']['EXAMINE'] or command_dictionary['ITEM']['EQUIP'] in command.lower():
-        item_target = set_item_target(command.lower(), player.inventory)
-        if item_target is None:
-            item_target = set_item_target(command.lower(), player.current_location.stuff)
+        item_target = view_multiple_fields(command.lower(), [player.inventory, player.current_location.stuff])
         if item_target in player.inventory or player.current_location.stuff:
             match_item_command(command.lower(), command_dictionary['ITEM']['EXAMINE'], item_target)
             match_item_command(command.lower(), command_dictionary['ITEM']['EQUIP'], item_target)
+    elif command_dictionary['ITEM']['UNEQUIP'] in command.lower():
+        print("Your weapon...", player.weapon.name)
+        item_target = view_multiple_fields(command.lower(), [player.weapon, player.helmet, player.torso, player.shoes])
+        if item_target in [player.weapon, player.helmet, player.torso, player.shoes]:
+            match_item_command(command.lower(), command_dictionary['ITEM']['UNEQUIP'], item_target)
+            print("Your weapon...now...", player.weapon)
 
     else:
         print("Command Not Found...")
