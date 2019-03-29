@@ -446,9 +446,8 @@ command_dictionary = {
         'TAKE': ['take', 'pick up', 'use', 'drop'],
         'GIVE': ['give'],
         'EXAMINE': ['examine', 'look at', 'observe'],
-        'UNEQUIP': ['unequip', 'un equip'],
-        'EQUIP': ['equip', 'put on', 'sheath']
-
+        'EQUIP': ['equip', 'put on', 'sheath'],
+        'UNEQUIP': 'unequip',
     },
     'CHARACTER': {
         'ATTACK': ['attack'],
@@ -552,17 +551,18 @@ while playing:  # Controller
             player.move(next_room)
         except KeyError:
             print("You can't go that way")
+    elif command_dictionary['ITEM']['UNEQUIP'] in command.lower():
+        print("Your weapon...", player.weapon.name)
+        item_target = set_item_target(command.lower(), [player.weapon, player.helmet, player.torso, player.shoes])
+        if item_target in [player.weapon, player.helmet, player.torso, player.shoes]:
+            match_item_command(command.lower(), command_dictionary['ITEM']['UNEQUIP'], item_target)
+            print("Your weapon...now...", player.weapon)
     elif command_dictionary['ITEM']['EXAMINE'] or command_dictionary['ITEM']['EQUIP'] in command.lower():
         item_target = view_multiple_fields(command.lower(), [player.inventory, player.current_location.stuff])
         if item_target in player.inventory or player.current_location.stuff:
             match_item_command(command.lower(), command_dictionary['ITEM']['EXAMINE'], item_target)
             match_item_command(command.lower(), command_dictionary['ITEM']['EQUIP'], item_target)
-    elif command_dictionary['ITEM']['UNEQUIP'] in command.lower():
-        print("Your weapon...", player.weapon.name)
-        item_target = view_multiple_fields(command.lower(), [player.weapon, player.helmet, player.torso, player.shoes])
-        if item_target in [player.weapon, player.helmet, player.torso, player.shoes]:
-            match_item_command(command.lower(), command_dictionary['ITEM']['UNEQUIP'], item_target)
-            print("Your weapon...now...", player.weapon)
+
 
     else:
         print("Command Not Found...")
