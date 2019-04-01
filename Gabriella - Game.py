@@ -28,6 +28,7 @@ class Headgear(Armour):
         super(Headgear, self).__init__(name, description, location, 'MODERATE', protection, material, blessing)
         self.is_a = 'HEADGEAR'
 
+
 class Gelmet(Headgear):  # INSTANTIABLE Generic Helmet
     def __init__(self, location, protection, material):
         super(Gelmet, self).__init__("Generic Helmet", "Just a regular helmet", location, protection,
@@ -443,7 +444,7 @@ shrine_of_deanne.stuff = [sky_bow, good_sword]
 command_dictionary = {
     'DIRECTIONS': ['north',  'east', 'south', 'west', 'up', 'down', 'away', 'left', 'right', 'back', 'forward'],
     'ITEM': {
-        'TAKE': ['take', 'pick up', 'use', 'drop'],
+        'TAKE': ['pick up', 'take', 'use', 'drop'],
         'GIVE': ['give'],
         'EXAMINE': ['examine', 'look at', 'observe'],
         'EQUIP': ['equip', 'put on', 'sheath'],
@@ -464,14 +465,14 @@ def set_item_target(string, vicinity):
     return thing
 
 
-def view_multiple_fields(string, fields:[]):
+def view_multiple_fields(string, fields: []):
     thing = None
     for c in range(len(fields)):
         thing = set_item_target(string, fields[c])
     return thing
 
 
-def match_item_command(string, command_bank, item_target):
+def match_item_command(string, command_bank, target):
     action = None
     for g in range(len(command_bank)):
         if command_bank[g] in string:
@@ -479,46 +480,62 @@ def match_item_command(string, command_bank, item_target):
     if action is None:
         return
     elif action == 'examine':  # EXAMINE ACTION
-        print(item_target.name, "...")
-        print(item_target.description)
+        print(target.name, "...")
+        print(target.description)
+    elif action == 'pick up':  # TAKE ACTION
+        player.inventory.append(target)
+        player.current_location.stuff.remove(target)
     elif action == 'unequip':  # UN-EQUIP ACTION
-        if item_target == player.weapon:
-            player.inventory.append(item_target)
-            player.weapon = None
-            print("You unequipped your weapon.")
-        elif item_target == player.helmet:
-            player.inventory.append(item_target)
-            player.helmet = None
-            print("You unequipped your headgear.")
-        elif item_target == player.torso:
-            player.inventory.append(item_target)
-            player.torso = None
-            print("You unequipped your armor.")
-        elif item_target == player.shoes:
-            player.inventory.append(item_target)
-            player.shoes = None
-            print("You unequipped your footwear.")
-        else:
-            print("You do not have this item equipped.")
+        try:
+            if target == player.weapon:
+                player.inventory.append(target)
+                player.weapon = None
+                print("You unequipped your weapon.")
+        except AttributeError:
+            try:
+                if target == player.helmet:
+                    player.inventory.append(target)
+                    player.helmet = None
+                    print("You unequipped your headgear.")
+            except AttributeError:
+                try:
+                    if target == player.torso:
+                        player.inventory.append(target)
+                        player.torso = None
+                        print("You unequipped your armor.")
+                except AttributeError:
+                    try:
+                        if target == player.torso:
+                            player.inventory.append(target)
+                            player.torso = None
+                            print("You unequipped your armor.")
+                    except AttributeError:
+                        try:
+                            if target == player.shoes:
+                                player.inventory.append(target)
+                                player.shoes = None
+                                print("You unequipped your footwear.")
+                        except AttributeError:
+                            print("You do not have this item equipped.")
     elif action == 'equip':  # EQUIP ACTION
-        if type(item_target) is Weapon or Tool:
-            player.weapon = item_target
-            print("You now have ", item_target.name, " equipped as your weapon.")
-            player.current_location.stuff.remove(item_target)
-        elif type(item_target) is Headgear:
-            player.helmet = item_target
-            print("You now have ", item_target.name, " equipped as your helmet.")
-            player.current_location.stuff.remove(item_target)
-        elif type(item_target) is Torso:
-            player.torso = item_target
-            print("You now have ", item_target.name, " equipped as your armor.")
-            player.current_location.stuff.remove(item_target)
-        elif type(item_target) is Footwear:
-            player.shoes = item_target
-            print("You now have ", item_target.name, " equipped as your shoes.")
-            player.current_location.stuff.remove(item_target)
+        if type(target) is Weapon or Tool:
+            player.weapon = target
+            print("You now have ", target.name, " equipped as your weapon.")
+            player.current_location.stuff.remove(target)
+        elif type(target) is Headgear:
+            player.helmet = target
+            print("You now have ", target.name, " equipped as your helmet.")
+            player.current_location.stuff.remove(target)
+        elif type(target) is Torso:
+            player.torso = target
+            print("You now have ", target.name, " equipped as your armor.")
+            player.current_location.stuff.remove(target)
+        elif type(target) is Footwear:
+            player.shoes = target
+            print("You now have ", target.name, " equipped as your shoes.")
+            player.current_location.stuff.remove(target)
         else:
-            print(item_target.name, " isn't something you can equip.")
+            print(target.name, " isn't something you can equip.")
 
 
 playing = True
@@ -542,16 +559,16 @@ while playing:  # Controller
     else:
         pass
     command = input(">_")
-    if command.lower() in ['q', 'quit', 'exit', 'goodbye']:
+    if command.lower() in ['q', 'quit', 'exit', 'goodbye']:  # QUIT GAME
         playing = False
         print("%s left the game" % player_name)
-    elif command.lower() in command_dictionary['DIRECTIONS']:
+    elif command.lower() in command_dictionary['DIRECTIONS']:  # NAVIGATE ROOMS
         try:
             next_room = player.find_next_room(command)
             player.move(next_room)
         except KeyError:
             print("You can't go that way")
-    elif command_dictionary['ITEM']['UNEQUIP'] in command.lower():
+    elif command_dictionary['ITEM']['UNEQUIP'] in command.lower():  # UNEQUIP ITEM
         print("Your weapon...", player.weapon.name)
         item_target = set_item_target(command.lower(), [player.weapon, player.helmet, player.torso, player.shoes])
         if item_target in [player.weapon, player.helmet, player.torso, player.shoes]:
@@ -562,8 +579,9 @@ while playing:  # Controller
         if item_target in player.inventory or player.current_location.stuff:
             match_item_command(command.lower(), command_dictionary['ITEM']['EXAMINE'], item_target)
             match_item_command(command.lower(), command_dictionary['ITEM']['EQUIP'], item_target)
-
-
+    elif command_dictionary['ITEM']['TAKE'] in command.lower():
+        item_target = set_item_target(command.lower(), player.current_location.stuff)
+        match_item_command(command.lower(), command_dictionary['ITEM']['TAKE'], item_target)
     else:
         print("Command Not Found...")
     print()
@@ -571,8 +589,8 @@ while playing:  # Controller
 
 """
 if name of room =="ncar" and key not in player.inventory:
-print("You don't have the keys)
-return None
+    print("You don't have the keys)
+    return None
 return globals()[name_of_room]
 
 
