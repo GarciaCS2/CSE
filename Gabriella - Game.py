@@ -444,7 +444,7 @@ shrine_of_deanne.stuff = [sky_bow, good_sword]
 command_dictionary = {
     'DIRECTIONS': ['north',  'east', 'south', 'west', 'up', 'down', 'away', 'left', 'right', 'back', 'forward'],
     'ITEM': {
-        'TAKE': ['pick up', 'take', 'use', 'drop'],
+        'TAKE': ['take', 'pick up', 'use', 'drop'],
         'GIVE': ['give'],
         'EXAMINE': ['examine', 'look at', 'observe'],
         'EQUIP': ['equip', 'put on', 'sheath'],
@@ -460,8 +460,9 @@ command_dictionary = {
 def set_item_target(string, vicinity):
     thing = None
     for b in range(len(vicinity)):
-        if vicinity[b].name.lower() in string.lower():
-            thing = vicinity[b]
+        if vicinity[b] is not None:
+            if vicinity[b].name.lower() in string.lower():
+                thing = vicinity[b]
     return thing
 
 
@@ -470,6 +471,64 @@ def view_multiple_fields(string, fields: []):
     for c in range(len(fields)):
         thing = set_item_target(string, fields[c])
     return thing
+
+
+def unequip(target):
+    if player.weapon is not None:
+        if target == player.weapon:
+            player.inventory.append(target)
+            player.weapon = None
+            print("You unequipped your weapon.")
+    elif player.helmet is not None:
+        if target == player.helmet:
+            player.inventory.append(target)
+            player.helmet = None
+            print("You unequipped your headgear.")
+    elif player.torso is not None:
+        if target == player.torso:
+            player.inventory.append(target)
+            player.torso = None
+            print("You unequipped your armor.")
+    elif player.shoes is not None:
+        if target == player.shoes:
+            player.inventory.append(target)
+            player.shoes = None
+            print("You unequipped your shoes.")
+    else:
+        print("You do not seem to have this item equipped.")
+
+
+def equip(target):
+    if type(target) is Weapon or Tool:
+        player.weapon = target
+        print("You now have ", target.name, " equipped as your weapon.")
+        if target in player.current_location.stuff:
+            player.current_location.stuff.remove(target)
+        else:
+            player.inventory.remove(target)
+    elif type(target) is Headgear:
+        player.helmet = target
+        print("You now have ", target.name, " equipped as your helmet.")
+        if target in player.current_location.stuff:
+            player.current_location.stuff.remove(target)
+        else:
+            player.inventory.remove(target)
+    elif type(target) is Torso:
+        player.torso = target
+        print("You now have ", target.name, " equipped as your armor.")
+        if target in player.current_location.stuff:
+            player.current_location.stuff.remove(target)
+        else:
+            player.inventory.remove(target)
+    elif type(target) is Footwear:
+        player.shoes = target
+        print("You now have ", target.name, " equipped as your shoes.")
+        if target in player.current_location.stuff:
+            player.current_location.stuff.remove(target)
+        else:
+            player.inventory.remove(target)
+    else:
+        print(target.name, " isn't something you can equip.")
 
 
 def match_item_command(string, command_bank, target):
@@ -482,60 +541,6 @@ def match_item_command(string, command_bank, target):
     elif action == 'examine':  # EXAMINE ACTION
         print(target.name, "...")
         print(target.description)
-    elif action == 'pick up':  # TAKE ACTION
-        player.inventory.append(target)
-        player.current_location.stuff.remove(target)
-    elif action == 'unequip':  # UN-EQUIP ACTION
-        try:
-            if target == player.weapon:
-                player.inventory.append(target)
-                player.weapon = None
-                print("You unequipped your weapon.")
-        except AttributeError:
-            try:
-                if target == player.helmet:
-                    player.inventory.append(target)
-                    player.helmet = None
-                    print("You unequipped your headgear.")
-            except AttributeError:
-                try:
-                    if target == player.torso:
-                        player.inventory.append(target)
-                        player.torso = None
-                        print("You unequipped your armor.")
-                except AttributeError:
-                    try:
-                        if target == player.torso:
-                            player.inventory.append(target)
-                            player.torso = None
-                            print("You unequipped your armor.")
-                    except AttributeError:
-                        try:
-                            if target == player.shoes:
-                                player.inventory.append(target)
-                                player.shoes = None
-                                print("You unequipped your footwear.")
-                        except AttributeError:
-                            print("You do not have this item equipped.")
-    elif action == 'equip':  # EQUIP ACTION
-        if type(target) is Weapon or Tool:
-            player.weapon = target
-            print("You now have ", target.name, " equipped as your weapon.")
-            player.current_location.stuff.remove(target)
-        elif type(target) is Headgear:
-            player.helmet = target
-            print("You now have ", target.name, " equipped as your helmet.")
-            player.current_location.stuff.remove(target)
-        elif type(target) is Torso:
-            player.torso = target
-            print("You now have ", target.name, " equipped as your armor.")
-            player.current_location.stuff.remove(target)
-        elif type(target) is Footwear:
-            player.shoes = target
-            print("You now have ", target.name, " equipped as your shoes.")
-            player.current_location.stuff.remove(target)
-        else:
-            print(target.name, " isn't something you can equip.")
 
 
 playing = True
@@ -569,19 +574,29 @@ while playing:  # Controller
         except KeyError:
             print("You can't go that way")
     elif command_dictionary['ITEM']['UNEQUIP'] in command.lower():  # UNEQUIP ITEM
-        print("Your weapon...", player.weapon.name)
         item_target = set_item_target(command.lower(), [player.weapon, player.helmet, player.torso, player.shoes])
-        if item_target in [player.weapon, player.helmet, player.torso, player.shoes]:
-            match_item_command(command.lower(), command_dictionary['ITEM']['UNEQUIP'], item_target)
-            print("Your weapon...now...", player.weapon)
-    elif command_dictionary['ITEM']['EXAMINE'] or command_dictionary['ITEM']['EQUIP'] in command.lower():
+        if item_target is not None:
+            unequip(item_target)
+        else:
+            print("You don't seem to have this item equipped.")
+    elif command_dictionary['ITEM']['EXAMINE'] in command.lower():  # Examine
         item_target = view_multiple_fields(command.lower(), [player.inventory, player.current_location.stuff])
-        if item_target in player.inventory or player.current_location.stuff:
-            match_item_command(command.lower(), command_dictionary['ITEM']['EXAMINE'], item_target)
-            match_item_command(command.lower(), command_dictionary['ITEM']['EQUIP'], item_target)
+        if item_target is not None:
+            print(item_target.name, "...")
+            print(item_target.description)
+        else:
+            print("There doesn't seem to be anything in your inventory or this room by that name.")
+    elif command_dictionary['ITEM']['EQUIP'] in command.lower():
+        item_target = view_multiple_fields(command.lower(), [player.inventory, player.current_location.stuff])
+        if item_target is not None:
+            equip(item_target)
     elif command_dictionary['ITEM']['TAKE'] in command.lower():
         item_target = set_item_target(command.lower(), player.current_location.stuff)
-        match_item_command(command.lower(), command_dictionary['ITEM']['TAKE'], item_target)
+        if item_target is not None:
+            player.inventory.append(item_target)
+            player.current_location.stuff.remove(item_target)
+        else:
+            print("There doesn't seem to be anything here by that name you can pick up.")
     else:
         print("Command Not Found...")
     print()
@@ -593,10 +608,4 @@ if name of room =="ncar" and key not in player.inventory:
     return None
 return globals()[name_of_room]
 
-
-
-elif "pick up" in command:
-item_name = command[8:].lower()
-print("You pick up the thing)
-player.inventory.append(player.current_location.item)
 """
