@@ -461,19 +461,21 @@ command_dictionary = {
         'DOWN': ('down' or 'go down')
     },
     'ITEM': {
-        'TAKE': ['take', 'pick up', 'use', 'drop'],
-        'GIVE': ['give'],
-        'EXAMINE': ['examine', 'look at', 'observe'],
-        'EQUIP': ['equip', 'put on', 'sheath'],
-        'UNEQUIP': 'unequip',
-    },
+        'TAKE': ('take' or 'pick up' or 'get'),
+        'GIVE': 'give',
+        'EXAMINE': ('examine' or 'look at' or 'observe'),
+        'EQUIP': ('equip', 'put on', 'sheath'),
+        'UNEQUIP': 'unequip'
+    },  #  or 'use' or 'drop'
     'CHARACTER': {
-        'ATTACK': ['attack'],
-        'TAUNT': ['taunt', 'tease', 'prod']
+        'ATTACK': 'attack',
+        'TAUNT': ('taunt' or 'tease' or 'prod')
     }
 }
 
-directions = ('NORTH' or "EAST" or "SOUTH")
+directions = ('NORTH' or 'EAST' or 'SOUTH' or 'WEST')
+equips = [player.weapon, player.helmet, player.torso, player.shoes]
+
 
 def set_item_target(string, vicinity):
     thing = None
@@ -549,18 +551,6 @@ def equip(target):
         print(target.name, " isn't something you can equip.")
 
 
-def match_item_command(string, command_bank, target):
-    action = None
-    for g in range(len(command_bank)):
-        if command_bank[g] in string:
-            action = command_bank[0]
-    if action is None:
-        return
-    elif action == 'examine':  # EXAMINE ACTION
-        print(target.name, "...")
-        print(target.description)
-
-
 playing = True
 while playing:  # Controller
     print()
@@ -585,7 +575,29 @@ while playing:  # Controller
     if command.lower() in ['q', 'quit', 'exit', 'goodbye']:  # QUIT GAME
         playing = False
         print("%s left the game" % player_name)
-    elif command.lower() in command_dictionary['DIRECTIONS'][directions]:  # NAVIGATE ROOMS, fix this
+    elif command_dictionary['DIRECTIONS'][directions] in command.lower():  # NAVIGATE ROOMS, fix this
+        if command.lower() in command_dictionary['DIRECTIONS']['NORTH']:
+            command = "north"
+        elif command.lower() in command_dictionary['DIRECTIONS']['EAST']:
+            command = "east"
+        elif command.lower() in command_dictionary['DIRECTIONS']['SOUTH']:
+            command = "south"
+        elif command.lower() in command_dictionary['DIRECTIONS']['WEST']:
+            command = "west"
+        elif command.lower() in command_dictionary['DIRECTIONS']['AWAY']:
+            command = "away"
+        elif command.lower() in command_dictionary['DIRECTIONS']['LEFT']:
+            command = "left"
+        elif command.lower() in command_dictionary['DIRECTIONS']['RIGHT']:
+            command = "right"
+        elif command.lower() in command_dictionary['DIRECTIONS']['BACK']:
+            command = "back"
+        elif command.lower() in command_dictionary['DIRECTIONS']['FORWARD']:
+            command = "forward"
+        elif command.lower() in command_dictionary['DIRECTIONS']['UP']:
+            command = "up"
+        elif command.lower() in command_dictionary['DIRECTIONS']['DOWN']:
+            command = "down"
         try:
             next_room = player.find_next_room(command)
             player.move(next_room)
@@ -593,12 +605,19 @@ while playing:  # Controller
             print("You can't go that way")
     elif command_dictionary['SELF']['INVENTORY'] in [command.lower()]:
         print("Your inventory...")
-        if len(player.inventory) > 0:
-            print("You have...", "".join(player.inventory))
+        if len(player.inventory) > 1:
+            inventory = []
+            for i in range(len(player.inventory)):
+                inventory.append(player.inventory[i].name)
+            inventory = "".join(inventory)
+            print("You have...", inventory)
+        elif len(player.inventory) > 0:
+
+            print("You have a/an", player.inventory[0].name)
         else:
             print("You have nothing.")
     elif command_dictionary['ITEM']['UNEQUIP'] in [command.lower()]:  # UNEQUIP ITEM
-        item_target = set_item_target(command.lower(), [player.weapon, player.helmet, player.torso, player.shoes])
+        item_target = set_item_target(command.lower(), equips)
         if item_target is not None:
             unequip(item_target)
         else:
@@ -614,7 +633,7 @@ while playing:  # Controller
         item_target = view_multiple_fields(command.lower(), [player.inventory, player.current_location.stuff])
         if item_target is not None:
             equip(item_target)
-    elif command_dictionary['ITEM']['TAKE'] in [command.lower()]:
+    elif command_dictionary['ITEM']['TAKE'] in command.lower():
         item_target = set_item_target(command.lower(), player.current_location.stuff)
         if item_target is not None:
             player.inventory.append(item_target)
