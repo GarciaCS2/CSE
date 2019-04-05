@@ -466,14 +466,13 @@ command_dictionary = {
         'EXAMINE': ('examine' or 'look at' or 'observe'),
         'EQUIP': ('equip', 'put on', 'sheath'),
         'UNEQUIP': 'unequip'
-    },  #  or 'use' or 'drop'
+    },  # or 'use' or 'drop'
     'CHARACTER': {
         'ATTACK': 'attack',
         'TAUNT': ('taunt' or 'tease' or 'prod')
     }
 }
 
-directions = ('NORTH' or 'EAST' or 'SOUTH' or 'WEST')
 equips = [player.weapon, player.helmet, player.torso, player.shoes]
 
 
@@ -575,7 +574,7 @@ while playing:  # Controller
     if command.lower() in ['q', 'quit', 'exit', 'goodbye']:  # QUIT GAME
         playing = False
         print("%s left the game" % player_name)
-    elif command_dictionary['DIRECTIONS'][directions] in command.lower():  # NAVIGATE ROOMS, fix this
+    elif command.lower() in command_dictionary['DIRECTIONS'][command_dictionary['DIRECTIONS'].keys()]:  # NAVIGATE ROOMS, fix this
         if command.lower() in command_dictionary['DIRECTIONS']['NORTH']:
             command = "north"
         elif command.lower() in command_dictionary['DIRECTIONS']['EAST']:
