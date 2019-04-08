@@ -351,7 +351,7 @@ car = Room("Your Cool Red Car", "This is the car you drove here in.", None, 'par
 freeway = Room("On the Freeway", "You drove away", None, None, None, None, None, None, None, 'friend_house', 'home',
                'car')
 friend_house = Room("Your Friend's House", "You have always been welcome here. You came just in time, too. Your friend"
-                                           "and their mom are baking cookies.")
+                                           " and their mom are baking cookies.")
 home = Room("Your warm home", "You are back in the safety of your own home. You are sitting down now with a cup of"
                               " hot chocolate reading your favorite books.")
 sidewalk_A1 = Room("The Sidewalk", "...Right next to the Parking Lot.", 'street_1', 'void_space_right', 'parking_lot',
@@ -443,22 +443,8 @@ shrine_of_deanne.stuff = [sky_bow, good_sword]
 
 command_dictionary = {
     'SELF': {
-        'INVENTORY': ('inventory' or 'check inventory' or 'list inventory'),
         'STATS': ('stats' or 'check stats' or 'list stats'),
         'EQUIPPED': ('equipped' or 'check equipped')
-    },
-    'DIRECTIONS': {
-        'NORTH': ('north' or 'nort' or 'n' or 'go north'),  # Note: Document this later
-        'EAST': ('east' or 'eas' or 'e' or 'go east'),
-        'SOUTH': ('south' or 'sout' or 's' or 'go south'),
-        'WEST': ('west' or 'wes' or 'w' or 'go west'),
-        'AWAY': ('away' or 'way' or 'go away'),
-        'LEFT': ('left' or 'lef' or 'l' or 'go left'),
-        'RIGHT': ('right' or 'righ' or 'l' or 'go right'),
-        'BACK': ('back' or 'retreat' or 'go back'),
-        'FORWARD': ('forward' or 'further' or 'onward' or 'go forward' or 'go forth' or 'move onward'),
-        'UP': ('up' or 'go up' or 'move up'),
-        'DOWN': ('down' or 'go down')
     },
     'ITEM': {
         'TAKE': ('take' or 'pick up' or 'get'),
@@ -474,6 +460,7 @@ command_dictionary = {
 }
 
 equips = [player.weapon, player.helmet, player.torso, player.shoes]
+directions = ['north',  'east', 'south', 'west', 'up', 'down', 'away', 'left', 'right', 'back', 'forward']
 
 
 def set_item_target(string, vicinity):
@@ -574,80 +561,50 @@ while playing:  # Controller
     if command.lower() in ['q', 'quit', 'exit', 'goodbye']:  # QUIT GAME
         playing = False
         print("%s left the game" % player_name)
-    elif command.lower() in command_dictionary['DIRECTIONS'][command_dictionary['DIRECTIONS'].keys()]:  # NAVIGATE ROOMS, fix this
-        if command.lower() in command_dictionary['DIRECTIONS']['NORTH']:
-            command = "north"
-        elif command.lower() in command_dictionary['DIRECTIONS']['EAST']:
-            command = "east"
-        elif command.lower() in command_dictionary['DIRECTIONS']['SOUTH']:
-            command = "south"
-        elif command.lower() in command_dictionary['DIRECTIONS']['WEST']:
-            command = "west"
-        elif command.lower() in command_dictionary['DIRECTIONS']['AWAY']:
-            command = "away"
-        elif command.lower() in command_dictionary['DIRECTIONS']['LEFT']:
-            command = "left"
-        elif command.lower() in command_dictionary['DIRECTIONS']['RIGHT']:
-            command = "right"
-        elif command.lower() in command_dictionary['DIRECTIONS']['BACK']:
-            command = "back"
-        elif command.lower() in command_dictionary['DIRECTIONS']['FORWARD']:
-            command = "forward"
-        elif command.lower() in command_dictionary['DIRECTIONS']['UP']:
-            command = "up"
-        elif command.lower() in command_dictionary['DIRECTIONS']['DOWN']:
-            command = "down"
+    elif command.lower() in directions:
         try:
             next_room = player.find_next_room(command)
             player.move(next_room)
         except KeyError:
             print("You can't go that way")
-    elif command_dictionary['SELF']['INVENTORY'] in [command.lower()]:
+    elif "inventory" in command.lower():
         print("Your inventory...")
         if len(player.inventory) > 1:
             inventory = []
             for i in range(len(player.inventory)):
                 inventory.append(player.inventory[i].name)
-            inventory = "".join(inventory)
+            inventory = ", ".join(inventory)
             print("You have...", inventory)
         elif len(player.inventory) > 0:
-
             print("You have a/an", player.inventory[0].name)
         else:
             print("You have nothing.")
-    elif command_dictionary['ITEM']['UNEQUIP'] in [command.lower()]:  # UNEQUIP ITEM
+    elif "unequip" in command.lower():
         item_target = set_item_target(command.lower(), equips)
         if item_target is not None:
             unequip(item_target)
         else:
             print("You don't seem to have this item equipped.")
-    elif command_dictionary['ITEM']['EXAMINE'] in [command.lower()]:  # Examine
+    elif "pick up" or "take" or "get" in command.lower():
+        item_target = set_item_target(command.lower(), player.current_location.stuff)
+        if item_target is not None:
+            player.inventory.append(item_target)
+            player.current_location.stuff.remove(item_target)
+    elif "examine" or "look at" or "observe" in command.lower():  # Examine
         item_target = view_multiple_fields(command.lower(), [player.inventory, player.current_location.stuff])
         if item_target is not None:
             print(item_target.name, "...")
             print(item_target.description)
         else:
             print("There doesn't seem to be anything in your inventory or this room by that name.")
-    elif command_dictionary['ITEM']['EQUIP'] in [command.lower()]:
+    elif "equip" in command.lower():
         item_target = view_multiple_fields(command.lower(), [player.inventory, player.current_location.stuff])
         if item_target is not None:
             equip(item_target)
-    elif command_dictionary['ITEM']['TAKE'] in command.lower():
-        item_target = set_item_target(command.lower(), player.current_location.stuff)
-        if item_target is not None:
-            player.inventory.append(item_target)
-            player.current_location.stuff.remove(item_target)
+
         else:
             print("There doesn't seem to be anything here by that name you can pick up.")
     else:
         print("Command Not Found...")
     print()
     print("---" * 9)
-
-"""
-if name of room =="ncar" and key not in player.inventory:
-    print("You don't have the keys)
-    return None
-return globals()[name_of_room]
-
-"""

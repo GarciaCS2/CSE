@@ -59,3 +59,18 @@ print("Their names are %s" % snop_population)
 """
 
 
+Directions keys
+"""
+ 	'NORTH': ('north' or 'nort' or 'n' or 'go north'),  # Note: Document this later
+        'EAST': ('east' or 'eas' or 'e' or 'go east'),
+        'SOUTH': ('south' or 'sout' or 's' or 'go south'),
+        'WEST': ('west' or 'wes' or 'w' or 'go west'),
+        'AWAY': ('away' or 'way' or 'go away'),
+        'LEFT': ('left' or 'lef' or 'l' or 'go left'),
+        'RIGHT': ('right' or 'righ' or 'l' or 'go right'),
+        'BACK': ('back' or 'retreat' or 'go back'),
+        'FORWARD': ('forward' or 'further' or 'onward' or 'go forward' or 'go forth' or 'move onward'),
+        'UP': ('up' or 'go up' or 'move up'),
+        'DOWN': ('down' or 'go down')
+    },
+""
