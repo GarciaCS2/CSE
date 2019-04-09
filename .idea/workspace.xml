@@ -15,7 +15,7 @@
     <SUITE FILE_PATH="coverage/CSE$Object_Notes.coverage" NAME="Object Notes Coverage Results" MODIFIED="1550078537879" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/notes/Notes" />
     <SUITE FILE_PATH="coverage/CSE$Practice_game.coverage" NAME="Practice game Coverage Results" MODIFIED="1546967258423" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/notes" />
     <SUITE FILE_PATH="coverage/CSE$Semester_2_notes.coverage" NAME="Semester 2 notes Coverage Results" MODIFIED="1548265163655" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/notes" />
-    <SUITE FILE_PATH="coverage/CSE$Gabriella___Game.coverage" NAME="Gabriella - Game Coverage Results" MODIFIED="1554741811155" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/CSE$Gabriella___Game.coverage" NAME="Gabriella - Game Coverage Results" MODIFIED="1554828145410" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CSE$Gabriella___Hangman__Intermediate_.coverage" NAME="Gabriella - Hangman (Intermediate) Coverage Results" MODIFIED="1548349993645" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/notes/venv" />
     <SUITE FILE_PATH="coverage/CSE$Gabriella___World_Map_OOP.coverage" NAME="Gabriella - World Map OOP Coverage Results" MODIFIED="1551289377964" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CSE$Gabriella___Item.coverage" NAME="Gabriella - Item Coverage Results" MODIFIED="1552671561293" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -45,7 +45,7 @@
     <session id="-1184912740">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="62" />
+          <entry key="project.closed" value="63" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.20" value="1" />
@@ -65,6 +65,7 @@
           <entry key="project.open.time.39" value="4" />
           <entry key="project.open.time.40" value="3" />
           <entry key="project.open.time.41" value="2" />
+          <entry key="project.open.time.42" value="1" />
           <entry key="project.open.time.43" value="1" />
           <entry key="project.open.time.44" value="3" />
           <entry key="project.open.time.45" value="1" />
@@ -80,7 +81,7 @@
           <entry key="project.open.time.62" value="2" />
           <entry key="project.open.time.64" value="2" />
           <entry key="project.open.time.66" value="1" />
-          <entry key="project.opened" value="62" />
+          <entry key="project.opened" value="63" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -96,13 +97,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="7" />
-          <entry key="py" value="57252" />
+          <entry key="py" value="57541" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="7" />
-          <entry key="Python" value="57252" />
+          <entry key="Python" value="57541" />
         </counts>
       </usages-collector>
     </session>
@@ -112,16 +113,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Gabriella - Game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-79">
-              <caret line="562" selection-start-line="562" selection-end-line="562" />
-              <folding>
-                <marker date="1554741937988" expanded="true" signature="10154:12225" ph="..." />
-                <marker date="1554741937988" expanded="true" signature="12251:12287" ph="..." />
-                <marker date="1554741937988" expanded="true" signature="12454:12455" ph="..." />
-                <marker date="1554741937988" expanded="true" signature="23159:25351" ph="..." />
-                <marker date="1554741937988" expanded="true" signature="24057:25351" ph="..." />
-                <marker date="1554741937988" expanded="true" signature="25351:25353" ph="..." />
-              </folding>
+            <state relative-caret-position="521">
+              <caret line="584" column="13" lean-forward="true" selection-start-line="584" selection-start-column="13" selection-end-line="584" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -409,23 +402,24 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.16565809" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" weight="0.28477904" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" weight="0.5400982" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39934534" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.3289689" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50075644" side_tool="true" weight="0.3289689" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.3289689" />
-      <window_info anchor="bottom" id="Python Console" order="12" weight="0.3289689" />
+      <window_info anchor="bottom" id="Docker" order="6" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.3289689" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50075644" side_tool="true" weight="0.3289689" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.3289689" />
+      <window_info anchor="bottom" id="Python Console" order="11" weight="0.3289689" />
+      <window_info anchor="bottom" id="TODO" order="12" weight="0.3289689" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -585,16 +579,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Gabriella - Game.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-79">
-          <caret line="562" selection-start-line="562" selection-end-line="562" />
-          <folding>
-            <marker date="1554741937988" expanded="true" signature="10154:12225" ph="..." />
-            <marker date="1554741937988" expanded="true" signature="12251:12287" ph="..." />
-            <marker date="1554741937988" expanded="true" signature="12454:12455" ph="..." />
-            <marker date="1554741937988" expanded="true" signature="23159:25351" ph="..." />
-            <marker date="1554741937988" expanded="true" signature="24057:25351" ph="..." />
-            <marker date="1554741937988" expanded="true" signature="25351:25353" ph="..." />
-          </folding>
+        <state relative-caret-position="521">
+          <caret line="584" column="13" lean-forward="true" selection-start-line="584" selection-start-column="13" selection-end-line="584" selection-end-column="13" />
         </state>
       </provider>
     </entry>

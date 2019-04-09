@@ -438,26 +438,11 @@ portal_hall = Room("Portal of Worlds Hall", "Portals, each with a different fram
 player = Player("Player", R19A)  # Eligible for both option 1 and 2
 
 
+# Characters
 shrine_of_deanne.characters = [guide]
-shrine_of_deanne.stuff = [sky_bow, good_sword]
 
-command_dictionary = {
-    'SELF': {
-        'STATS': ('stats' or 'check stats' or 'list stats'),
-        'EQUIPPED': ('equipped' or 'check equipped')
-    },
-    'ITEM': {
-        'TAKE': ('take' or 'pick up' or 'get'),
-        'GIVE': 'give',
-        'EXAMINE': ('examine' or 'look at' or 'observe'),
-        'EQUIP': ('equip', 'put on', 'sheath'),
-        'UNEQUIP': 'unequip'
-    },  # or 'use' or 'drop'
-    'CHARACTER': {
-        'ATTACK': 'attack',
-        'TAUNT': ('taunt' or 'tease' or 'prod')
-    }
-}
+# Stuff
+shrine_of_deanne.stuff = [sky_bow, good_sword]
 
 equips = [player.weapon, player.helmet, player.torso, player.shoes]
 directions = ['north',  'east', 'south', 'west', 'up', 'down', 'away', 'left', 'right', 'back', 'forward']
@@ -585,12 +570,21 @@ while playing:  # Controller
             unequip(item_target)
         else:
             print("You don't seem to have this item equipped.")
-    elif "pick up" or "take" or "get" in command.lower():
+    elif "pick up" in command.lower() or "take" in command.lower() or "get" in command.lower():
         item_target = set_item_target(command.lower(), player.current_location.stuff)
         if item_target is not None:
             player.inventory.append(item_target)
             player.current_location.stuff.remove(item_target)
-    elif "examine" or "look at" or "observe" in command.lower():  # Examine
+        else:
+            print("There's nothing here of that name you can pick up.")
+    elif "drop" in command.lower() or "leave" in command.lower():
+        item_target = set_item_target(command.lower(), player.inventory)
+        if item_target is not None:
+            player.current_location.stuff.append(item_target)
+            player.inventory.remove(item_target)
+        else:
+            print("There's nothing here of that name you can pick up.")
+    elif "examine" in command.lower() or "look at" in command.lower() or "observe" in command.lower():  # Examine
         item_target = view_multiple_fields(command.lower(), [player.inventory, player.current_location.stuff])
         if item_target is not None:
             print(item_target.name, "...")
