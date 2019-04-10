@@ -450,7 +450,7 @@ portal_hall.stuff = [Kinghelm("King's helmet", None)]
 
 equips = [player.weapon, player.helmet, player.torso, player.shoes]
 directions = ['north',  'east', 'south', 'west', 'up', 'down', 'away', 'left', 'right', 'back', 'forward']
-
+short_directions = ['n', 'e', 's', 'w', 'u', 'd', 'ay', 'l', 'r', 'b', 'f']
 
 def set_item_target(string, vicinity):
     thing = None
@@ -556,6 +556,9 @@ while playing:  # Controller
             player.move(next_room)
         except KeyError:
             print("You can't go that way")
+    elif command.lower() in short_directions:
+        pos = short_directions.index(command.lower())
+        command = directions [pos]
     elif "inventory" in command.lower():
         print("Your inventory...")
         if len(player.inventory) > 1:
