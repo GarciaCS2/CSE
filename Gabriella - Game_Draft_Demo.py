@@ -306,9 +306,9 @@ class Interactive(Entity):
             lost = damage - (damage*self.armor)/100
             print(self.name, " lost ", lost, " health")
 
-    def attack(self, target):
-        print("Attack! ", self.name, "hit ", target.name, " for ", self.weapon.attack_power, " damage.")
-        target.take_damage(self.weapon.attack_power)
+    def attack(self, character_target):
+        print("Attack! ", self.name, "hit ", character_target.name, " for ", self.weapon.attack_power, " damage.")
+        character_target.take_damage(self.weapon.attack_power)
 
 
 class Player(Interactive):  # ENTITY, ATTACKABLE - PLAYER
@@ -462,6 +462,15 @@ def set_item_target(string, vicinity):
     return thing
 
 
+def set_character_target(string, vicinity):
+    who = None
+    for b in range(len(vicinity)):
+        if vicinity[b] is not None:
+            if vicinity[b].name.lower() in string.lower():
+                who = vicinity[b]
+    return who
+
+
 def view_multiple_fields(string, fields: []):
     thing = None
     for c in range(len(fields)):
@@ -495,11 +504,20 @@ def unequip(string):
 
 
 def equip(target):
-    if type(target) is Weapon or Tool:
+    if type(target) is Weapon:
         if player.weapon is not None:
             unequip(player.weapon.name)
         player.weapon = target
-        print("You now have ", target.name, " equipped as your weapon.")
+        print("You now have", target.name, "equipped as your weapon.")
+        if target in player.current_location.stuff:
+            player.current_location.stuff.remove(target)
+        else:
+            player.inventory.remove(target)
+    elif type(target) is Tool:
+        if player.weapon is not None:
+            unequip(player.weapon.name)
+        player.weapon = target
+        print("You now have", target.name, "equipped as your weapon.")
         if target in player.current_location.stuff:
             player.current_location.stuff.remove(target)
         else:
@@ -508,16 +526,16 @@ def equip(target):
         if player.helmet is not None:
             unequip(player.helmet.name)
         player.helmet = target
-        print("You now have ", target.name, " equipped as your helmet.")
+        print("You now have", target.name, "equipped as your helmet.")
         if target in player.current_location.stuff:
             player.current_location.stuff.remove(target)
         else:
             player.inventory.remove(target)
     elif type(target) is Torso:
-        if player.armor is not None:
-            unequip(player.armor.name)
+        if player.torso is not None:
+            unequip(player.torso.name)
         player.torso = target
-        print("You now have ", target.name, " equipped as your armor.")
+        print("You now have", target.name, "equipped as your armor.")
         if target in player.current_location.stuff:
             player.current_location.stuff.remove(target)
         else:
@@ -610,9 +628,12 @@ while playing:  # Controller
             item_target = set_item_target(command.lower(), player.current_location.stuff)
         if item_target is not None:
             equip(item_target)
-
         else:
             print("There doesn't seem to be anything here by that name you can equip.")
+    elif "attack" in command.lower() or "hit" in command.lower():
+        target = set_character_target(command.lower(), player.current_location.characters)
+        player.attack(target)
+
     else:
         print("Command Not Found...")
     print()
