@@ -23,6 +23,7 @@
     <SUITE FILE_PATH="coverage/CSE$Gabriella___Hangman__Intermediate___1_.coverage" NAME="Gabriella - Hangman (Intermediate) (1) Coverage Results" MODIFIED="1548695262970" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/notes" />
     <SUITE FILE_PATH="coverage/CSE$Dictionary_notes__Semester_2_.coverage" NAME="Dictionary notes (Semester 2) Coverage Results" MODIFIED="1549044774694" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/notes" />
     <SUITE FILE_PATH="coverage/CSE$Gabriella___Dictionary_World_Map.coverage" NAME="Gabriella - Dictionary World Map Coverage Results" MODIFIED="1549650016325" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/notes" />
+    <SUITE FILE_PATH="coverage/CSE$Gabriella___Syzygy_Ledgends_Adventure_Game_Draft.coverage" NAME="Gabriella - Syzygy Ledgends Adventure Game Draft Coverage Results" MODIFIED="1556037844725" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GABRIELLA - ADVENTURE GAME" />
     <SUITE FILE_PATH="coverage/CSE$Object_and_Dictionary_Practice.coverage" NAME="Object and Dictionary Practice Coverage Results" MODIFIED="1548697141160" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/notes" />
     <SUITE FILE_PATH="coverage/CSE$Object_Deluxe.coverage" NAME="Object Deluxe Coverage Results" MODIFIED="1551114205158" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Game and Minigame Practice stuff" />
     <SUITE FILE_PATH="coverage/CSE$Gabriella___Inheritance.coverage" NAME="Gabriella - Inheritance Coverage Results" MODIFIED="1551375841031" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -46,7 +47,7 @@
     <session id="-1184912740">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="66" />
+          <entry key="project.closed" value="67" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.20" value="1" />
@@ -58,7 +59,7 @@
           <entry key="project.open.time.29" value="5" />
           <entry key="project.open.time.30" value="1" />
           <entry key="project.open.time.33" value="3" />
-          <entry key="project.open.time.34" value="4" />
+          <entry key="project.open.time.34" value="5" />
           <entry key="project.open.time.35" value="2" />
           <entry key="project.open.time.36" value="5" />
           <entry key="project.open.time.37" value="1" />
@@ -82,40 +83,49 @@
           <entry key="project.open.time.62" value="2" />
           <entry key="project.open.time.64" value="2" />
           <entry key="project.open.time.66" value="1" />
-          <entry key="project.opened" value="66" />
+          <entry key="project.opened" value="67" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="50" />
+          <entry key="py" value="51" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="50" />
+          <entry key="Python" value="51" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="7" />
-          <entry key="py" value="59092" />
+          <entry key="py" value="60128" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="7" />
-          <entry key="Python" value="59092" />
+          <entry key="Python" value="60128" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Gabriella - Game_Draft_Demo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="313" column="57" lean-forward="true" selection-start-line="313" selection-start-column="57" selection-end-line="313" selection-end-column="57" />
+            <state relative-caret-position="-195">
+              <caret line="313" column="57" selection-start-line="313" selection-start-column="57" selection-end-line="313" selection-end-column="57" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/GABRIELLA - ADVENTURE GAME/Gabriella - Syzygy Ledgends Adventure Game Draft.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1655">
+              <caret line="358" column="54" selection-start-line="358" selection-start-column="54" selection-end-line="358" selection-end-column="54" />
             </state>
           </provider>
         </entry>
@@ -169,6 +179,7 @@
         <option value="$PROJECT_DIR$/Object and Dictionary Practice(Self).py" />
         <option value="$PROJECT_DIR$/Gabriella - Game.py" />
         <option value="$PROJECT_DIR$/Gabriella - Game_Draft_Demo.py" />
+        <option value="$PROJECT_DIR$/GABRIELLA - ADVENTURE GAME/Gabriella - Syzygy Ledgends Adventure Game Draft.py" />
       </list>
     </option>
   </component>
@@ -187,7 +198,25 @@
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="CSE" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CSE" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CSE" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CSE" type="462c0819:PsiDirectoryNode" />
+              <item name="GABRIELLA - ADVENTURE GAME" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -211,7 +240,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Gabriella - Game_Draft_Demo">
+  <component name="RunManager" selected="Python.Gabriella - Syzygy Ledgends Adventure Game Draft">
     <configuration name="Gabriella - Game" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="CSE" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -248,28 +277,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Gabriella - Game_Draft_Demo.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Gabriella - Inheritance" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="CSE" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Gabriella - Inheritance.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -344,21 +351,43 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Gabriella - Syzygy Ledgends Adventure Game Draft" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="CSE" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/GABRIELLA - ADVENTURE GAME" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/GABRIELLA - ADVENTURE GAME/Gabriella - Syzygy Ledgends Adventure Game Draft.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.Gabriella - Object" />
-      <item itemvalue="Python.Gabriella - Inheritance" />
       <item itemvalue="Python.Gabriella - Item" />
       <item itemvalue="Python.Gabriella - OOP Items" />
       <item itemvalue="Python.Gabriella - Game" />
       <item itemvalue="Python.Gabriella - Game_Draft_Demo" />
+      <item itemvalue="Python.Gabriella - Syzygy Ledgends Adventure Game Draft" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Gabriella - Syzygy Ledgends Adventure Game Draft" />
         <item itemvalue="Python.Gabriella - Game_Draft_Demo" />
         <item itemvalue="Python.Gabriella - Game" />
         <item itemvalue="Python.Gabriella - OOP Items" />
         <item itemvalue="Python.Gabriella - Item" />
-        <item itemvalue="Python.Gabriella - Inheritance" />
       </list>
     </recent_temporary>
   </component>
@@ -407,7 +436,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" />
       <window_info anchor="right" id="Database" order="4" weight="0.32980332" />
-      <window_info anchor="right" id="Run" order="5" sideWeight="0.49924356" weight="0.44780636" />
+      <window_info anchor="right" id="Run" order="5" sideWeight="0.49924356" weight="0.44478065" />
     </layout>
     <layout-to-restore>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16565809" />
@@ -569,8 +598,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Gabriella - Game_Draft_Demo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="313" column="57" lean-forward="true" selection-start-line="313" selection-start-column="57" selection-end-line="313" selection-end-column="57" />
+        <state relative-caret-position="-195">
+          <caret line="313" column="57" selection-start-line="313" selection-start-column="57" selection-end-line="313" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GABRIELLA - ADVENTURE GAME/Gabriella - Syzygy Ledgends Adventure Game Draft.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1655">
+          <caret line="358" column="54" selection-start-line="358" selection-start-column="54" selection-end-line="358" selection-end-column="54" />
         </state>
       </provider>
     </entry>
