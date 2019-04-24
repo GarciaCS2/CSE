@@ -356,7 +356,7 @@ class Hostile(Ai):  # Applicable AI
                 self.conditions.append("ABSENT_WEAPON")
         elif "WEAPON_FOUND" in infliction:
             if "ABSENT_WEAPON" in self.conditions:
-                self.conditions.remove("ABSENT_WEAPON")
+                self.conditions.remove("ABSENT_WEAPON" )
         if "SPOTTED" in infliction:
             if "PURE_INNOCENT" in infliction:
                 self.action = "TARGET_SEARCH PURE_INNOCENT"
@@ -466,7 +466,7 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
 
     def react(self, sender, action):
         # There is already a self attacked reaction.
-        if self.ai.target is not None and self.ai.target.dead:
+        if self.ai.target is not None and self.ai.target.dead:  # Reacting to Death
             if self.ai.target in self.ai.enemies:
                 self.ai.enemies.remove(self.ai.target)
             elif self.ai.target in self.ai.friends:
@@ -591,8 +591,6 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
 
 
 # ______________________________________________ROOMS INSTANTIATED______________________________________________________
-
-
 
 # HOME
 starting_room = Room("A Room", "A generic room. There's all kinds of stuff scattered all over the place.",
@@ -752,7 +750,7 @@ deanne_north_1far = Room("Deanne Splitroad North 1-far", "The cobblestone path g
                          "grass.", "You walk on an unwavering cobblestone path. The path is composed of flawless "
                                    "cobblestone pieces.", "You hear your steps on the cobblestone path. Somehow, the "
                                                           "sounds of your footsteps on this cobblestone is scary.",
-                         'deanne_north_2far')
+                         'deanne_north_2far', None, 'deanne_3split_crossroad')
 deanne_north_2far = Room("Deanne Splitroad North 2-far", "The cobblestone path glows from the morning sunlight.",
                          "You walk on an unwavering cobblestone path. Next to the path on both sides is intimidating "
                          "grass.", "You walk on an unwavering cobblestone path. The path is composed of flawless "
@@ -1269,7 +1267,7 @@ while playing:
             timepass += 1
         except KeyError:
             print("You can't go that way")
-    elif "inventory" in command.lower() or command.lower() in "i":  # -------------------CHECK INVENTORY
+    elif command.lower() in "inventory" or command.lower() in "i":  # -------------------CHECK INVENTORY
         print("Your inventory...")
         if len(player.inventory) > 1:
             inventory = []
