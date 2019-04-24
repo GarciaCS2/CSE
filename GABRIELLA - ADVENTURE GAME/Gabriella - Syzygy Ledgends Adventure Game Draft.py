@@ -488,15 +488,16 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
             print(self.name, "has lost sight of you.")
         for i in range(len(self.current_location.characters)):  # SPOTTING OTHERS
             if self.current_location.characters[i] is not self:
+                print(self.name, "sees", self.current_location.characters[i].name)
                 self.ai.reaction((self.current_location.characters[i].ai.faction, "SPOTTED"))
+        threats = 0
         for i in range(len(self.ai.enemies)):  # SEARCH ENEMIES
-            threats = 0
             if self.ai.enemies[i].current_location is self.current_location:
-                threats +=1
-            if threats == 0:
-                self.ai.reaction("ENEMIES_GONE")
-            else:
-                self.ai.reaction("UNDER_ATTACK")
+                threats += 1
+        if threats == 0:
+            self.ai.reaction("ENEMIES_GONE")
+        else:
+            self.ai.reaction("UNDER_ATTACK")
         if "ATTACK" in action.upper():
             recieving = set_character_target(action, self.current_location.characters)
             if recieving is None:
