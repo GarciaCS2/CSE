@@ -307,11 +307,13 @@ class Ai(object): # Don't use this one.
         self.friends = []
         self.enemies = []
         self.target = None
+        self.enemy_factions = []
 
 
 class Traveler(Ai):  # Applicable AI
     def __init__(self, brave: bool, faction="FULL_INNOCENT"):
         super(Traveler, self).__init__(brave, faction)
+        self.enemy_factions = ["EVIL"]
 
     def reaction(self, infliction):
         if "UNDER_ATTACK" in infliction:
@@ -322,11 +324,12 @@ class Traveler(Ai):  # Applicable AI
                 self.conditions.remove("UNDER_ATTACK")
                 if "ATTACK" in self.action:
                     self.action = None
-        elif "SPOTTED" in infliction:
+        if "SPOTTED" in infliction:
             if "EVIL" in infliction:
                 self.action = "TARGET_SEARCH EVIL"
-        else:
-            pass
+        if "BORED" in infliction:
+            self.action = "MOVE"
+
 
     def behaviours(self):
         if "UNDER_ATTACK" in self.conditions:
@@ -343,6 +346,7 @@ class Traveler(Ai):  # Applicable AI
 class Hostile(Ai):  # Applicable AI
     def __init__(self, faction="EVIL"):
         super(Hostile, self).__init__(True, faction, True)
+        self.enemy_factions = ["PURE_INNOCENT"]
 
     def reaction(self, infliction):
         if "UNDER_ATTACK" in infliction:
@@ -357,9 +361,6 @@ class Hostile(Ai):  # Applicable AI
         elif "WEAPON_FOUND" in infliction:
             if "ABSENT_WEAPON" in self.conditions:
                 self.conditions.remove("ABSENT_WEAPON" )
-        if "SPOTTED" in infliction:
-            if "PURE_INNOCENT" in infliction:
-                self.action = "TARGET_SEARCH PURE_INNOCENT"
         if "PLAYER_THREAT" in infliction:
             if "PLAYER_THREAT" not in self.conditions:
                 self.conditions.append("PLAYER_THREAT")
@@ -393,6 +394,7 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
                  shoes=None):
         super(Character, self).__init__(name, starting_location, health, money, weapon, helmet, torso, shoes)
         self.ai = ai
+        self.ai_timepass = 0
 
     def death(self):
         print(self.name, "is now dead.")
@@ -414,6 +416,7 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
             self.current_location.characters.remove(self)
 
     def attack(self, character_target):
+        self.ai_timepass = 0
         if self.dead:
             print(self.name, "tried to attack someone, but died.")
             return
@@ -424,7 +427,7 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
             else:
                 self.ai.target = self.ai.enemies[0]
             if player.current_location is self.current_location and self.ai.faction == "EVIL":
-                if random.randint(1, 20) > 5:
+                if random.randint(1, 3) == 3:
                     self.ai.target = player
             character_target = self.ai.target
             if character_target is None:
@@ -434,7 +437,7 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
                 return
         if self.weapon is not None:
             if isinstance(self.weapon, Weapon):
-                print("Attack! ", self.name, "hit ", character_target.name, " for ",
+                print("Attack!", self.name, "hit ", character_target.name, "for",
                       (self.weapon.attack_power + (self.attack_power/2)), " damage.")
                 character_target.take_damage(self, (self.weapon.attack_power + (self.attack_power/2)))
             else:
@@ -444,6 +447,7 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
         else:
             print("Attack! ", self.name, "hit ", character_target.name, " for ", self.attack_power, " damage.")
             character_target.take_damage(self, self.attack_power)
+        self.ai_timepass += 1
 
     def take_damage(self, attacker, damage: int, lost=0):
         self.calculate_armor()
@@ -453,7 +457,7 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
         else:
             lost = damage - (damage*self.armor)/100
             self.health -= lost
-            print(self.name, " lost ", lost, " health")
+            print(self.name, "lost", lost, "health")
             print(self.name, "now has", self.health, "health.")
             if self.health <= 0:
                 self.death()
@@ -488,8 +492,13 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
             print(self.name, "has lost sight of you.")
         for i in range(len(self.current_location.characters)):  # SPOTTING OTHERS
             if self.current_location.characters[i] is not self:
-                print(self.name, "sees", self.current_location.characters[i].name)
-                self.ai.reaction((self.current_location.characters[i].ai.faction, "SPOTTED"))
+                if self.current_location.characters[i].ai.faction == self.ai.faction:
+                    self.ai.friends.append(self.current_location.characters[i])
+                else:
+                    # print(self.name, "sees", self.current_location.characters[i].name)
+                    if self.current_location.characters[i].ai.faction in self.ai.enemy_factions:
+                        if self.current_location.characters[i] not in self.ai.enemies:
+                            self.ai.enemies.append(self.current_location.characters[i])
         threats = 0
         for i in range(len(self.ai.enemies)):  # SEARCH ENEMIES
             if self.ai.enemies[i].current_location is self.current_location:
@@ -507,12 +516,15 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
                     self.ai.friends.append(sender)
                 if recieving in self.ai.friends:
                     self.ai.enemies.append(sender)
-                if recieving.ai.faction == "FULL_INNOCENT":
+                if recieving.ai.faction == self.ai.faction:
                     self.ai.target = sender
                     if sender not in self.ai.enemies:
                         self.ai.enemies.insert(0, sender)
                     if "UNDER_ATTACK" not in self.ai.conditions:
                         self.ai.conditions.append("UNDER_ATTACK")
+        if len(self.ai.conditions) == 0:
+            if random.randint(1, 3) == 3:  # GETTING BORED...
+                self.ai.reaction("BORED")
 
     def behave(self):
         self.ai.behaviours()
@@ -520,7 +532,8 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
             return
         if "ATTACK" in self.ai.action:
             self.attack(self.ai.target)
-        elif "MOVE" in self.ai.action:
+        if "MOVE" in self.ai.action:
+            self.ai_timepass = 0
             moves = ['north', 'east', 'south', 'west', 'up', 'down']
             try:
                 new_room = self.find_next_room(random.choice(moves))
@@ -528,6 +541,7 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
                 self.move(new_room)
                 self.current_location.characters.append(self)
                 print(self.name, "moved to", self.current_location)
+                self.ai_timepass += 2
             except KeyError:
                 try:
                     new_room = self.find_next_room(random.choice(moves))
@@ -535,6 +549,7 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
                     self.move(new_room)
                     self.current_location.characters.append(self)
                     print(self.name, "moved to", self.current_location)
+                    self.ai_timepass += 3
                 except KeyError:
                     try:
                         new_room = self.find_next_room(random.choice(moves))
@@ -542,34 +557,41 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
                         self.move(new_room)
                         self.current_location.characters.append(self)
                         print(self.name, "moved to", self.current_location)
+                        self.ai_timepass += 4
                     except KeyError:
                         pass
-        elif "RUN" in self.ai.action:
+        if "RUN" in self.ai.action:
+            self.ai_timepass = 0
             moves = ['north', 'east', 'south', 'west', 'up', 'down']
             try:
                 new_room = self.find_next_room(random.choice(moves))
                 self.current_location.characters.remove(self)
                 self.move(new_room)
                 self.current_location.characters.append(self)
+                self.ai_timepass += 0
             except KeyError:
                 try:
                     new_room = self.find_next_room(random.choice(moves))
                     self.current_location.characters.remove(self)
                     self.move(new_room)
                     self.current_location.characters.append(self)
+                    self.ai_timepass += 1
                 except KeyError:
                     try:
                         new_room = self.find_next_room(random.choice(moves))
                         self.current_location.characters.remove(self)
                         self.move(new_room)
                         self.current_location.characters.append(self)
+                        self.ai_timepass += 2
                     except KeyError:
                         print(self.name, "tried to move away, but couldn't.")
-        elif "SEARCH" in self.ai.action:
-            if player.current_location == self.current_location:
-                self.ai.target = player
+        if "SEARCH" in self.ai.action:
+            if self.ai.faction == "EVIL":
+                if player.current_location == self.current_location:
+                    self.ai.target = player
             found = True
             if "WEAPON_SEARCH" in self.ai.action:
+                self.ai_timepass = 0
                 print(self.name, "is searching for a weapon.")
                 while self.weapon is None and found is not False:
                     for i in range(len(self.current_location.stuff)):
@@ -580,15 +602,11 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
                             if random.randint(1, 10) < 3:
                                 self.ai.action = "MOVE"
                             found = False
-            elif "TARGET_SEARCH" in self.ai.action:
-                for i in range(len(self.current_location.characters)):
-                    if self.current_location.characters[i] is not self:
-                        if self.current_location.characters[i].ai.faction == self.ai.action[14:]:
-                            if self.current_location.characters[i] not in self.ai.enemies:
-                                self.ai.enemies.append(self.current_location.characters[i])
-                        elif self.current_location.characters[i].ai.faction == self.ai.faction:
-                            if self.current_location.characters[i] not in self.ai.friends:
-                                self.ai.friends.append(self.current_location.characters[i])
+                if found:
+                    self.ai_timepass += 2
+                else:
+                    self.ai_timepass += 1
+
 
 
 # ______________________________________________ROOMS INSTANTIATED______________________________________________________
@@ -1151,7 +1169,9 @@ while playing:
     else:
         pass
     command = input(">_")  # ----------------ENTER COMMAND:
-    if command.lower() in ['q', 'quit', 'exit', 'goodbye']:  # -----------QUIT GAME
+    if command.lower() == "":
+        print("What did you say? I can't hear you.")
+    elif command.lower() in ['q', 'quit', 'exit', 'goodbye']:  # -----------QUIT GAME
         playing = False
         print("%s left the game" % player_name)
     elif command.lower() in ['stats', 'player statistics']:
@@ -1294,12 +1314,10 @@ while playing:
     for i in range(len(player.current_location.characters)):
         characters_in_play.append(player.current_location.characters[i])
     for i in range(len(characters_in_play)):
-        print(characters_in_play[i].ai.conditions)
-        print(characters_in_play[i].ai.action)
         characters_in_play[i].react(player, command.upper())
         characters_in_play[i].behave()
-        print(characters_in_play[i].ai.conditions)
-        print(characters_in_play[i].ai.action)
+        timepass += characters_in_play[i].ai_timepass
+
     characters_in_play = []
 
     if timepass == 0:  # TIME PASSES
@@ -1323,3 +1341,13 @@ while playing:
         playing = False
     print()
     print("---" * 9)
+
+    """
+    print(characters_in_play[i].name)
+        print(characters_in_play[i].ai.friends, characters_in_play[i].ai.enemies)
+        print(characters_in_play[i].ai.conditions)
+        print(characters_in_play[i].ai.action)
+        
+        print(characters_in_play[i].ai.conditions)
+        print(characters_in_play[i].ai.action)
+    """
