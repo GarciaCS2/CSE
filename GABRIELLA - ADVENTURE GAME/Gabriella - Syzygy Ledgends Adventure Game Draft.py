@@ -8,6 +8,88 @@ class Item(object):
         self.description = description
 
 
+class QuestItem(Item):
+    def __init__(self, name, description, thing):
+        super(QuestItem, self).__init__(name, description)
+        self.thing = thing  # Ring, Sword, what thing it is
+
+
+class HeartOfTsard(QuestItem):
+    def __init__(self):
+        super(HeartOfTsard, self).__init__("The Legend's Wedding Ring", "A beautiful, marble enchanted ring.", "RING")
+
+
+class PrideOfTsard(QuestItem):
+    def __init__(self):
+        super(PrideOfTsard, self).__init__("The Legend's Crafted Sword", "A beautiful, elegant silver sword of blue "
+                                                                         "jewels.", "SWORD")
+
+
+class SoulOfTsard(QuestItem):
+    def __init__(self, owner):
+        super(SoulOfTsard, self).__init__("Book Tsard Legends",
+                                          "It is a book of the Great Tsard Ledgends. This is the soul of Tsard.",
+                                          "BOOK")
+        self.owner = owner
+        self.title = "LEGENDS OF TSARD"
+        self.pages = [["(This game is at most, a demo. So, a full book is not present.)",
+                       "(You are now reading a simplified version of the Tsard Legend.)",
+                       "    Tsard, the thriving town, was once a town, not ordinary like the others, no...",
+                       "It was a town trapped in a great peril. Every citizen of Tsard carried great pain on their "
+                       "shoulders, each unique to them.",
+                       "The people needed someone to lift themselves up from this deep trench of their despair.",
+                       "        CHAPTER 1: The recipe.",
+                       "The town made a recipe, a crucial recipe, that of which calls for a careful process.",
+                       "Take the Tsard seed born of any tree that grows of love, optimism, and a pinch of wisdom.",
+                       "Season the seed with wisdom, and place it into a certain bowl of water.",
+                       "The water will soften some parts of the Tsardian seed, but the water instill the seed with",
+                       "one or a few important parts that will keep the seed intact, and make it try to repair itself."
+                       "Pound the seed with an unjust gavel, made of pain. Made of sadness.",
+                       "Whatever you do, don't break the seed. Don't break what keeps the seed intact.",
+                       "Now place the seed back into the water, and take what is left of the seasoning and",
+                       "place that into the water as well. The seed will repair itself. The process must be repeated.",
+                       "They say the secret ingredient of any dish is love. That is one of them, but it is not the",
+                       "secret ingredient. The secret ingredient is: Time. Apply time."
+                       "When the seed is ready, place it into any soil. Let it grow, and the tree will be strong.",
+                       "It will yield fruits that let the tree's nutrients and power coarse through you, if"
+                       " you allow it to."],
+                      ["CHAPTER 2 (A poem summary)",  "To Tsard, the hero arrived", "To us, the hero was he.",
+                       "He moved through the crowds, and left the trail", "And invited us to make our own.",
+                       "He met his spouse to be heroes together,", "Together, the heart of Tsard they stole.",
+                       "", "And Tsard, its heart:lifted.", "Lifted was our spirits.",
+                       "Tsard, our town flourished.", "Tsard, the thriving town."]
+                      ]
+
+        def open_book(self):
+            print(self.title)
+            print("(Type 'Next' and 'Previous' to move back and forward from pages.)")
+            print("(You can also type 'skip to page' and then the page number to skip to a page.)")
+            reading = True
+            page = 1
+            while reading:
+                print("PAGE", page)
+                for line in range(len(self.pages[page-1])):
+                    print(self.pages[page-1][line])
+                print()
+            read_command = input(">_")
+            if read_command.lower() in "next" or read_command.lower() in "n":
+                try:
+                    page += 1
+                except AttributeError:
+                    pass
+
+
+class Book(Item):
+    def __init__(self, owner, legend):
+        super(Book, self).__init__("Syzygy Ledgends",
+                                          "It is a book of the Syzygy Legends.")
+        self.owner = owner  # Great Grandfather
+        self.legend = legend  # PLAYER
+        self.title = "THE SYZYGY LEGENDS"
+        self.pages = [["(Written Note:)", ("To my soon to be rising legend, " + self.legend.name), ""]
+                      ]
+
+
 class Equipment(Item):
     def __init__(self, name, description, weight, condition='NEW'):
         super(Equipment, self).__init__(name, description)
@@ -38,7 +120,7 @@ class Gelmet(Headgear):  # INSTANTIABLE Generic Helmet
 
 class Kinghelm(Headgear):  # INSTANTIABLE King's Helmet
     def __init__(self, imprint):
-        super(Kinghelm, self).__init__("A King's Helmet", "The helmet of which a king would wear.", 50,
+        super(Kinghelm, self).__init__("A King's Helmet", "The helmet of which a king would wear.", 30,
                                        'MAGIC_GOLD', 'HONOR STATUS')
         self.imprint = imprint  # Of whom's soul does this Helmet feel of?
 
@@ -182,6 +264,7 @@ class Money(object):
         self.description = "Shiny gold coins of money..."
         self.name = ("%d coins of money" % amount)
 
+
 # _______________________________ROOM OBJECT____________________________________________________
 class Room(object):
     def __init__(self, name, morning, noon, evening, night, north=None, east=None, south=None, west=None, up=None,
@@ -244,6 +327,7 @@ class Interactive(Entity):
         return globals()[name_of_room]  # Security risk
 
     def calculate_armor(self):
+        self.armor = 0
         try:
             self.armor += self.helmet.protection
         except AttributeError or TypeError:
@@ -314,6 +398,8 @@ class Traveler(Ai):  # Applicable AI
     def __init__(self, brave: bool, faction="FULL_INNOCENT"):
         super(Traveler, self).__init__(brave, faction)
         self.enemy_factions = ["EVIL"]
+        self.inner_tick = 0
+        self.max_tick = random.randint(5, 30)
 
     def reaction(self, infliction):
         if "UNDER_ATTACK" in infliction:
@@ -322,13 +408,23 @@ class Traveler(Ai):  # Applicable AI
         elif "ENEMIES_GONE" in infliction:
             if "UNDER_ATTACK" in self.conditions:
                 self.conditions.remove("UNDER_ATTACK")
-                if "ATTACK" in self.action:
-                    self.action = None
+            if self.action is not None and "ATTACK" in self.action:
+                self.action = None
         if "SPOTTED" in infliction:
             if "EVIL" in infliction:
                 self.action = "TARGET_SEARCH EVIL"
-        if "BORED" in infliction:
-            self.action = "MOVE"
+        if len(self.conditions) == 0:
+            # print("Bored...")
+            # print(self.conditions)
+            # print(self.inner_tick, "/", self.max_tick)
+            self.inner_tick += 1
+            if self.inner_tick == self.max_tick:
+                # print("MOVE")
+                self.action = "MOVE"
+            if self.inner_tick > self.max_tick:
+                self.inner_tick = 0
+        elif len(self.conditions) >= 0:
+            self.inner_tick = 0
 
 
     def behaviours(self):
@@ -339,8 +435,6 @@ class Traveler(Ai):  # Applicable AI
 
             else:
                 self.action = "RUN"
-        else:
-            self.action = None
 
 
 class Hostile(Ai):  # Applicable AI
@@ -453,7 +547,7 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
         self.calculate_armor()
         if self.armor > 100:
             print("%s's armor negated all the damage." % self.name)
-            print("%s lost %s health" % self.name, lost)
+            print(self.name, "lost 0 health.")
         else:
             lost = damage - (damage*self.armor)/100
             self.health -= lost
@@ -522,9 +616,6 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
                         self.ai.enemies.insert(0, sender)
                     if "UNDER_ATTACK" not in self.ai.conditions:
                         self.ai.conditions.append("UNDER_ATTACK")
-        if len(self.ai.conditions) == 0:
-            if random.randint(1, 3) == 3:  # GETTING BORED...
-                self.ai.reaction("BORED")
 
     def behave(self):
         self.ai.behaviours()
@@ -556,7 +647,7 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
                         self.current_location.characters.remove(self)
                         self.move(new_room)
                         self.current_location.characters.append(self)
-                        print(self.name, "moved to", self.current_location)
+                        print(self.name, "moved to", self.current_location.name)
                         self.ai_timepass += 4
                     except KeyError:
                         pass
@@ -615,8 +706,8 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
 starting_room = Room("A Room", "A generic room. There's all kinds of stuff scattered all over the place.",
                      "A generic room. There's all kinds of stuff scattered all over the place.",
                      "A generic room. There's all kinds of stuff scattered all over the place.",
-                     "A generic room. There's all kinds of stuff scattered all over the place.", None,
-                     'ns_hallway_north')
+                     "A generic room. There's all kinds of stuff scattered all over the place.", None)
+
 ns_hallway_north = Room("Home Hallway, Northern Side",
                         "To the west is a room. The hallway leads south, flooded by morning light.",
                         "To the west is a room. The hallway leads south.",
@@ -628,7 +719,7 @@ ns_hallway_south = Room("Home Hallway, Southern Side", "To the west is your bedr
                         "To the west is your bedroom. To the east is the livingroom.",
                         "To the west is your bedroom. To the east is the livingroom.",
                         "This hallway has 2 doors to the west side(one north and one south), and one east right next "
-                        "to you.")
+                        "to you.", None, 'livingroom_south')
 kitchen_west = Room("Your Kitchen, West Side.",
                     "This is your kitchen. It's a lovely kitchen. To the south is the livingroom.",
                     "This is your kitchen. It's a nice kitchen. To the south is the livingroom.",
@@ -638,7 +729,7 @@ kitchen_east = Room("Your Kitchen, East Side.",
                     "This is your kitchen. It's a lovely kitchen.",
                     "This is your kitchen. It's a nice kitchen.",
                     "This is your kitchen. It's a cool kitchen.",
-                    "You're in your kitchen.", None, 'kitchen_east', 'livingroom_north')
+                    "You're in your kitchen.", None, None, None, 'kitchen_east')
 livingroom_south = Room("Your Livingroom, Southern Side", "Your livingroom is a very welcoming room. Morning light" 
                         " shines through the window. To west is a hallway, east leads to your bathroom.",
                         "Your living room is a very welcoming room. Covering the floor of this room is an ocean of "
@@ -722,7 +813,7 @@ deanne_south_1far = Room("Deanne Splitroad South 1-far", "The cobblestone path b
                          "You walk on a proud cobblestone path. Next to the path on both sides is fond grass.",
                          "You walk on a proud cobblestone path, composed of pieces that in a particular way, work out.",
                          "You hear your steps on the cobblestone path. The sounds your steps make on this cobblestone "
-                         "is somehow comforting.", 'deanne_3split_crossroad')
+                         "is somehow comforting.", 'deanne_3split_crossroad', None, 'fate_tower_1_doorstep')
 fate_tower_1_doorstep = Room("Great Shrine of Tsard", "The Great Shrine of Tsard...the morning implores you to have "
                                                       "warm memories that don't really belong to you.",
                              "The Great Shrine of Tsard...this was built in the name of Tsard.",
@@ -733,7 +824,8 @@ fate1_large_hall = Room("Tsard Shrine Large Hall", "Chairs are set aside for aud
                                                    "of such. There is a stage-like elevated floor to the south.",
                         "Chairs are set aside for audiences to sit in. There is a stage-like elevated floor to the "
                         "south.", "Chairs are set aside. There is a stage-like elevated floor to the south.",
-                        "There is a space on the floor that seems elevated to the south.", 'fate1_elevated_floor')
+                        "There is a space on the floor that seems elevated to the south.", 'fate_tower_1_doorstep',
+                        None, 'fate1_elevated_floor')
 fate1_elevated_floor = Room("Great Stage of Tsard", "This was the perfect place for a wedding. This is where the couple"
                                                     " would stand together. There still feels as if there is joy "
                                                     "remaining here in an otherwise dull place.",
@@ -756,12 +848,10 @@ fate1_floor2 = Room("TSARD ABANDONED SHRINE, FLOOR 2",
                     "You have to reach the third floor. (UP = Thrid floor, BACK, WEST, or EAST = staircase)",
                     "You have to reach the third floor. (UP = Thrid floor, BACK, WEST, or EAST = staircase)",
                     "You have to reach the third floor. (UP = Thrid floor, BACK, WEST, or EAST = staircase)")
-# NOTE: CREATE EVENT TO CREATE PASSAGE TO THIRD FLOOR
 fate1_floor3 = Room("TSARD ABANDONED SHRINE, THE THIRD FLOOR", "You're at the third floor. The morning sun beams at "
                                                                "you through the towering tower window.",
                     "You're at the third floor.", "You're at the third floor.",
                     "You're at the third floor. The stars beam at you through the towering tower window.")
-# NOTE: CREATE EVENT TO CREATE PASSAGE BACK TO SECOND FLOOR
 # NOTE: PUT MOUNT ON THAT FLOOR!
 # DEANNE NORTH -------------
 deanne_north_1far = Room("Deanne Splitroad North 1-far", "The cobblestone path glows from the morning sunlight.",
@@ -797,8 +887,7 @@ fate_tower_2_doorstep = Room("(Almost) The Guarded Watchtower of Tsard.",
 fate2_door = Room("The Fallen Watchtower of Tsard", "Westward leads inside. Be careful!",
                   "Westward leads inside. Be careful!", "Westward leads inside. Be careful!",
                   "Westward leads inside. Be careful!")
-# NOTE: CREATE EVENT TO OPEN DOORS
-fate2_forge = Room("LEDGENDARY FORGE",
+fate2_forge = Room("LEGENDARY FORGE",
                    "Despite that the Tsard's hold on this Tower is long gone, this forge is still held in high regard "
                    "as if it were still Tsard's.",
                    "Despite that the Tsard's hold on this Tower is long gone, this forge is still held in high regard.",
@@ -820,7 +909,6 @@ fate2_floor2 = Room("TSARD ABANDONED WATCHTOWER, FLOOR 2",
                     "You must reach the third floor at all costs! (UP = third floor, DOWN = first floor)",
                     "You must reach the third floor at all costs! (UP = third floor, DOWN = first floor)",
                     "You must reach the third floor at all costs! (UP = third floor, DOWN = first floor)",)
-fate2_floor2.up = ''
 fate2_floor2.down = 'fate2_floor1'
 fate2_floor3 = Room("TSARD ABANDONED WATCHTOWER, THE THIRD FLOOR",
                     "You're at the third floor. In the center of a room is a pedestal for a sword to rest in. "
@@ -1007,9 +1095,22 @@ fate3_floor2 = Room("ABANDONED HIDING TOWER, FLOOR 2...",
                     "These are your great great grandparents. Please go back upstairs. You have a job to do.")
 fate3_floor2.up = 'fate3_floor3_library'
 
+# VITAL ESTABLISHMENTS.
+legend = Character((player.name + "the First"), None, 1000, 1000, None, PrideOfTsard(),
+                   Kinghelm(player.name + "the First"))
+sheath = Character("Sheeth", fate1_floor2, 800, 100, Hostile(), Ord("FLAME"), Kinghelm("Sheeth"), Gorso(10, "Obsidian"))
+key_item_1 = HeartOfTsard()
+rar = Character("Rar", fate2_floor2, 1000, 100, Hostile(), Maxe("Rar", None), Kinghelm("Rar"), Gorso(20, "Marble"))
+key_item_2 = PrideOfTsard()
+key_item_3 = SoulOfTsard(legend)
+
 # ________________________________________________Characters_INSTANTIATED______________________________________
+fate1_floor2.characters = [sheath]
+fate2_floor2.characters = [rar]
+
 
 # ________________________________________________Items______INSTANTIATED________________________________________
+starting_room.stuff = [Standard("Regular Sword", "It's a decent sword.", "Melee"), Gelmet(15, "IRON")]
 
 
 # --------------------------Command FUNCTIONS---------------------------------
@@ -1109,11 +1210,122 @@ ampm = "AM"
 hour = 9
 minutes = 0
 timepass = 0
-player.current_location = patio
+player.current_location = starting_room
 player_name = input("Choose a name, and type it in.")
 player.name = player_name
 print("Your name is", player.name)
 
+
+def events(string):
+    if string == "LEAVE STARTING ROOM":
+        if player.weapon is None or player.helmet is None:
+            if player.weapon is None and player.helmet is not None:
+                print("Equip a weapon.")
+            elif player.helmet is None and player.weapon is not None:
+                print("Equip a helmet.")
+            else:
+                print("Equip a weapon and helmet first.")
+        else:
+            starting_room.east = 'ns_hallway_north'
+    if string == "ENTER TSARD":
+        if key_item_1 not in player.inventory or key_item_2 not in player.inventory or key_item_3 not in player.inventory:
+            print("You do not have all the key items you need.")
+            key_items = [key_item_1, key_item_2, key_item_3]
+            absence = []
+            for key in range(len(key_items)):
+                if key_items[key] not in player.inventory:
+                    absence.append(key_items[key].name)
+            print("You still need", ", ".join(absence))
+        else:
+            print("The Grand Tsard gates are now open to you.")
+            tsard_gates.west = 'demo_end'
+    if string == "ASCEND":
+        if player.current_location == fate1_floor2:
+            if sheath.dead is False:
+                print("You must slay", sheath.name, "first before you can ascend.")
+            else:
+                fate1_floor2.up = 'fate1_floor3'
+                fate1_floor2.west = 'fate1_staircase'
+                fate1_floor2.east = 'fate1_staircase'
+                fate1_floor2.down = 'fate1_staircase'
+        if player.current_location == fate2_floor2:
+            if rar.dead is False:
+                print("You must slay", rar.name, "first before you can ascend.")
+            else:
+                fate2_floor2.up = 'fate2_floor3'
+    if string == "GO BACK":
+        if key_item_1 not in player.inventory:
+            print("Take the ring.")
+        else:
+            fate1_floor3.down = 'fate1_floor2'
+    if string == "ENTER BATTLETOWER":
+        if key_item_1 not in player.inventory:
+            print("You should visit the first tower first. Go through Deanne South and retrieve a quest item.")
+        else:
+            fate2_door.west = fate2_floor1
+    if string == "FATE 1 RETURN":
+        if key_item_1 not in player.inventory:
+            print("Take the ring.")
+        else:
+            fate1_floor3.down = 'fate1_floor2'
+    if string == "FATE 2 RETURN":
+        if key_item_2 not in player.inventory:
+            print("Take. The. Sword.")
+        else:
+            print("You have the sword! You have the quest item!")
+            print("Here's the deal: The game is still in demo mode. We can't afford a mount for you to ride to"
+                  " the third fate tower.")
+            print("So, we put a magic tag on the sword so you can type 'away' and transport there!")
+            fate2_floor3.away = 'fate_tower_3_garage'
+    if string == "IN LIBRARY":
+        if key_item_3 not in player.inventory:
+            print("Take the book.")
+        else:
+            fate_tower_3_garage.away = deanne_jason_crossroad
+
+            print("Now that you have the book, you can go back to the room you appeared in and type 'away' again or "
+                  "'back', and appear at the Deanne-Jason Crossroad.")
+
+
+def triggers(string):
+    if player.current_location == starting_room and "east" in string:
+        events("LEAVE STARTING ROOM")
+    if player.current_location == tsard_gates and "west" in string:
+        events("ENTER TSARD")
+    if player.current_location == fate1_floor2 or player.current_location == fate2_floor2:
+        if "up" in string:
+            events("ASCEND")
+        else:
+            pass
+    if player.current_location == fate2_floor3 and "down" in string:
+        events("GO BACK")
+    if player.current_location == fate2_door and "west" in string:
+        events("ENTER BATTLETOWER")
+    if player.current_location == fate1_floor3 and "down" in string:
+        events("FATE 1 RETURN")
+    if player.current_location == fate2_floor3 and key_item_2 in player.inventory:
+        events("FATE 2 RETURN")
+    if player.current_location == fate3_floor3_library:
+        events("IN LIBRARY")
+
+
+demo_end = Room("The City of Tsard.",
+                "You've made it to the city of Tsard. You brought the town back its  heart, pride, and very soul. "
+                "The people thrive once again.  (This is the demo's end.)",
+                "You've made it to the city of Tsard. You brought the town back its  heart, pride, and very"
+                " soul. The people thrive once again.  (This is the demo's end.)",
+                "You've made it to the city of Tsard. You brought the town back its  heart, pride, and very"
+                " soul. The people thrive once again.  (This is the demo's end.)",
+                "You've made it to the city of Tsard. You brought the town back its  heart, pride, and very"
+                " soul. The people thrive once again.  (This is the demo's end.)",
+                "You've made it to the city of Tsard. You brought the town back its  heart, pride, and very"
+                " soul. The people thrive once again.  (This is the demo's end.)")
+
+dev_weapon = Standard("Admin Sword.", "Insta-Killer.", "MELEE")
+dev_weapon.attack_power = 1000
+player.weapon = dev_weapon
+
+"""
 # DEMO:
 
 demo_room = Room("DEMO ROOM!", "Room for testing, morning.", "Room for testing, noon.", "Room for testing, evening.",
@@ -1123,9 +1335,11 @@ demo_room.stuff = [Gboots(4, "LEATHER"), Gelmet(5, "LEATHER"), Generic("Bag", "J
                    Standard("Sword", "a sword...", "MELEE"), Standard("Bow", "Just a bow", "RANGED"), Gorso(6, "IRON"),
                    Money(43)]
 jason_rd_5down.characters = [Character("Jenn", jason_rd_5down, 400, 5, Traveler(True), Ord("FLAME"), Kinghelm("Jenn")),
-                        Character("Jeff", jason_rd_5down, 4000, 5, Traveler(False), Standard("Regular Sword",
+                             Character("Jeff", jason_rd_5down, 4000, 5, Traveler(False), Standard("Regular Sword",
                                                                                             "pretty cool", "MELEE")),
                              Character("Orc1", jason_rd_5down, 500, 5, Hostile(), None, Gelmet(4, "IRON"))]
+                             """
+
 
 # ___________________________________________________CONTROLLER__________________________________________________
 playing = True
@@ -1202,6 +1416,7 @@ while playing:
             print("INVENTORY: NOTHING")
 
     elif command.lower() in directions:  # -----------------MOVE ROOM A
+        triggers(command.lower())  # EVENT
         try:
             next_room = player.find_next_room(command)
             player.move(next_room)
@@ -1234,10 +1449,13 @@ while playing:
             player.current_location.stuff.remove(item_target)
             print("You took the", item_target.name)
         elif "money" in command.lower():
+            money_things = []
             for i in range(len(player.current_location.stuff)):
                 if isinstance((player.current_location.stuff[i]), Money):
-                    player.money += player.current_location.stuff[i].amount
-                    player.current_location.stuff.remove(player.current_location.stuff[i])
+                    money_things.append(player.current_location.stuff[i])
+            for i in range(len(money_things)):
+                player.money += money_things[i].amount
+                player.current_location.stuff.remove(money_things[i])
         else:
             print("There's nothing here of that name you can pick up.")
     elif "drop" in command.lower() or "leave" in command.lower():  # ----------------------DROP ITEM
@@ -1282,6 +1500,7 @@ while playing:
     elif command.lower() in short_directions:  # ---------------MOVE ROOM B
         pos = short_directions.index(command.lower())
         command = directions[pos]
+        triggers(command.lower())  # EVENT
         try:
             next_room = player.find_next_room(command)
             player.move(next_room)
