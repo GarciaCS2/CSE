@@ -38,45 +38,29 @@ class SoulOfTsard(QuestItem):
                        "It was a town trapped in a great peril. Every citizen of Tsard carried great pain on their "
                        "shoulders, each unique to them.",
                        "The people needed someone to lift themselves up from this deep trench of their despair.",
-                       "        CHAPTER 1: The recipe.",
-                       "The town made a recipe, a crucial recipe, that of which calls for a careful process.",
-                       "Take the Tsard seed born of any tree that grows of love, optimism, and a pinch of wisdom.",
-                       "Season the seed with wisdom, and place it into a certain bowl of water.",
-                       "The water will soften some parts of the Tsardian seed, but the water instill the seed with",
-                       "one or a few important parts that will keep the seed intact, and make it try to repair itself."
-                       "Pound the seed with an unjust gavel, made of pain. Made of sadness.",
-                       "Whatever you do, don't break the seed. Don't break what keeps the seed intact.",
-                       "Now place the seed back into the water, and take what is left of the seasoning and",
-                       "place that into the water as well. The seed will repair itself. The process must be repeated.",
-                       "They say the secret ingredient of any dish is love. That is one of them, but it is not the",
-                       "secret ingredient. The secret ingredient is: Time. Apply time."
-                       "When the seed is ready, place it into any soil. Let it grow, and the tree will be strong.",
-                       "It will yield fruits that let the tree's nutrients and power coarse through you, if"
-                       " you allow it to."],
-                      ["CHAPTER 2 (A poem summary)",  "To Tsard, the hero arrived", "To us, the hero was he.",
+                      "CHAPTER 1 (A poem summary)",  "To Tsard, the hero arrived", "To us, the hero was he.",
                        "He moved through the crowds, and left the trail", "And invited us to make our own.",
                        "He met his spouse to be heroes together,", "Together, the heart of Tsard they stole.",
                        "", "And Tsard, its heart:lifted.", "Lifted was our spirits.",
-                       "Tsard, our town flourished.", "Tsard, the thriving town."]
-                      ]
+                       "Tsard, our town flourished.", "Tsard, the thriving town."]]
 
-        def open_book(self):
-            print(self.title)
-            print("(Type 'Next' and 'Previous' to move back and forward from pages.)")
-            print("(You can also type 'skip to page' and then the page number to skip to a page.)")
-            reading = True
-            page = 1
-            while reading:
-                print("PAGE", page)
-                for line in range(len(self.pages[page-1])):
-                    print(self.pages[page-1][line])
-                print()
-            read_command = input(">_")
-            if read_command.lower() in "next" or read_command.lower() in "n":
-                try:
-                    page += 1
-                except AttributeError:
-                    pass
+    def open_book(self):
+        print(self.title)
+        print("(Type 'Next' and 'Previous' to move back and forward from pages.)")
+        print("(You can also type 'skip to page' and then the page number to skip to a page.)")
+        reading = True
+        page = 1
+        while reading:
+            print("PAGE", page)
+            for line in range(len(self.pages[page-1])):
+                print(self.pages[page-1][line])
+            print()
+        read_command = input(">_")
+        if read_command.lower() in "next" or read_command.lower() in "n":
+            try:
+                page += 1
+            except AttributeError:
+                pass
 
 
 class Book(Item):
@@ -883,10 +867,11 @@ fate_tower_2_doorstep = Room("(Almost) The Guarded Watchtower of Tsard.",
                              "hope away.", "The Fallen Watchtower stares down at you.",
                              "The Fallen Watchtower implores that you remember chilling memories that don't belong "
                              "to you.", "Why would you come here at  n i g h t . . . ",
-                             None, 'deanne_north_4far')  # DOORSTEP
+                             None, 'deanne_north_4far', None, 'fate2_door')  # DOORSTEP
 fate2_door = Room("The Fallen Watchtower of Tsard", "Westward leads inside. Be careful!",
                   "Westward leads inside. Be careful!", "Westward leads inside. Be careful!",
-                  "Westward leads inside. Be careful!")
+                  "Westward leads inside. Be careful!", None, 'fate_tower_2_doorstep')
+
 fate2_forge = Room("LEGENDARY FORGE",
                    "Despite that the Tsard's hold on this Tower is long gone, this forge is still held in high regard "
                    "as if it were still Tsard's.",
@@ -1033,7 +1018,7 @@ fate_tower_3_garage = Room("Hiding Tower Window", "The shining sunlight fills in
                            "tones. This is your ancestor's home. There is a door on the north wall of this room.",
                            "The room is filled with dim light from the window. There is a door on the north wall",
                            "The warm brown and gold tones are now hidden in the darkness from the window. This is the"
-                           " old hiding place. Stars gaze at your every move from the window.")
+                           " old hiding place. Stars gaze at your every move from the window.", 'fate_tower_darkroom')
 fate_tower_darkroom = Room("ABANDONED HIDING TOWER FLOOR 5:DARKROOM",
                            "This room is a bit dark. Only a little of morning light comes in through the window. "
                            "Westward is a staircase.",
@@ -1041,7 +1026,7 @@ fate_tower_darkroom = Room("ABANDONED HIDING TOWER FLOOR 5:DARKROOM",
                            "imagery.",
                            "This room is a bit dark. Westward is a staircase.",
                            "This room is a bit dark. Westward is a staircase. Nighttime brings with it apathy.", None,
-                           None, 'fate_tower_3_garage', 'fate3_fourfive_staircase')
+                           None, 'fate_tower_3_garage', None, 'fate3_fourfive_staircase')
 fate3_fourfive_staircase = Room("ABANDONED HIDING TOWER FLOORS 4 AND 5 STAIRCASE",
                                 "Ornate stairs connect Floors 4 and 5. (UP = FLOOR 5 DARKROOM, DOWN = FLOOR 4 HALLWAY)",
                                 "Ornate stairs connect Floors 4 and 5. (UP = FLOOR 5 DARKROOM, DOWN = FLOOR 4 HALLWAY)",
@@ -1111,10 +1096,14 @@ fate2_floor2.characters = [rar]
 
 # ________________________________________________Items______INSTANTIATED________________________________________
 starting_room.stuff = [Standard("Regular Sword", "It's a decent sword.", "Melee"), Gelmet(15, "IRON")]
-
+fate1_floor3.stuff = [key_item_1]
+fate2_floor3.stuff = [key_item_2]
+fate3_floor3_library.stuff = [key_item_3]
 
 # --------------------------Command FUNCTIONS---------------------------------
 # SET TARGET
+
+
 def set_item_target(string, vicinity):
     thing = None
     for b in range(len(vicinity)):
@@ -1262,7 +1251,7 @@ def events(string):
         if key_item_1 not in player.inventory:
             print("You should visit the first tower first. Go through Deanne South and retrieve a quest item.")
         else:
-            fate2_door.west = fate2_floor1
+            fate2_door.west = 'fate2_floor1'
     if string == "FATE 1 RETURN":
         if key_item_1 not in player.inventory:
             print("Take the ring.")
