@@ -65,6 +65,14 @@ def validate(num: str):
 #
 # print("OK")
 
+def reverse_it(string):
+    txt = "Hello World"[::-1]
+    print(txt)
+
+
+reverse_it("Hello World")
+
+
 with open("Book1.csv", 'r') as old_csv:  # The 'R' stands for "Read" mode, and the permissions to read it.
     with open("MyNewFile.csv", 'w', newline='') as new_csv:
         print("Writing file...  ")
@@ -81,3 +89,14 @@ with open("Book1.csv", 'r') as old_csv:  # The 'R' stands for "Read" mode, and t
             # print(int(old_number) + 1)
 
 print("OK")
+
+
+def valid_card_number(num:str):
+    ??????
+
+
+print(valid_card_number("7891283560948756"))
+
+list_num - list(number)
+for index in range(len(list_num)):
+    list_num[index] = int(list_num[index])
