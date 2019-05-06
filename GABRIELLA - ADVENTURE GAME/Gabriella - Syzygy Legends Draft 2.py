@@ -712,7 +712,7 @@ kitchen_east = Room("Your Kitchen, East Side.",
                     "This is your kitchen. It's a lovely kitchen.",
                     "This is your kitchen. It's a nice kitchen.",
                     "This is your kitchen. It's a cool kitchen.",
-                    "You're in your kitchen.", None, None, None, 'kitchen_east')
+                    "You're in your kitchen.", None, None, None, 'kitchen_west')
 livingroom_south = Room("Your Livingroom, Southern Side", "Your livingroom is a very welcoming room. Morning light" 
                         " shines through the window. To west is a hallway, east leads to your bathroom.",
                         "Your living room is a very welcoming room. Covering the floor of this room is an ocean of "
@@ -1059,7 +1059,7 @@ fate3_threefour_staircase = Room("ABANDONED HIDING TOWER FLOORS 3 AND 4 STAIRCAS
                                  "Ornate stairs connect Floors 3 and 4. (UP = FLOOR 4 HALLWAY, DOWN = FLOOR 3 LIBRARY)",
                                  "Ornate stairs connect Floors 3 and 4. (UP = FLOOR 4 HALLWAY, DOWN = FLOOR 3 LIBRARY)",
                                  "Ornate stairs connect Floors 3 and 4. (UP = FLOOR 4 HALLWAY, DOWN = FLOOR 3 LIBRARY)",
-                                )
+                                 )
 fate3_threefour_staircase.up = 'fate3_floor4_hallway_north'
 fate3_threefour_staircase.down = 'fate3_floor3_library'
 fate3_floor3_library = Room("ABANDONED HIDING TOWER FLOOR 3:GRAND LIBRARY",
@@ -1095,16 +1095,20 @@ fate2_floor2.characters = [rar]
 all_character_factions_spawn_rooms = [jason_jerry_crossroad, jason_rd_1down, jason_rd_2down, jason_rd_3down,
                                       jason_rd_8down, jason_rd_9down, jerry_rd_3far, deanne_3split_crossroad,
                                       deanne_north_1far, deanne_north_2far, deanne_north_3far]
-names = ["Cookie", "Bob", "Jenny", "Josie", "Damian", "Juanita", "Joseph", "Ricky", "Vicky", "Laney"]
+names = ["Cookie", "Bob", "Jenny", "Josie", "Damian", "Juanita", "Joseph", "Ricky", "Vicky", "Laney", "Doug", "David"]
+weapons = [None, Maxe(None, None), Ord(random.choice(["MIST", "FLAME"])),
+           Standard(random.choice(["Regular Sword", "Cool Sword", "So-so Sword", "Generic Sword", "Sword"]), "A sword.",
+                    "MELEE"), Oblet("TEDDY BEAR")]
+torso_armors = [None, Gorso(random.randint())]
 # RANDOM CHARACTER GENERATOR
 for i in range(random.randint(10, 40)):
-    character_name = (random.choice(names, random.choice(names)))
+    character_name = (random.choice(names), random.choice(names))
     character_spawn_room = random.choice(all_character_factions_spawn_rooms)
-    ai_type = None
+    ai_inst = Traveler(random.choice([True, False]))
     if random.randint(1, 5) == 5:
-        ai_type = Hostile
-    character = Character(character_name, character_spawn_room, random.randint(100, 900), random.randint(2, 400), )
-
+        ai_inst = Hostile
+    character = Character(character_name, character_spawn_room, random.randint(100, 900), random.randint(2, 400),
+                          ai_inst, random.choice(weapons), )
 
 
 # ________________________________________________Items______INSTANTIATED________________________________________
