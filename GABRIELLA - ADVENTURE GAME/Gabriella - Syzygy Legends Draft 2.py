@@ -1099,7 +1099,7 @@ names = ["Cookie", "Bob", "Jenny", "Josie", "Damian", "Juanita", "Joseph", "Rick
 weapons = [None, Maxe(None, None), Ord(random.choice(["MIST", "FLAME"])),
            Standard(random.choice(["Regular Sword", "Cool Sword", "So-so Sword", "Generic Sword", "Sword"]), "A sword.",
                     "MELEE"), Oblet("TEDDY BEAR")]
-torso_armors = [None, Gorso(random.randint())]
+torso_armors = [None, Gorso(random.randint(2, 10))]
 # RANDOM CHARACTER GENERATOR
 for i in range(random.randint(10, 40)):
     character_name = (random.choice(names), random.choice(names))
