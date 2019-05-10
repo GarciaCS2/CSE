@@ -4,10 +4,11 @@ import csv
 with open("Sales_Records.csv", 'r') as oldie_csv:  # The 'R' stands for "Read" mode, and the permissions to read it.
     reader = csv.reader(oldie_csv)
     data = {}
+    print("DATA COMPILATION IN PROGRESS...")
     for row in reader:
         if not row[11] == 'Total Revenue':
             item_type = row[2]  # Compare ratios of Revenue/Amount Sold
-            print(item_type, ", REVENUE:", row[11], "of UNITS SOLD:", row[8])
+            # print(item_type, ", REVENUE:", row[11], "of UNITS SOLD:", row[8])
             """
             0 = Region
             1 = Country
@@ -25,7 +26,23 @@ with open("Sales_Records.csv", 'r') as oldie_csv:  # The 'R' stands for "Read" m
             13 = Total Profit
             """
             try:
+
                 data[item_type]["REVENUE"] += float(row[11])
                 data[item_type]["UNITS_SOLD"] += int(row[8])
+                data[item_type]["BENEFIT_INDEX"] = data[item_type]["REVENUE"] / data[item_type]["UNITS_SOLD"]
             except KeyError:
-                data[item_type] = {"REVENUE": float(row[11]), "UNITS_SOLD": int(row[8])}
+                print()
+                data[item_type] = {"NAME": item_type, "REVENUE": float(row[11]), "UNITS_SOLD": int(row[8]),
+                                   "BENEFIT_INDEX": (float(row[11]) / float(row[8]))}
+    print()
+    print("MOVING ON TO DATA CALCULATION.")
+    top_benefit_item = data[item_type]
+    for item in data:
+        if data[item]["BENEFIT_INDEX"] > top_benefit_item["BENEFIT_INDEX"]:
+            print(data[item]["NAME"], "with BENEFIT INDEX:", data[item]["BENEFIT_INDEX"], "is better than:",
+                  top_benefit_item["NAME"], "with BENEFIT INDEX:", top_benefit_item["BENEFIT_INDEX"])
+            top_benefit_item = data[item]
+    print("Finished!")
+    print("The best item to sell is...")
+    print(top_benefit_item["NAME"], "is the BEST item to sell with BENEFIT INDEX", top_benefit_item["BENEFIT_INDEX"],
+          ", selling", top_benefit_item["UNITS_SOLD"], "for a total of", top_benefit_item["REVENUE"])
