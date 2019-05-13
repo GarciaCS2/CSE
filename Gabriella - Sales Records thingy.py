@@ -32,6 +32,7 @@ with open("Sales_Records.csv", 'r') as oldie_csv:  # The 'R' stands for "Read" m
                 data[item_type]["BENEFIT_INDEX"] = data[item_type]["REVENUE"] / data[item_type]["UNITS_SOLD"]
             except KeyError:
                 print()
+                print(item_type)
                 data[item_type] = {"NAME": item_type, "REVENUE": float(row[11]), "UNITS_SOLD": int(row[8]),
                                    "BENEFIT_INDEX": (float(row[11]) / float(row[8]))}
     print()
@@ -45,4 +46,4 @@ with open("Sales_Records.csv", 'r') as oldie_csv:  # The 'R' stands for "Read" m
     print("Finished!")
     print("The best item to sell is...")
     print(top_benefit_item["NAME"], "is the BEST item to sell with BENEFIT INDEX", top_benefit_item["BENEFIT_INDEX"],
-          ", selling", top_benefit_item["UNITS_SOLD"], "for a total of", top_benefit_item["REVENUE"])
+          ", selling", top_benefit_item["UNITS_SOLD"], "units for a total of", top_benefit_item["REVENUE"])
