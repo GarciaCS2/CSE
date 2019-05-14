@@ -94,7 +94,6 @@ class Headgear(Armour):
         super(Headgear, self).__init__(name, description, 'MODERATE', protection, material, blessing)
 
 
-
 class Gelmet(Headgear):  # INSTANTIABLE Generic Helmet
     def __init__(self, protection, material):
         super(Gelmet, self).__init__("Generic Helmet", "Just a regular helmet", protection,
@@ -614,7 +613,7 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
                 self.current_location.characters.remove(self)
                 self.move(new_room)
                 self.current_location.characters.append(self)
-                print(self.name, "moved to", self.current_location)
+                print(self.name, "moved to", self.current_location.name)
                 self.ai_timepass += 2
             except KeyError:
                 try:
@@ -622,7 +621,7 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
                     self.current_location.characters.remove(self)
                     self.move(new_room)
                     self.current_location.characters.append(self)
-                    print(self.name, "moved to", self.current_location)
+                    print(self.name, "moved to", self.current_location.name)
                     self.ai_timepass += 3
                 except KeyError:
                     try:
@@ -1095,20 +1094,27 @@ fate2_floor2.characters = [rar]
 all_character_factions_spawn_rooms = [jason_jerry_crossroad, jason_rd_1down, jason_rd_2down, jason_rd_3down,
                                       jason_rd_8down, jason_rd_9down, jerry_rd_3far, deanne_3split_crossroad,
                                       deanne_north_1far, deanne_north_2far, deanne_north_3far]
-names = ["Cookie", "Bob", "Jenny", "Josie", "Damian", "Juanita", "Joseph", "Ricky", "Vicky", "Laney", "Doug", "David"]
+names = ["Cookie", "Bob", "Jenny", "Josie", "Damian", "Juanita", "Joseph", "Ricky", "Vicky", "Laney", "Doug", "David",
+         "James", "Jason", "Melody", "Caesar", "Blaze", "Bee", "Beatrice", "Garry"]
 weapons = [None, Maxe(None, None), Ord(random.choice(["MIST", "FLAME"])),
            Standard(random.choice(["Regular Sword", "Cool Sword", "So-so Sword", "Generic Sword", "Sword"]), "A sword.",
                     "MELEE"), Oblet("TEDDY BEAR")]
-torso_armors = [None, Gorso(random.randint(2, 10))]
+helmet_armors = [None, Gelmet(random.randint(2, 10), "IRON"), Gelmet(random.randint(2, 15), "IRON")]
+torso_armors = [None, Gorso(random.randint(2, 10), "IRON"), Gorso(random.randint(2, 15), "IRON")]
+shoe_armors = [None, Gboots(random.randint(2, 5,), "LEATHER"), Gboots(random.randint(2, 10,), "IRON")]
+
+
 # RANDOM CHARACTER GENERATOR
 for i in range(random.randint(10, 40)):
-    character_name = (random.choice(names), random.choice(names))
+    character_name = " ".join([random.choice(names), random.choice(names)])
     character_spawn_room = random.choice(all_character_factions_spawn_rooms)
     ai_inst = Traveler(random.choice([True, False]))
     if random.randint(1, 5) == 5:
-        ai_inst = Hostile
+        ai_inst = Hostile()
     character = Character(character_name, character_spawn_room, random.randint(100, 900), random.randint(2, 400),
-                          ai_inst, random.choice(weapons), )
+                          ai_inst, random.choice(weapons), random.choice(helmet_armors), random.choice(torso_armors),
+                          random.choice(shoe_armors))
+    character_spawn_room.characters.append(character)
 
 
 # ________________________________________________Items______INSTANTIATED________________________________________
@@ -1374,10 +1380,12 @@ while playing:
         print()
         print(">>> %s is here." % player.current_location.characters[0].name)
     elif len(player.current_location.characters) >= 2:
-        characters = []
         for i in range(len(player.current_location.characters)):
-            characters.append(player.current_location.characters[i].name)
-        print(">>>", ", ".join(characters), "are here.")
+            print(">>>", player.current_location.characters[i].name, "is here.")
+        # characters = []
+        # for i in range(len(player.current_location.characters)):
+        #     characters.append(player.current_location.characters[i].name)
+        # print(">>>", ", ".join(characters), "are here.")
     if len(player.current_location.stuff) == 1:
         print("In this area there is a/an", player.current_location.stuff[0].name)
     elif len(player.current_location.stuff) > 1:
@@ -1536,15 +1544,14 @@ while playing:
         timepass += 1
     # _____________RESULT BESIDES COMMAND RESULT: (Idea: "action" and "result" variables can trigger entity behaviours.)
     characters_in_play = []
+    total_ai_timepass = 0
     for i in range(len(player.current_location.characters)):
         characters_in_play.append(player.current_location.characters[i])
     for i in range(len(characters_in_play)):
         characters_in_play[i].react(player, command.upper())
         characters_in_play[i].behave()
-        timepass += characters_in_play[i].ai_timepass
-
-    characters_in_play = []
-
+        total_ai_timepass += characters_in_play[i].ai_timepass
+    timepass += total_ai_timepass
     if timepass == 0:  # TIME PASSES
         pass
     else:
