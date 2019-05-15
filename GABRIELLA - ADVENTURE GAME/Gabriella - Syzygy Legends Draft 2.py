@@ -330,8 +330,9 @@ class Interactive(Entity):
             print("%s's armor negated all the damage." % self.name)
             print("%s lost %s health" % (self.name, lost))
         else:
-            lost = damage - (damage*self.armor)/100
+            lost = round(damage - (damage*self.armor)/100)
             self.health -= lost
+            self.health = round(self.health)
             print(self.name, " lost ", lost, " health")
             print(self.name, "now has", self.health, "health.")
 
@@ -531,7 +532,7 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
             print("%s's armor negated all the damage." % self.name)
             print(self.name, "lost 0 health.")
         else:
-            lost = damage - (damage*self.armor)/100
+            lost = round(damage - (damage*self.armor)/100)
             self.health -= lost
             print(self.name, "lost", lost, "health")
             print(self.name, "now has", self.health, "health.")

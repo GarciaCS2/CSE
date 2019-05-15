@@ -5,6 +5,9 @@ with open("Sales_Records.csv", 'r') as oldie_csv:  # The 'R' stands for "Read" m
     reader = csv.reader(oldie_csv)
     data = {}
     print("DATA COMPILATION IN PROGRESS...")
+    print()
+    print()
+    print("CATEGORIES:")
     for row in reader:
         if not row[11] == 'Total Revenue':
             item_type = row[2]  # Compare ratios of Revenue/Amount Sold
@@ -45,5 +48,7 @@ with open("Sales_Records.csv", 'r') as oldie_csv:  # The 'R' stands for "Read" m
             top_benefit_item = data[item]
     print("Finished!")
     print("The best item to sell is...")
-    print(top_benefit_item["NAME"], "is the BEST item to sell with BENEFIT INDEX", top_benefit_item["BENEFIT_INDEX"],
-          ", selling", top_benefit_item["UNITS_SOLD"], "units for a total of", top_benefit_item["REVENUE"])
+    print(top_benefit_item["NAME"], "is the BEST item to sell with a BENEFIT INDEX of",
+          round(top_benefit_item["BENEFIT_INDEX"]), ", selling", top_benefit_item["UNITS_SOLD"], "units for a total of "
+                                                                                                 "about",
+          round(top_benefit_item["REVENUE"]), "total profits!")
