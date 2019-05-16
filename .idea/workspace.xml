@@ -48,6 +48,11 @@
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Sales_Records.csv">
+          <provider editor-type-id="LargeFileEditor">
+            <state relative-caret-position="174029">
+              <caret line="10237" column="36" selection-start-line="10237" selection-start-column="36" selection-end-line="10237" selection-end-column="36" />
+            </state>
+          </provider>
           <provider selected="true" editor-type-id="csv-data-editor">
             <state>
               <format>
@@ -64,18 +69,13 @@
               </format>
             </state>
           </provider>
-          <provider editor-type-id="LargeFileEditor">
-            <state relative-caret-position="174029">
-              <caret line="10237" column="36" selection-start-line="10237" selection-start-column="36" selection-end-line="10237" selection-end-column="36" />
-            </state>
-          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/GABRIELLA - ADVENTURE GAME/Gabriella - Syzygy Legends Draft 2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="538" column="32" lean-forward="true" selection-start-line="538" selection-start-column="32" selection-end-line="538" selection-end-column="32" />
+            <state relative-caret-position="150">
+              <caret line="1255" column="26" selection-start-line="1255" selection-start-column="26" selection-end-line="1255" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -366,11 +366,12 @@
       <workItem from="1557763186196" duration="1762000" />
       <workItem from="1557849147948" duration="3255000" />
       <workItem from="1557935362085" duration="2541000" />
+      <workItem from="1558022009941" duration="2929000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42044000" />
+    <option name="totallyTimeSpent" value="44973000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -404,7 +405,7 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" />
       <window_info anchor="right" id="Database" order="4" weight="0.32980332" />
-      <window_info anchor="right" id="Run" order="5" sideWeight="0.49924356" weight="0.5788913" />
+      <window_info anchor="right" id="Run" order="5" sideWeight="0.49924356" weight="0.45095947" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -429,7 +430,7 @@
     <SUITE FILE_PATH="coverage/CSE$Gabriella___Syzygy_Ledgends_Adventure_Game_Draft.coverage" NAME="Gabriella - Syzygy Ledgends Adventure Game Draft Coverage Results" MODIFIED="1556296285095" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GABRIELLA - ADVENTURE GAME" />
     <SUITE FILE_PATH="coverage/CSE$Sales_Records_thingy.coverage" NAME="Sales Records thingy Coverage Results" MODIFIED="1557763696179" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/CSE$Gabriella___Sales_Records_thingy.coverage" NAME="Gabriella - Sales Records thingy Coverage Results" MODIFIED="1557938615875" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/CSE$Gabriella___Syzygy_Legends_Draft_2.coverage" NAME="Gabriella - Syzygy Legends Draft 2 Coverage Results" MODIFIED="1557938831742" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GABRIELLA - ADVENTURE GAME" />
+    <SUITE FILE_PATH="coverage/CSE$Gabriella___Syzygy_Legends_Draft_2.coverage" NAME="Gabriella - Syzygy Legends Draft 2 Coverage Results" MODIFIED="1558025136989" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/GABRIELLA - ADVENTURE GAME" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/notes/venv/Strange Rule Generator.py" />
@@ -535,7 +536,19 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Sales Records thingy.py" />
+    <entry file="file://$PROJECT_DIR$/Gabriella - Sales Records thingy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-68">
+          <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Sales_Records.csv">
+      <provider editor-type-id="LargeFileEditor">
+        <state relative-caret-position="174029">
+          <caret line="10237" column="36" selection-start-line="10237" selection-start-column="36" selection-end-line="10237" selection-end-column="36" />
+        </state>
+      </provider>
       <provider selected="true" editor-type-id="csv-data-editor">
         <state>
           <format>
@@ -552,23 +565,11 @@
           </format>
         </state>
       </provider>
-      <provider editor-type-id="LargeFileEditor">
-        <state relative-caret-position="174029">
-          <caret line="10237" column="36" selection-start-line="10237" selection-start-column="36" selection-end-line="10237" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Gabriella - Sales Records thingy.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-68">
-          <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/GABRIELLA - ADVENTURE GAME/Gabriella - Syzygy Legends Draft 2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="538" column="32" lean-forward="true" selection-start-line="538" selection-start-column="32" selection-end-line="538" selection-end-column="32" />
+        <state relative-caret-position="150">
+          <caret line="1255" column="26" selection-start-line="1255" selection-start-column="26" selection-end-line="1255" selection-end-column="26" />
         </state>
       </provider>
     </entry>

@@ -65,8 +65,7 @@ class SoulOfTsard(QuestItem):
 
 class Book(Item):
     def __init__(self, owner, legend):
-        super(Book, self).__init__("Syzygy Ledgends",
-                                          "It is a book of the Syzygy Legends.")
+        super(Book, self).__init__("Syzygy Legends", "It is a book of the Syzygy Legends.")
         self.owner = owner  # Great Grandfather
         self.legend = legend  # PLAYER
         self.title = "THE SYZYGY LEGENDS"
@@ -365,7 +364,7 @@ class Player(Interactive):  # ENTITY, ATTACKABLE - PLAYER
 player = Player("Garr!", None)
 
 
-class Ai(object): # Don't use this one.
+class Ai(object):  # Don't use this one.
     def __init__(self, brave, faction, hostile=False):
         self.hostile = hostile
         self.brave = brave
@@ -437,7 +436,7 @@ class Hostile(Ai):  # Applicable AI
                 self.conditions.append("ABSENT_WEAPON")
         elif "WEAPON_FOUND" in infliction:
             if "ABSENT_WEAPON" in self.conditions:
-                self.conditions.remove("ABSENT_WEAPON" )
+                self.conditions.remove("ABSENT_WEAPON")
         if "PLAYER_THREAT" in infliction:
             if "PLAYER_THREAT" not in self.conditions:
                 self.conditions.append("PLAYER_THREAT")
@@ -476,8 +475,8 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
     def death(self):
         print(self.name, "is now dead.")
         self.dead = True
-        for i in range(len(self.inventory)):
-            self.current_location.stuff.append(self.inventory[i])
+        for s in range(len(self.inventory)):
+            self.current_location.stuff.append(self.inventory[s])
         my_money = Money(self.money)
         my_money.name = ("%s's money (%d Coins)" % (self.name, self.money))
         self.current_location.stuff.append(my_money)
@@ -557,9 +556,9 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
                 if "UNDER_ATTACK" in self.ai.conditions:
                     self.ai.conditions.remove("UNDER_ATTACK")
             else:
-                for i in range(len(self.ai.enemies)):
-                    if self.ai.enemies[i].current_location == self.current_location:
-                        self.ai.target = self.ai.enemies[i]
+                for e in range(len(self.ai.enemies)):
+                    if self.ai.enemies[e].current_location == self.current_location:
+                        self.ai.target = self.ai.enemies[e]
         if player.current_location == self.current_location and self.ai.faction == "EVIL":  # SPOTTING PLAYER
             if "PLAYER_THREAT" not in self.ai.conditions:
                 print(self.name, "is evil. They have spotted you.")
@@ -567,18 +566,18 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
         elif player.current_location is not self.current_location and self.ai.faction == "EVIL":
             self.ai.reaction("PLAYER_GONE")
             print(self.name, "has lost sight of you.")
-        for i in range(len(self.current_location.characters)):  # SPOTTING OTHERS
-            if self.current_location.characters[i] is not self:
-                if self.current_location.characters[i].ai.faction == self.ai.faction:
-                    self.ai.friends.append(self.current_location.characters[i])
+        for c in range(len(self.current_location.characters)):  # SPOTTING OTHERS
+            if self.current_location.characters[c] is not self:
+                if self.current_location.characters[c].ai.faction == self.ai.faction:
+                    self.ai.friends.append(self.current_location.characters[c])
                 else:
-                    # print(self.name, "sees", self.current_location.characters[i].name)
-                    if self.current_location.characters[i].ai.faction in self.ai.enemy_factions:
-                        if self.current_location.characters[i] not in self.ai.enemies:
-                            self.ai.enemies.append(self.current_location.characters[i])
+                    # print(self.name, "sees", self.current_location.characters[c].name)
+                    if self.current_location.characters[c].ai.faction in self.ai.enemy_factions:
+                        if self.current_location.characters[c] not in self.ai.enemies:
+                            self.ai.enemies.append(self.current_location.characters[c])
         threats = 0
-        for i in range(len(self.ai.enemies)):  # SEARCH ENEMIES
-            if self.ai.enemies[i].current_location is self.current_location:
+        for t in range(len(self.ai.enemies)):  # SEARCH ENEMIES
+            if self.ai.enemies[t].current_location is self.current_location:
                 threats += 1
         if threats == 0:
             self.ai.reaction("ENEMIES_GONE")
@@ -668,10 +667,10 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
                 self.ai_timepass = 0
                 print(self.name, "is searching for a weapon.")
                 while self.weapon is None and found is not False:
-                    for i in range(len(self.current_location.stuff)):
-                        if isinstance(self.current_location.stuff[i], Weapon):
-                            self.weapon = self.current_location.stuff[i]
-                            self.current_location.stuff.remove(self.current_location.stuff[i])
+                    for b in range(len(self.current_location.stuff)):
+                        if isinstance(self.current_location.stuff[b], Weapon):
+                            self.weapon = self.current_location.stuff[b]
+                            self.current_location.stuff.remove(self.current_location.stuff[b])
                         else:
                             if random.randint(1, 10) < 3:
                                 self.ai.action = "MOVE"
@@ -680,7 +679,6 @@ class Character(Interactive):  # ENTITY, ATTACKABLE -  NPC
                     self.ai_timepass += 2
                 else:
                     self.ai_timepass += 1
-
 
 
 # ______________________________________________ROOMS INSTANTIATED______________________________________________________
@@ -815,7 +813,7 @@ fate1_elevated_floor = Room("Great Stage of Tsard", "This was the perfect place 
                             "This was the perfect place for a wedding. This is where the couple would stand together. "
                             "There are staircases to the west and east.",
                             "This was the perfect place for a wedding. There are staircases to the west and east.",
-                            "This was the perfect place for the wedding...", 'fate1_large_hall','fate1_staircase',
+                            "This was the perfect place for the wedding...", 'fate1_large_hall', 'fate1_staircase',
                             None, 'fate1_staircase')
 fate1_staircase = Room("STAIRCASE UP.",
                        "Type 'UP' or 'FORWARD' to go upstairs. Type 'BACK' or 'DOWN' to return to the Stage.",
@@ -1096,7 +1094,8 @@ all_character_factions_spawn_rooms = [jason_jerry_crossroad, jason_rd_1down, jas
                                       jason_rd_8down, jason_rd_9down, jerry_rd_3far, deanne_3split_crossroad,
                                       deanne_north_1far, deanne_north_2far, deanne_north_3far]
 names = ["Cookie", "Bob", "Jenny", "Josie", "Damian", "Juanita", "Joseph", "Ricky", "Vicky", "Laney", "Doug", "David",
-         "James", "Jason", "Melody", "Caesar", "Blaze", "Bee", "Beatrice", "Garry"]
+         "James", "Jason", "Melody", "Adrian", "Caesar", "Blaze", "Bee", "Beatrice", "Sue", "Rose", "Dot", "Cool",
+         "Jet", "Carter", "Jane", "Garry"]
 weapons = [None, Maxe(None, None), Ord(random.choice(["MIST", "FLAME"])),
            Standard(random.choice(["Regular Sword", "Cool Sword", "So-so Sword", "Generic Sword", "Sword"]), "A sword.",
                     "MELEE"), Oblet("TEDDY BEAR")]
@@ -1229,7 +1228,38 @@ player.name = player_name
 print("Your name is", player.name)
 
 
-def events(string):
+def command_dictionary(string=None):
+    if "beginner's print" in string:
+        print()
+        print("Welcome,", player.name)
+        print("Before you start playing, I must inform you of the COMMAND DICTIONARY")
+        print("If you ever have trouble learning the commands, type, 'commands' or 'access command dictionary.'")
+        print("MOVE COMMANDS: (Primary) north, east, south, west, (secondary) up, down, left, right, back, forward, "
+              "(special), away")
+        print("ITEM COMMANDS: (Pick up): take ____, pick up ____, get ____, (Take money): take money, get money, "
+              "(Drop): drop ____, leave ____")
+        print("(Equip): equip, wear, put on, (Unequip): unequip,  take off,")
+        print("CHARACTER COMMANDS: (attack): attack ____")
+        return
+    reading = True
+    while reading:
+        print()
+        print("     _____________________________________")
+        print("COMMAND DICTIONARY")
+        ask = input("type 'show commands' to show all commands. Then, type the command to learn about it.")
+        print()
+        if "SHOW" in ask.upper():
+            regular_commands = ["MOVE", "TAKE", "DROP", "EQUIP", "UNEQUIP", "ATTACK"]
+            for word in regular_commands:
+                print(regular_commands[word])
+        elif "MOVE" in ask.upper():
+            print("MOVE: To transport you to another room.")
+        else:
+            print("I'm not sure we have a description for that yet.")
+
+
+
+def events(string):  # EVENTS
     if string == "LEAVE STARTING ROOM":
         if player.weapon is None or player.helmet is None:
             if player.weapon is None and player.helmet is not None:
@@ -1241,7 +1271,8 @@ def events(string):
         else:
             starting_room.east = 'ns_hallway_north'
     if string == "ENTER TSARD":
-        if key_item_1 not in player.inventory or key_item_2 not in player.inventory or key_item_3 not in player.inventory:
+        if key_item_1 not in player.inventory or key_item_2 not in player.inventory or \
+                key_item_3 not in player.inventory:
             print("You do not have all the key items you need.")
             key_items = [key_item_1, key_item_2, key_item_3]
             absence = []
@@ -1356,6 +1387,7 @@ jason_rd_5down.characters = [Character("Jenn", jason_rd_5down, 400, 5, Traveler(
 
 # ___________________________________________________CONTROLLER__________________________________________________
 playing = True
+command_dictionary("beginner's print")
 while playing:
     # __________________"SCREEN":
     print()
@@ -1400,7 +1432,9 @@ while playing:
     command = input(">_")  # ----------------ENTER COMMAND:
     if command.lower() == "":
         print("What did you say? I can't hear you.")
-    elif command.lower() in ['q', 'quit', 'exit', 'goodbye']:  # -----------QUIT GAME
+    elif "commands" in command.lower() or "access command dictionary" in command.lower():
+        command_dictionary()
+    elif command.lower() in ['q', 'quit', 'exit', 'leave game']:  # -----------QUIT GAME
         playing = False
         print("%s left the game" % player_name)
     elif command.lower() in ['stats', 'player statistics']:
@@ -1447,7 +1481,7 @@ while playing:
             print(item_target.description)
         else:
             print("There doesn't seem to be anything in your inventory or this room by that name.")
-    elif "unequip" in command.lower() or "take off" in command.lower(): # --------------UNEQUIP ITEM
+    elif "unequip" in command.lower() or "take off" in command.lower():  # --------------UNEQUIP ITEM
         unequip(command.lower())
     elif "equip" in command.lower() or "put on" in command.lower() or "wear" in command.lower():  # -------EQUIP ITEM
         item_target = set_item_target(command.lower(), player.inventory)
@@ -1534,7 +1568,7 @@ while playing:
             print("You have a/an", player.inventory[0].name)
         else:
             print("You have nothing.")
-    elif "attack" in command.lower() or "hit" in command.lower(): # ----------ATTACK!
+    elif "attack" in command.lower() or "hit" in command.lower():  # ----------ATTACK!
         target = set_character_target(command.lower(), player.current_location.characters)
         if target is not None:
             player.attack(target)
