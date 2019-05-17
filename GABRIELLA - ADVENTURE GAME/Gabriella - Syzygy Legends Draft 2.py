@@ -64,10 +64,10 @@ class SoulOfTsard(QuestItem):
 
 
 class Book(Item):
-    def __init__(self, owner, legend):
+    def __init__(self, owner, legends):
         super(Book, self).__init__("Syzygy Legends", "It is a book of the Syzygy Legends.")
         self.owner = owner  # Great Grandfather
-        self.legend = legend  # PLAYER
+        self.legend = legends  # PLAYER
         self.title = "THE SYZYGY LEGENDS"
         self.pages = [["(Written Note:)", ("To my soon to be rising legend, " + self.legend.name), ""]
                       ]
@@ -1174,45 +1174,45 @@ def unequip(string):
         print("You do not seem to have this item equipped.")
 
 
-def equip(target):
-    if isinstance(target, Weapon) or isinstance(target, Tool):
+def equip(etarget):
+    if isinstance(etarget, Weapon) or isinstance(etarget, Tool):
         if player.weapon is not None:
             unequip(player.weapon.name)
-        player.weapon = target
-        print("You now have", target.name, "equipped as your weapon.")
-        if target in player.current_location.stuff:
-            player.current_location.stuff.remove(target)
+        player.weapon = etarget
+        print("You now have", etarget.name, "equipped as your weapon.")
+        if etarget in player.current_location.stuff:
+            player.current_location.stuff.remove(etarget)
         else:
-            player.inventory.remove(target)
-    elif isinstance(target, Headgear):
+            player.inventory.remove(etarget)
+    elif isinstance(etarget, Headgear):
         if player.helmet is not None:
             unequip(player.helmet.name)
-        player.helmet = target
-        print("You now have", target.name, "equipped as your helmet.")
-        if target in player.current_location.stuff:
-            player.current_location.stuff.remove(target)
+        player.helmet = etarget
+        print("You now have", etarget.name, "equipped as your helmet.")
+        if etarget in player.current_location.stuff:
+            player.current_location.stuff.remove(etarget)
         else:
-            player.inventory.remove(target)
-    elif isinstance(target, Torso):
+            player.inventory.remove(etarget)
+    elif isinstance(etarget, Torso):
         if player.torso is not None:
             unequip(player.torso.name)
-        player.torso = target
-        print("You now have", target.name, "equipped as your armor.")
-        if target in player.current_location.stuff:
-            player.current_location.stuff.remove(target)
+        player.torso = etarget
+        print("You now have", etarget.name, "equipped as your armor.")
+        if etarget in player.current_location.stuff:
+            player.current_location.stuff.remove(etarget)
         else:
-            player.inventory.remove(target)
-    elif isinstance(target, Footwear):
+            player.inventory.remove(etarget)
+    elif isinstance(etarget, Footwear):
         if player.shoes is not None:
             unequip(player.shoes.name)
-        player.shoes = target
-        print("You now have ", target.name, " equipped as your shoes.")
-        if target in player.current_location.stuff:
-            player.current_location.stuff.remove(target)
+        player.shoes = etarget
+        print("You now have ", etarget.name, " equipped as your shoes.")
+        if etarget in player.current_location.stuff:
+            player.current_location.stuff.remove(etarget)
         else:
-            player.inventory.remove(target)
+            player.inventory.remove(etarget)
     else:
-        print(target.name, " isn't something you can equip.")
+        print(etarget.name, " isn't something you can equip.")
 
 
 # ----------------------------------------------Necessary DATA----------------------------------------
@@ -1226,37 +1226,54 @@ player.current_location = starting_room
 player_name = input("Choose a name, and type it in.")
 player.name = player_name
 print("Your name is", player.name)
+admin_commands = False
 
 
 def command_dictionary(string=None):
-    if "beginner's print" in string:
+    if string is None:
+        reading = True
+        while reading:
+            print()
+            print("_____________________________________")
+            print("COMMAND DICTIONARY")
+            print()
+            ask = input("type 'show commands' to show all commands. Then, type the command to learn about it. "
+                        "Type 'exit' to quit.")
+            print("----------------------")
+            print()
+            if "exit" in ask.upper():
+                reading = False
+            elif "SHOW" in ask.upper():
+                regular_commands = ["MOVE", "TAKE", "DROP", "EQUIP", "UNEQUIP", "ATTACK"]
+                for w in range(len(regular_commands)):
+                    print(regular_commands[w])
+                    print()
+            elif "MOVE" in ask.upper():
+                print("MOVE: To transport you to another room. Only possible if that direction leads to another room.")
+                print()
+                print("Common move words are 'north', 'east', 'south', and 'west'. 'away' is a rare move word.")
+                print("The rest of the move words are 'up', down', 'left', 'right', 'back', and 'forward'")
+            else:
+                print("I'm not sure we have a description for that yet.")
+
+    elif "beginner's print" in string:
         print()
-        print("Welcome,", player.name)
+        print("Welcome, %s!" % player.name)
+        print()
         print("Before you start playing, I must inform you of the COMMAND DICTIONARY")
         print("If you ever have trouble learning the commands, type, 'commands' or 'access command dictionary.'")
-        print("MOVE COMMANDS: (Primary) north, east, south, west, (secondary) up, down, left, right, back, forward, "
-              "(special), away")
+        print()
+        print("          ---------------")
+        print("MOVE COMMANDS: (Primary) north, east, south, west, //(secondary) up, down, left, right, back, forward, /"
+              "/(special), away")
+        print("          ---------------")
         print("ITEM COMMANDS: (Pick up): take ____, pick up ____, get ____, (Take money): take money, get money, "
               "(Drop): drop ____, leave ____")
+        print("          ---------------")
         print("(Equip): equip, wear, put on, (Unequip): unequip,  take off,")
+        print("          ---------------")
         print("CHARACTER COMMANDS: (attack): attack ____")
         return
-    reading = True
-    while reading:
-        print()
-        print("     _____________________________________")
-        print("COMMAND DICTIONARY")
-        ask = input("type 'show commands' to show all commands. Then, type the command to learn about it.")
-        print()
-        if "SHOW" in ask.upper():
-            regular_commands = ["MOVE", "TAKE", "DROP", "EQUIP", "UNEQUIP", "ATTACK"]
-            for word in regular_commands:
-                print(regular_commands[word])
-        elif "MOVE" in ask.upper():
-            print("MOVE: To transport you to another room.")
-        else:
-            print("I'm not sure we have a description for that yet.")
-
 
 
 def events(string):  # EVENTS
@@ -1383,6 +1400,8 @@ jason_rd_5down.characters = [Character("Jenn", jason_rd_5down, 400, 5, Traveler(
                                                                                             "pretty cool", "MELEE")),
                              Character("Orc1", jason_rd_5down, 500, 5, Hostile(), None, Gelmet(4, "IRON"))]
                              """
+def enable_dev_commands():
+
 
 
 # ___________________________________________________CONTROLLER__________________________________________________
