@@ -1503,20 +1503,20 @@ def events(string):  # EVENTS
 
 
 def triggers(string):
-    if player.current_location == starting_room and "east" in string or "e" in string:
+    if player.current_location == starting_room and "east" in string or string in "e":
         events("LEAVE STARTING ROOM")
-    if player.current_location == tsard_gates and "west" in string:
+    if player.current_location == tsard_gates and "west" in string or string in "w":
         events("ENTER TSARD")
     if player.current_location == fate1_floor2 or player.current_location == fate2_floor2:
-        if "up" in string:
+        if "up" in string or string in "u":
             events("ASCEND")
         else:
             pass
     if player.current_location == fate2_floor3 and "down" in string:
         events("GO BACK")
-    if player.current_location == fate2_door and "west" in string:
+    if player.current_location == fate2_door and "west" in string or string in "w":
         events("ENTER BATTLETOWER")
-    if player.current_location == fate1_floor3 and "down" in string:
+    if player.current_location == fate1_floor3 and "down" in string or string in "d":
         events("FATE 1 RETURN")
     if player.current_location == fate2_floor3 and key_item_2 in player.inventory:
         events("FATE 2 RETURN")
@@ -1627,6 +1627,7 @@ while playing:
     else:
         pass
     command = input(">_")  # ----------------ENTER COMMAND:
+    triggers(command.lower())  # EVENT
     if command.lower() == "":
         print("What did you say? I can't hear you.")
     elif "developing" in command.lower() or "dev" in command.lower() or "dev commands" in command.lower():
@@ -1803,7 +1804,6 @@ while playing:
     else:
         print("Command Not Found...")
         timepass += 1
-    triggers(command.lower())  # EVENT
     # _____________RESULT BESIDES COMMAND RESULT: (Idea: "action" and "result" variables can trigger entity behaviours.)
     characters_in_play = []
     total_ai_timepass = 0
